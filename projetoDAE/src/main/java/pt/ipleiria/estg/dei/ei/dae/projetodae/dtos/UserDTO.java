@@ -3,31 +3,28 @@ package pt.ipleiria.estg.dei.ei.dae.projetodae.dtos;
 import org.hibernate.Hibernate;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.User;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class UserDTO {
+public class UserDTO implements Serializable {
     private String username;
     private String name;
     private String email;
-    private String role;
+    private String password;
 
 
     public UserDTO() {
     }
 
-    public UserDTO(String username, String name, String email, String role) {
+    public UserDTO(String username, String name, String email, String password) {
         this.username = username;
         this.name = name;
         this.email = email;
-        this.role = role;
+        this.password = password;
     }
 
 
-    public static UserDTO from(User user)
-    {
-        return new UserDTO(user.getUsername(), user.getName(), user.getEmail(), Hibernate.getClass(user).getSimpleName());
-    }
 
     public static List<UserDTO> from(List<User> users) {
         return users.stream().map(UserDTO::from).collect(Collectors.toList());
@@ -57,12 +54,21 @@ public class UserDTO {
         this.email = email;
     }
 
-    public String getRole() {
-        return role;
+    public String getPassword() {
+        return password;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public static UserDTO from(User user) {
+        return new UserDTO(
+                user.getUsername(),
+                user.getName(),
+                user.getEmail(),
+                user.getPassword()
+        );
     }
 }
 

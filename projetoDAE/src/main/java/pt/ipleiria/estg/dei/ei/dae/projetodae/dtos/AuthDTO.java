@@ -29,5 +29,10 @@ public class AuthDTO implements Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public AuthDTO(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
 }
 

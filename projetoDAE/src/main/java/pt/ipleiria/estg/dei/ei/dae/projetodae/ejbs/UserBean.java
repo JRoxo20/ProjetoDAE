@@ -8,6 +8,8 @@ import org.hibernate.Hibernate;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.User;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.security.Hasher;
 
+import java.util.List;
+
 
 @Stateless
 public class UserBean {
@@ -34,17 +36,13 @@ public class UserBean {
 
     public void create(String username, String name, String email, String password)  {
         if (exists(username)) {
-
+            return;
         }
 
+        User user = new User(username, name, email, hasher.hash(password));
+        em.persist(user);
+        em.flush();
 
-        try{
-            User user = new User(username, name, email, hasher.hash(password));
-            em.persist(user);
-            em.flush();
-        } catch (ConstraintViolationException e) {
-
-        }
 
     }
 
@@ -52,4 +50,8 @@ public class UserBean {
         return em.find(User.class, username) != null;
 
     }
+
+    //public List<User> findAll() {
+      //  return em.createNamedQuery("getAllUsers", User.class).getResultList();
+    //}
 }

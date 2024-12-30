@@ -1,3 +1,4 @@
+pt\ipleiria\estg\dei\ei\dae\projetodae\filters\CorsFilter.class
 pt\ipleiria\estg\dei\ei\dae\projetodae\security\Authenticated.class
 pt\ipleiria\estg\dei\ei\dae\projetodae\HelloResource.class
 pt\ipleiria\estg\dei\ei\dae\projetodae\ejbs\ConfigBean.class
@@ -7,6 +8,7 @@ pt\ipleiria\estg\dei\ei\dae\projetodae\security\TokenIssuer.class
 pt\ipleiria\estg\dei\ei\dae\projetodae\dtos\EmailDTO.class
 pt\ipleiria\estg\dei\ei\dae\projetodae\security\AuthenticationFilter.class
 pt\ipleiria\estg\dei\ei\dae\projetodae\ejbs\EmailBean.class
+pt\ipleiria\estg\dei\ei\dae\projetodae\ws\UserService.class
 pt\ipleiria\estg\dei\ei\dae\projetodae\ejbs\UserBean.class
 pt\ipleiria\estg\dei\ei\dae\projetodae\security\Hasher.class
 pt\ipleiria\estg\dei\ei\dae\projetodae\dtos\AuthDTO.class
