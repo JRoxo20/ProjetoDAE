@@ -11,10 +11,18 @@ import jakarta.ejb.Startup;
     public class ConfigBean {
         @EJB
         private UserBean userBean;
+        @EJB
+        private VolumeBean volumeBean;
         @PostConstruct
         public void populateDB() {
 
             userBean.create("Vasco", "Vasco", "vasco@gmail.com", "123456");
+
+
+            //volumes
+            volumeBean.create(1L, "em andamento");
+            volumeBean.create(2L, "em andamento");
+            volumeBean.create(3L, "a entregar");
         }
     }
 
