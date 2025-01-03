@@ -19,6 +19,8 @@ import jakarta.ejb.Startup;
             userBean.create("Vasco", "Vasco", "vasco@gmail.com", "123456");
             productBean.create("Gelado Baunilha",1,"Alimentar",2.99);
             productBean.create("Microondas",1,"Eletrodomestico",12.99);
+            productBean.create("Ferro",1,"Eletrodomestico",22.99);
+
         }
     }
 

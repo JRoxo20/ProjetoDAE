@@ -14,7 +14,7 @@ public class Product implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long id_product;
     @NotNull
     private String name;
     @NotNull
@@ -24,8 +24,8 @@ public class Product implements Serializable {
     @NotNull
     private Double price;
 
-    @Version
-    private int version;
+/*    @Version
+    private int version;*/
 
     public Product() {
     }
@@ -38,11 +38,11 @@ public class Product implements Serializable {
     }
 
     public Long getId() {
-        return id;
+        return id_product;
     }
 
     public void setId(Long id) {
-        this.id = id;
+        this.id_product = id;
     }
 
     public  String getName() {

@@ -3,6 +3,7 @@
 /Users/mariamalato/Library/CloudStorage/OneDrive-Pessoal/ESTG/DAE/projeto/ProjetoDAE/projetoDAE/src/main/java/pt/ipleiria/estg/dei/ei/dae/projetodae/dtos/AuthDTO.java
 /Users/mariamalato/Library/CloudStorage/OneDrive-Pessoal/ESTG/DAE/projeto/ProjetoDAE/projetoDAE/src/main/java/pt/ipleiria/estg/dei/ei/dae/projetodae/dtos/EmailDTO.java
 /Users/mariamalato/Library/CloudStorage/OneDrive-Pessoal/ESTG/DAE/projeto/ProjetoDAE/projetoDAE/src/main/java/pt/ipleiria/estg/dei/ei/dae/projetodae/dtos/NewPasswordDTO.java
+/Users/mariamalato/Library/CloudStorage/OneDrive-Pessoal/ESTG/DAE/projeto/ProjetoDAE/projetoDAE/src/main/java/pt/ipleiria/estg/dei/ei/dae/projetodae/dtos/ProductDTO.java
 /Users/mariamalato/Library/CloudStorage/OneDrive-Pessoal/ESTG/DAE/projeto/ProjetoDAE/projetoDAE/src/main/java/pt/ipleiria/estg/dei/ei/dae/projetodae/dtos/UserDTO.java
 /Users/mariamalato/Library/CloudStorage/OneDrive-Pessoal/ESTG/DAE/projeto/ProjetoDAE/projetoDAE/src/main/java/pt/ipleiria/estg/dei/ei/dae/projetodae/ejbs/ConfigBean.java
 /Users/mariamalato/Library/CloudStorage/OneDrive-Pessoal/ESTG/DAE/projeto/ProjetoDAE/projetoDAE/src/main/java/pt/ipleiria/estg/dei/ei/dae/projetodae/ejbs/EmailBean.java
@@ -17,4 +18,5 @@
 /Users/mariamalato/Library/CloudStorage/OneDrive-Pessoal/ESTG/DAE/projeto/ProjetoDAE/projetoDAE/src/main/java/pt/ipleiria/estg/dei/ei/dae/projetodae/security/Hasher.java
 /Users/mariamalato/Library/CloudStorage/OneDrive-Pessoal/ESTG/DAE/projeto/ProjetoDAE/projetoDAE/src/main/java/pt/ipleiria/estg/dei/ei/dae/projetodae/security/TokenIssuer.java
 /Users/mariamalato/Library/CloudStorage/OneDrive-Pessoal/ESTG/DAE/projeto/ProjetoDAE/projetoDAE/src/main/java/pt/ipleiria/estg/dei/ei/dae/projetodae/ws/AuthService.java
+/Users/mariamalato/Library/CloudStorage/OneDrive-Pessoal/ESTG/DAE/projeto/ProjetoDAE/projetoDAE/src/main/java/pt/ipleiria/estg/dei/ei/dae/projetodae/ws/ProductService.java
 /Users/mariamalato/Library/CloudStorage/OneDrive-Pessoal/ESTG/DAE/projeto/ProjetoDAE/projetoDAE/src/main/java/pt/ipleiria/estg/dei/ei/dae/projetodae/ws/UserService.java

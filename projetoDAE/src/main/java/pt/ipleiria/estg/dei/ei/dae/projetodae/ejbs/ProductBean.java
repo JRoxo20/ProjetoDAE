@@ -18,12 +18,52 @@ public class ProductBean {
     public void create(String name, int quantity, String category, Double price) {
         Product product = new Product(name, quantity, category, price);
         entityManager.persist(product);
+        entityManager.flush();
     }
 
     public List<Product> findAll(){
         // remember, maps to: “SELECT c FROM Course c ORDER BY c.name”
         return entityManager.createNamedQuery("getAllProducts", Product.class).getResultList();
     }
+
+    public Product find(String name) {
+        var product = entityManager.find(Product.class, name);
+        if (product == null) {
+            throw new RuntimeException("Product " + name + " not found");
+        }
+        return product;
+    }
+
+    public Product findById(Long id) {
+        var product = entityManager.find(Product.class, id);
+        if (product == null) {
+            throw new RuntimeException("Product with ID: " +  id   +  " not found");
+        }
+        return product;
+    }
+
+    public void update(Long id,String name, String category, int quantity, Double price) {
+
+        Product product = entityManager.find(Product.class, findById(id));
+
+        if (product == null) {
+            System.err.println("Error_product_not_found: " + product);
+            return;
+        }
+        entityManager.lock(product, LockModeType.OPTIMISTIC);
+        product.setName(name);
+        product.setCategory(category);
+        product.setQuantity(quantity);
+        product.setPrice(price);
+
+    }
+
+    public void delete(String username) {
+        var student = this.find(username);
+        entityManager.remove(student);
+    }
+
+
 
 
 
