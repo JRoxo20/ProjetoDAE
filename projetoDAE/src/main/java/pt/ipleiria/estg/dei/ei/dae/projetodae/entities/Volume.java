@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 @NamedQueries({
         @NamedQuery(
                 name = "getAllVolumes",
-                query = "SELECT v FROM Volume v" // JPQL
+                query = "SELECT v FROM Volume v ORDER BY id" // JPQL
         )
 })
 @Table(name = "volumes")
@@ -15,13 +15,15 @@ public class Volume {
     @Id
     private Long id;
     private String estado;
+    private String tipo_embalagem;
     //produtos
     //sensores
 
 
-    public Volume(Long id, String estado) {
+    public Volume(Long id, String estado, String tipo_embalagem) {
         this.id = id;
         this.estado = estado;
+        this.tipo_embalagem = tipo_embalagem;
     }
 
     public Volume() {
@@ -42,5 +44,13 @@ public class Volume {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    public String getTipo_embalagem() {
+        return tipo_embalagem;
+    }
+
+    public void setTipo_embalagem(String tipo_embalagem) {
+        this.tipo_embalagem = tipo_embalagem;
     }
 }

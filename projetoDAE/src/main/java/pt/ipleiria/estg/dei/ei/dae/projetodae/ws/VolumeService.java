@@ -22,6 +22,22 @@ public class VolumeService {
         return VolumeDTO.from(volumeBean.findAll());
     }
 
+    @GET
+    @Path("{id}")
+    public Response getVolume(@PathParam("id") Long id) {
+        var volume = volumeBean.find(id);
+        return Response.ok(VolumeDTO.from(volume)).build();
+    }
+
+
+    @PATCH
+    @Path("{id}/entrega")
+    public Response patchEntrega(@PathParam("id") Long id, VolumeDTO volumeDTO) {
+        var volume = volumeBean.mudarEstado(id, volumeDTO.getEstado());
+        return Response.ok(VolumeDTO.from(volume)).build();
+    }
+
+
     /*@POST
     @Path("/")
     @Authenticated

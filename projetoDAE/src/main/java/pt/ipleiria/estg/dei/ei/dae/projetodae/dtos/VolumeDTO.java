@@ -10,11 +10,13 @@ public class VolumeDTO {
     @Id
     private Long id;
     private String estado;
+    private String tipo_embalagem;
 
 
-    public VolumeDTO(Long id, String estado) {
+    public VolumeDTO(Long id, String estado, String tipo_embalagem) {
         this.id = id;
         this.estado = estado;
+        this.tipo_embalagem = tipo_embalagem;
     }
 
     public VolumeDTO() {
@@ -37,12 +39,20 @@ public class VolumeDTO {
         this.estado = estado;
     }
 
+    public String getTipo_embalagem() {
+        return tipo_embalagem;
+    }
+
+    public void setTipo_embalagem(String tipo_embalagem) {
+        this.tipo_embalagem = tipo_embalagem;
+    }
 
     // Converts an entity Volume to a DTO Volume class
     public static VolumeDTO from(Volume volume) {
         return new VolumeDTO(
                 volume.getId(),
-                volume.getEstado()
+                volume.getEstado(),
+                volume.getTipo_embalagem()
         );
     }
     // converts an entire list of entities into a list of DTOs

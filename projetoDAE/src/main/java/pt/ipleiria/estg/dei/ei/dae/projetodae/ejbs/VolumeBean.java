@@ -13,8 +13,8 @@ public class VolumeBean {
     private EntityManager entityManager;
 
 
-    public void create(Long id, String estado) {
-        var volume = new Volume(id, estado);
+    public void create(Long id, String estado, String tipo_embalagem) {
+        var volume = new Volume(id, estado, tipo_embalagem);
         entityManager.persist(volume);
     }
 
@@ -29,6 +29,17 @@ public class VolumeBean {
         if (volume == null) {
             throw new RuntimeException("volume " + id + " not found");
         }
+        return volume;
+    }
+
+    public Volume mudarEstado(Long id, String estado)
+    {
+        var volume = entityManager.find(Volume.class, id);
+        if (volume == null) {
+            throw new RuntimeException("volume " + id + " not found");
+        }
+        volume.setEstado(estado);
+        entityManager.persist(volume);
         return volume;
     }
 }
