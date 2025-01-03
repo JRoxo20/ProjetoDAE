@@ -14,12 +14,20 @@ import jakarta.ejb.Startup;
         @EJB
         private EncomendaBean encomendaBean;
 
+        @EJB
+        private VolumeBean volumeBean;
         @PostConstruct
         public void populateDB() {
 
             userBean.create("Vasco", "Vasco", "vasco@gmail.com", "123456");
 
             encomendaBean.create(1, 1);
+
+
+            //volumes
+            volumeBean.create(1L, "em andamento", "isotérmica");
+            volumeBean.create(2L, "em andamento", "normal");
+            volumeBean.create(3L, "a entregar", "isotérmica");
         }
     }
 
