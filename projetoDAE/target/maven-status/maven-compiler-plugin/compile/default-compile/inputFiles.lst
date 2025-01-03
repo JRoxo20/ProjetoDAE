@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 C:\Users\crist\Documents\3Ano\DAE\Projeto\ProjetoDAE\projetoDAE\src\main\java\pt\ipleiria\estg\dei\ei\dae\projetodae\dtos\AuthDTO.java
 C:\Users\crist\Documents\3Ano\DAE\Projeto\ProjetoDAE\projetoDAE\src\main\java\pt\ipleiria\estg\dei\ei\dae\projetodae\dtos\EmailDTO.java
 C:\Users\crist\Documents\3Ano\DAE\Projeto\ProjetoDAE\projetoDAE\src\main\java\pt\ipleiria\estg\dei\ei\dae\projetodae\dtos\NewPasswordDTO.java
@@ -20,3 +21,27 @@ C:\Users\crist\Documents\3Ano\DAE\Projeto\ProjetoDAE\projetoDAE\src\main\java\pt
 C:\Users\crist\Documents\3Ano\DAE\Projeto\ProjetoDAE\projetoDAE\src\main\java\pt\ipleiria\estg\dei\ei\dae\projetodae\ws\AuthService.java
 C:\Users\crist\Documents\3Ano\DAE\Projeto\ProjetoDAE\projetoDAE\src\main\java\pt\ipleiria\estg\dei\ei\dae\projetodae\ws\UserService.java
 C:\Users\crist\Documents\3Ano\DAE\Projeto\ProjetoDAE\projetoDAE\src\main\java\pt\ipleiria\estg\dei\ei\dae\projetodae\ws\VolumeService.java
+=======
+C:\Users\jpsrl\DAE\ProjetoDAE\projetoDAE\src\main\java\pt\ipleiria\estg\dei\ei\dae\projetodae\dtos\AuthDTO.java
+C:\Users\jpsrl\DAE\ProjetoDAE\projetoDAE\src\main\java\pt\ipleiria\estg\dei\ei\dae\projetodae\dtos\EmailDTO.java
+C:\Users\jpsrl\DAE\ProjetoDAE\projetoDAE\src\main\java\pt\ipleiria\estg\dei\ei\dae\projetodae\dtos\EncomendaDTO.java
+C:\Users\jpsrl\DAE\ProjetoDAE\projetoDAE\src\main\java\pt\ipleiria\estg\dei\ei\dae\projetodae\dtos\NewPasswordDTO.java
+C:\Users\jpsrl\DAE\ProjetoDAE\projetoDAE\src\main\java\pt\ipleiria\estg\dei\ei\dae\projetodae\dtos\UserDTO.java
+C:\Users\jpsrl\DAE\ProjetoDAE\projetoDAE\src\main\java\pt\ipleiria\estg\dei\ei\dae\projetodae\ejbs\ConfigBean.java
+C:\Users\jpsrl\DAE\ProjetoDAE\projetoDAE\src\main\java\pt\ipleiria\estg\dei\ei\dae\projetodae\ejbs\EmailBean.java
+C:\Users\jpsrl\DAE\ProjetoDAE\projetoDAE\src\main\java\pt\ipleiria\estg\dei\ei\dae\projetodae\ejbs\EncomendaBean.java
+C:\Users\jpsrl\DAE\ProjetoDAE\projetoDAE\src\main\java\pt\ipleiria\estg\dei\ei\dae\projetodae\ejbs\UserBean.java
+C:\Users\jpsrl\DAE\ProjetoDAE\projetoDAE\src\main\java\pt\ipleiria\estg\dei\ei\dae\projetodae\entities\Encomenda.java
+C:\Users\jpsrl\DAE\ProjetoDAE\projetoDAE\src\main\java\pt\ipleiria\estg\dei\ei\dae\projetodae\entities\User.java
+C:\Users\jpsrl\DAE\ProjetoDAE\projetoDAE\src\main\java\pt\ipleiria\estg\dei\ei\dae\projetodae\filters\CorsFilter.java
+C:\Users\jpsrl\DAE\ProjetoDAE\projetoDAE\src\main\java\pt\ipleiria\estg\dei\ei\dae\projetodae\HelloApplication.java
+C:\Users\jpsrl\DAE\ProjetoDAE\projetoDAE\src\main\java\pt\ipleiria\estg\dei\ei\dae\projetodae\HelloResource.java
+C:\Users\jpsrl\DAE\ProjetoDAE\projetoDAE\src\main\java\pt\ipleiria\estg\dei\ei\dae\projetodae\security\Authenticated.java
+C:\Users\jpsrl\DAE\ProjetoDAE\projetoDAE\src\main\java\pt\ipleiria\estg\dei\ei\dae\projetodae\security\AuthenticationFilter.java
+C:\Users\jpsrl\DAE\ProjetoDAE\projetoDAE\src\main\java\pt\ipleiria\estg\dei\ei\dae\projetodae\security\AuthorizationFilter.java
+C:\Users\jpsrl\DAE\ProjetoDAE\projetoDAE\src\main\java\pt\ipleiria\estg\dei\ei\dae\projetodae\security\Hasher.java
+C:\Users\jpsrl\DAE\ProjetoDAE\projetoDAE\src\main\java\pt\ipleiria\estg\dei\ei\dae\projetodae\security\TokenIssuer.java
+C:\Users\jpsrl\DAE\ProjetoDAE\projetoDAE\src\main\java\pt\ipleiria\estg\dei\ei\dae\projetodae\ws\AuthService.java
+C:\Users\jpsrl\DAE\ProjetoDAE\projetoDAE\src\main\java\pt\ipleiria\estg\dei\ei\dae\projetodae\ws\EncomendaService.java
+C:\Users\jpsrl\DAE\ProjetoDAE\projetoDAE\src\main\java\pt\ipleiria\estg\dei\ei\dae\projetodae\ws\UserService.java
+>>>>>>> main

@@ -12,11 +12,16 @@ import jakarta.ejb.Startup;
         @EJB
         private UserBean userBean;
         @EJB
+        private EncomendaBean encomendaBean;
+
+        @EJB
         private VolumeBean volumeBean;
         @PostConstruct
         public void populateDB() {
 
             userBean.create("Vasco", "Vasco", "vasco@gmail.com", "123456");
+
+            encomendaBean.create(1, 1);
 
 
             //volumes
