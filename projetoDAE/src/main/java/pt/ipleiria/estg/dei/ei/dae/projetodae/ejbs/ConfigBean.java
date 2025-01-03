@@ -11,10 +11,15 @@ import jakarta.ejb.Startup;
     public class ConfigBean {
         @EJB
         private UserBean userBean;
+        @EJB
+        private EncomendaBean encomendaBean;
+
         @PostConstruct
         public void populateDB() {
 
             userBean.create("Vasco", "Vasco", "vasco@gmail.com", "123456");
+
+            encomendaBean.create(1, 1);
         }
     }
 
