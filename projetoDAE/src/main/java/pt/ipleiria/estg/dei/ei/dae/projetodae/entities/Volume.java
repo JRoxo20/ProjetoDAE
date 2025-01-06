@@ -3,6 +3,8 @@ package pt.ipleiria.estg.dei.ei.dae.projetodae.entities;
 
 import jakarta.persistence.*;
 
+import java.util.Date;
+
 @Entity
 @NamedQueries({
         @NamedQuery(
@@ -16,6 +18,7 @@ public class Volume {
     private Long id;
     private String estado;
     private String tipo_embalagem;
+    private Date data_entrega;
     //produtos
     //sensores
 
@@ -24,6 +27,7 @@ public class Volume {
         this.id = id;
         this.estado = estado;
         this.tipo_embalagem = tipo_embalagem;
+        this.data_entrega = new Date();
     }
 
     public Volume() {
@@ -52,5 +56,13 @@ public class Volume {
 
     public void setTipo_embalagem(String tipo_embalagem) {
         this.tipo_embalagem = tipo_embalagem;
+    }
+
+    public String getData_entrega() {
+        return data_entrega.toString();
+    }
+
+    public void setData_entrega(Date data_entrega) {
+        this.data_entrega = data_entrega;
     }
 }

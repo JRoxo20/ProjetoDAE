@@ -3,6 +3,7 @@ package pt.ipleiria.estg.dei.ei.dae.projetodae.dtos;
 import jakarta.persistence.Id;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.Volume;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -11,12 +12,14 @@ public class VolumeDTO {
     private Long id;
     private String estado;
     private String tipo_embalagem;
+    private String data_entrega;
 
 
-    public VolumeDTO(Long id, String estado, String tipo_embalagem) {
+    public VolumeDTO(Long id, String estado, String tipo_embalagem, String data_entrega) {
         this.id = id;
         this.estado = estado;
         this.tipo_embalagem = tipo_embalagem;
+        this.data_entrega = data_entrega;
     }
 
     public VolumeDTO() {
@@ -47,12 +50,21 @@ public class VolumeDTO {
         this.tipo_embalagem = tipo_embalagem;
     }
 
+    public String getData_entrega() {
+        return data_entrega;
+    }
+
+    public void setData_entrega(String data_entrega) {
+        this.data_entrega = data_entrega;
+    }
+
     // Converts an entity Volume to a DTO Volume class
     public static VolumeDTO from(Volume volume) {
         return new VolumeDTO(
                 volume.getId(),
                 volume.getEstado(),
-                volume.getTipo_embalagem()
+                volume.getTipo_embalagem(),
+                volume.getData_entrega()
         );
     }
     // converts an entire list of entities into a list of DTOs
