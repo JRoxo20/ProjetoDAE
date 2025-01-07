@@ -42,4 +42,10 @@ public class VolumeBean {
         entityManager.persist(volume);
         return volume;
     }
+
+
+    public void create(Long id, String tipo_embalagem) {
+        var student = new Volume(id, "Em expedição", tipo_embalagem);
+        entityManager.persist(student);
+    }
 }

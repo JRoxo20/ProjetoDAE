@@ -7,6 +7,7 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.dtos.VolumeDTO;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.ejbs.VolumeBean;
+import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.Volume;
 
 import java.util.List;
 
@@ -38,6 +39,20 @@ public class VolumeService {
     }
 
 
+    @POST
+    @Path("/")
+    //@Consumes(MediaType.APPLICATION_JSON)
+    public Response create (VolumeDTO volumeDTO) {
+        volumeBean.create(
+                volumeDTO.getId(),
+                volumeDTO.getTipo_embalagem()
+        );
+
+        Volume newVolume = volumeBean.find(volumeDTO.getId());
+        return Response.status(Response.Status.CREATED)
+                .entity(VolumeDTO.from(newVolume))
+                .build();
+    }
     /*@POST
     @Path("/")
     @Authenticated
