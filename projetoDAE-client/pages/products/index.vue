@@ -1,7 +1,7 @@
 <template>
   <div v-if="error">Error: {{ error.message }}</div>
   <div v-else>
-   <!-- <nuxt-link to="/products/create">Create a New Product</nuxt-link>-->
+   <nuxt-link to="/products/create">Create a New Product</nuxt-link>
     <h2>Products</h2>
     <table>
       <thead>
@@ -62,3 +62,4 @@ tr:nth-child(even) {
   background-color: #dddddd;
 }
 </style>
+
