@@ -16,9 +16,20 @@ public class ProductBean {
     private EntityManager entityManager;
 
     public void create(String name, int quantity, String category, Double price) {
-        Product product = new Product(name, quantity, category, price);
-        entityManager.persist(product);
-        entityManager.flush();
+        if(exists(name)){
+            // throw exception
+            return;
+        }
+        try {
+            Product product = new Product(name, quantity, category, price);
+            entityManager.persist(product);
+            entityManager.flush();
+        } catch (Exception e) {
+        // throw exception
+        }
+    }
+    private boolean exists(String name) {
+        return entityManager.find(Product.class, name) != null;
     }
 
     public List<Product> findAll(){
@@ -58,9 +69,10 @@ public class ProductBean {
 
     }
 
-    public void delete(String username) {
-        var student = this.find(username);
-        entityManager.remove(student);
+    // throws exception
+    public void delete(long id)  {
+        Product product = findById(id);
+        entityManager.remove(product);
     }
 
 

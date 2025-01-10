@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "products")
-@NamedQuery(name = "getAllProducts", query = "SELECT p FROM Product p ORDER BY p.name" )
+@NamedQuery(name = "getAllProducts", query = "SELECT p FROM Product p ORDER BY p.id_product" )
 public class Product implements Serializable {
 
     @Id
