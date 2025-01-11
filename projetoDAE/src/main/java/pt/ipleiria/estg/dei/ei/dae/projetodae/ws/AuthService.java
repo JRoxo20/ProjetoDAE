@@ -64,6 +64,5 @@ public class AuthService {
         return Response.ok(UserDTO.from(user)).build();
     }
 
-
 }
 
