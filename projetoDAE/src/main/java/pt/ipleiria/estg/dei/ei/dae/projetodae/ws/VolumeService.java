@@ -8,12 +8,14 @@ import jakarta.ws.rs.core.Response;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.dtos.VolumeDTO;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.ejbs.VolumeBean;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.Volume;
+import pt.ipleiria.estg.dei.ei.dae.projetodae.security.Authenticated;
 
 import java.util.List;
 
 @Path("volumes") // relative url web path for this service
 @Produces({MediaType.APPLICATION_JSON}) // injects header “Content-Type: application/json”
 @Consumes({MediaType.APPLICATION_JSON}) // injects header “Accept: application/json”
+//@Authenticated
 public class VolumeService {
     @EJB
     private VolumeBean volumeBean;
@@ -31,10 +33,17 @@ public class VolumeService {
     }
 
 
-    @PATCH
+    /*@PATCH
     @Path("{id}/entrega")
     public Response patchEntrega(@PathParam("id") Long id, VolumeDTO volumeDTO) {
         var volume = volumeBean.mudarEstado(id, volumeDTO.getEstado());
+        return Response.ok(VolumeDTO.from(volume)).build();
+    }*/
+
+    @PATCH
+    @Path("{id}/entrega")
+    public Response patchEntrega(@PathParam("id") Long id) {
+        var volume = volumeBean.mudarEstado(id);
         return Response.ok(VolumeDTO.from(volume)).build();
     }
 

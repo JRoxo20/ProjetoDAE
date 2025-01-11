@@ -23,11 +23,11 @@ public class Volume {
     //sensores
 
 
-    public Volume(Long id, String estado, String tipo_embalagem) {
+    public Volume(Long id, String tipo_embalagem) {
         this.id = id;
-        this.estado = estado;
+        this.estado = "em transito";
         this.tipo_embalagem = tipo_embalagem;
-        this.data_entrega = new Date();
+        this.data_entrega = null;
     }
 
     public Volume() {
@@ -59,6 +59,10 @@ public class Volume {
     }
 
     public String getData_entrega() {
+        if(data_entrega == null)
+        {
+            return null;
+        }
         return data_entrega.toString();
     }
 

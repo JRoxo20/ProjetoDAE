@@ -25,9 +25,9 @@ import jakarta.ejb.Startup;
 
 
             //volumes
-            volumeBean.create(1L, "em andamento", "isotérmica");
-            volumeBean.create(2L, "em andamento", "normal");
-            volumeBean.create(3L, "a entregar", "isotérmica");
+            volumeBean.create(1L, "isotérmica");
+            volumeBean.create(2L, "normal");
+            volumeBean.create(3L, "isotérmica");
         }
     }
 
