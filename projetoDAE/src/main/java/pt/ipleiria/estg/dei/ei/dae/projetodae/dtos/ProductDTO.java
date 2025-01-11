@@ -2,6 +2,7 @@ package pt.ipleiria.estg.dei.ei.dae.projetodae.dtos;
 
 import jakarta.validation.constraints.NotNull;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.Product;
+import pt.ipleiria.estg.dei.ei.dae.projetodae.enums.Category;
 
 import java.io.Serializable;
 import java.util.List;
@@ -13,14 +14,14 @@ public class ProductDTO implements Serializable {
     private String name;
     private String brand;
     private int quantity;
-    private String category;
+    private Category category;
     private Double price;
 
     public ProductDTO(){
 
     }
 
-    public ProductDTO(Long id,String name,String brand, int quantity, String category, Double price) {
+    public ProductDTO(Long id,String name,String brand, int quantity, Category category, Double price) {
         this.id_product=id;
         this.name = name;
         this.brand = brand;
@@ -61,11 +62,11 @@ public class ProductDTO implements Serializable {
         this.quantity = quantity;
     }
 
-    public String getCategory() {
+    public Category getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(Category category) {
         this.category = category;
     }
 

@@ -6,6 +6,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.LockModeType;
 import jakarta.persistence.PersistenceContext;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.Product;
+import pt.ipleiria.estg.dei.ei.dae.projetodae.enums.Category;
 
 import java.util.List;
 
@@ -15,7 +16,7 @@ public class ProductBean {
     @PersistenceContext
     private EntityManager entityManager;
 
-    public void create(String name, String brand,int quantity, String category, Double price) {
+    public void create(String name, String brand, int quantity, Category category, Double price) {
         if(exists(name)){
             // throw exception
             return;
@@ -58,7 +59,7 @@ public class ProductBean {
         return product;
     }
 
-    public void update(Long id,String name,String brand, String category, int quantity, Double price) {
+    public void update(Long id,String name,String brand, Category category, int quantity, Double price) {
 
         Product product = entityManager.find(Product.class, findById(id));
 

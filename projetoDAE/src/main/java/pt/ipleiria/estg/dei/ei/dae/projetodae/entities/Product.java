@@ -3,6 +3,7 @@ package pt.ipleiria.estg.dei.ei.dae.projetodae.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import pt.ipleiria.estg.dei.ei.dae.projetodae.enums.Category;
 
 import java.io.Serializable;
 
@@ -22,7 +23,7 @@ public class Product implements Serializable {
     @NotNull
     private int quantity;
     @NotNull
-    private String category;
+    private Category category;
     @NotNull
     private Double price;
 
@@ -33,7 +34,7 @@ public class Product implements Serializable {
     public Product() {
     }
 
-    public Product( String name,String brand, int quantity, String category, Double price) {
+    public Product( String name,String brand, int quantity, Category category, Double price) {
         this.brand = brand;
         this.name = name;
         this.quantity = quantity;
@@ -73,11 +74,11 @@ public class Product implements Serializable {
         this.quantity = quantity;
     }
 
-    public  String getCategory() {
+    public  Category getCategory() {
         return category;
     }
 
-    public void setCategory( String category) {
+    public void setCategory( Category category) {
         this.category = category;
     }
 
