@@ -16,7 +16,7 @@ import java.util.List;
 @Path("products") // relative url web path for this service
 @Produces({MediaType.APPLICATION_JSON}) // injects header “Content-Type: application/json”
 @Consumes({MediaType.APPLICATION_JSON}) // injects header “Accept: application/json”
-//@Authenticated
+@Authenticated
 
 public class ProductService {
 
@@ -39,6 +39,7 @@ public class ProductService {
         try{
             productBean.create(
                     productDTO.getName(),
+                    productDTO.getBrand(),
                     productDTO.getQuantity(),
                     productDTO.getCategory(),
                     productDTO.getPrice()
@@ -78,6 +79,7 @@ public class ProductService {
         productBean.update(
                 productDTO.getId(),
                 productDTO.getName(),
+                productDTO.getBrand(),
                 productDTO.getCategory(),
                 productDTO.getQuantity(),
                 productDTO.getPrice());

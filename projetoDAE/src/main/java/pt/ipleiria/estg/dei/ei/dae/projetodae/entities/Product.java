@@ -18,11 +18,14 @@ public class Product implements Serializable {
     @NotNull
     private String name;
     @NotNull
+    private String brand;
+    @NotNull
     private int quantity;
     @NotNull
     private String category;
     @NotNull
     private Double price;
+
 
 /*    @Version
     private int version;*/
@@ -30,7 +33,8 @@ public class Product implements Serializable {
     public Product() {
     }
 
-    public Product( String name, int quantity, String category, Double price) {
+    public Product( String name,String brand, int quantity, String category, Double price) {
+        this.brand = brand;
         this.name = name;
         this.quantity = quantity;
         this.category = category;
@@ -53,6 +57,13 @@ public class Product implements Serializable {
         this.name = name;
     }
 
+    public  String getBrand() {
+        return brand;
+    }
+
+    public void setBrand( String brand) {
+        this.brand = brand;
+    }
 
     public int getQuantity() {
         return quantity;

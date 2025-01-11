@@ -15,13 +15,13 @@ public class ProductBean {
     @PersistenceContext
     private EntityManager entityManager;
 
-    public void create(String name, int quantity, String category, Double price) {
+    public void create(String name, String brand,int quantity, String category, Double price) {
         if(exists(name)){
             // throw exception
             return;
         }
         try {
-            Product product = new Product(name, quantity, category, price);
+            Product product = new Product(name,brand, quantity, category, price);
             entityManager.persist(product);
             entityManager.flush();
         } catch (Exception e) {
@@ -29,8 +29,13 @@ public class ProductBean {
         }
     }
     private boolean exists(String name) {
-        return entityManager.find(Product.class, name) != null;
+        String jpql = "SELECT COUNT(p) FROM Product p WHERE p.name = :name";
+        Long count = entityManager.createQuery(jpql, Long.class)
+                .setParameter("name", name)
+                .getSingleResult();
+        return count > 0;
     }
+
 
     public List<Product> findAll(){
         // remember, maps to: “SELECT c FROM Course c ORDER BY c.name”
@@ -53,7 +58,7 @@ public class ProductBean {
         return product;
     }
 
-    public void update(Long id,String name, String category, int quantity, Double price) {
+    public void update(Long id,String name,String brand, String category, int quantity, Double price) {
 
         Product product = entityManager.find(Product.class, findById(id));
 
@@ -63,6 +68,7 @@ public class ProductBean {
         }
         entityManager.lock(product, LockModeType.OPTIMISTIC);
         product.setName(name);
+        product.setBrand(brand);
         product.setCategory(category);
         product.setQuantity(quantity);
         product.setPrice(price);

@@ -11,6 +11,7 @@ public class ProductDTO implements Serializable {
 
     private Long id_product;
     private String name;
+    private String brand;
     private int quantity;
     private String category;
     private Double price;
@@ -19,9 +20,10 @@ public class ProductDTO implements Serializable {
 
     }
 
-    public ProductDTO(Long id,String name, int quantity, String category, Double price) {
+    public ProductDTO(Long id,String name,String brand, int quantity, String category, Double price) {
         this.id_product=id;
         this.name = name;
+        this.brand = brand;
         this.quantity = quantity;
         this.category = category;
         this.price = price;
@@ -41,6 +43,14 @@ public class ProductDTO implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
     }
 
     public int getQuantity() {
@@ -72,6 +82,7 @@ public class ProductDTO implements Serializable {
         return new ProductDTO(
                 product.getId(),
                 product.getName(),
+                product.getBrand(),
                 product.getQuantity(),
                 product.getCategory(),
                 product.getPrice()
