@@ -7,12 +7,14 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.dtos.VolumeDTO;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.ejbs.VolumeBean;
+import pt.ipleiria.estg.dei.ei.dae.projetodae.security.Authenticated;
 
 import java.util.List;
 
 @Path("volumes") // relative url web path for this service
 @Produces({MediaType.APPLICATION_JSON}) // injects header “Content-Type: application/json”
 @Consumes({MediaType.APPLICATION_JSON}) // injects header “Accept: application/json”
+@Authenticated
 public class VolumeService {
     @EJB
     private VolumeBean volumeBean;
