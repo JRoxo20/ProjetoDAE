@@ -1,12 +1,17 @@
 <template>
-  <h2>Create Student</h2>
+  <h2>Add new Product</h2>
   <form @submit.prevent="create">
     <div>Name:
       <input v-model.trim="productForm.name" type="text">
       <span v-if="nameError" class="error">
  ERROR: {{ nameError }}</span></div>
     <div>Category:
-      <input v-model.trim="productForm.category" type="password">
+      <select v-model="productForm.category">
+        <option value="">--- Please select Category ---</option>
+        <option value="Alimentar">Alimentar</option>
+        <option value="Eletrodomestico">Eletrodomestico</option>
+        <option value="Eletronico">Eletronico</option>
+      </select>
       <span v-if="categoryError" class="error">
  ERROR: {{ categoryError }}</span></div>
     <div>Quantity:

@@ -1,8 +1,12 @@
 <template>
+  <Navbar />
   <div v-if="error" class="error">Error: {{ error.message }}</div>
   <div v-else class="container">
-    <nuxt-link to="/products/create" class="create-button">Add a New Product</nuxt-link>
-    <h2>Products</h2>
+    <caption>Products</caption>
+    <div class="buttons">
+      <nuxt-link to="/products/create" class="create-button">➕ Add a New Product</nuxt-link>
+      <button @click.prevent="refresh" class="create-button">🔄 Refresh Data</button>
+    </div>
     <table class="product-table">
       <thead>
       <tr>
@@ -22,7 +26,7 @@
         <td>{{ product.brand }}</td>
         <td>{{ product.category }}</td>
         <td>{{ product.quantity }}</td>
-        <td>{{ product.price }}</td>
+        <td>{{ product.price }} €</td>
         <td class="tools">
           <nuxt-link :to="`/products/${product.id}/edit`" class="update-link" aria-label="Update Product">✏️</nuxt-link>
           <button
@@ -36,14 +40,41 @@
       </tr>
       </tbody>
     </table>
-    <button @click.prevent="refresh" class="refresh-button">Refresh Data</button>
   </div>
 </template>
 
 <script setup>
+
+import 'flowbite/dist/flowbite.css';
+import {onMounted, ref} from "vue";
+import Navbar from "~/components/navbar.vue";
+
+
 const config = useRuntimeConfig();
 const api = config.public.API_URL;
-const { data: products, error, refresh } = await useFetch(`${api}/products`);
+const error = ref(null);
+
+const products = ref([]);
+
+async function fetchAllProducts() {
+  try {
+    const token = sessionStorage.getItem('authToken');
+    if (!token) {
+      throw new Error('Token not found. Please login again.');
+    }
+    const response = await $fetch(`${api}/products`, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    products.value = response; // Assign the response to the products variable
+  } catch (err) {
+    console.error('Error fetching products:', err);
+    error.value = err;
+  }
+}
 
 const confirmDelete = async (id) => {
   if (confirm('Are you sure you want to delete this product?')) {
@@ -51,9 +82,17 @@ const confirmDelete = async (id) => {
     refresh();
   }
 };
+async function refresh() {
+  error.value = null;
+  await fetchAllProducts();
+}
+
+onMounted(async () => {
+  await fetchAllProducts();
+});
 </script>
 
-<style scoped>
+<style >
 .container {
   padding: 20px;
   font-family: Arial, sans-serif;
@@ -71,6 +110,13 @@ const confirmDelete = async (id) => {
 
 .create-button:hover {
   background-color: #0056b3;
+}
+
+
+.buttons{
+  display: flex;
+  float:right;
+  gap:10px;
 }
 
 h2 {
@@ -112,16 +158,6 @@ h2 {
 }
 
 
-.update-link {
-  text-decoration: none;
-  color: #007bff;
-  font-size: 1.2em;
-}
-
-.update-link:hover {
-  color: #0056b3;
-}
-
 .delete-button {
   background: none;
   border: none;
@@ -132,19 +168,6 @@ h2 {
 
 .delete-button:hover {
   color: darkred;
-}
-
-.refresh-button {
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.refresh-button:hover {
-  background-color: #0056b3;
 }
 
 .error {

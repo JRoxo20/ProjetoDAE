@@ -22,74 +22,74 @@
     <div v-for="message in messages"><pre>{{ message }}</pre></div>
   </div>
 </template>
-  <script setup>
-    const config = useRuntimeConfig()
-    const api = config.public.API_URL || 'http://localhost:8080/projetoDAE/api';
-    const loginFormData = reactive({
-      username: null,
-      password: null
-    })
-    const apiFormData = reactive({
-      path: "auth/user"
-    })
-    const token =ref(null)
-    const messages = ref([])
-    async function login() {
-      reset()
-      try {
-        await $fetch(`${api}/auth/login`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-          },
-          body: loginFormData,
-          onResponse({ request, response, options }) {
-            messages.value.push({
-              method: options.method,
-              request: request,
-              status: response.status,
-              statusText: response.statusText,
-              payload: response._data
-            })
-            if (response.status == 200)
-              token.value = response._data
-              config.public.token = token.value
-              console.log(config.public.token, token.value)
-              sessionStorage.setItem('authToken', token.value); // Armazena o token no sessionStorage
-              console.log("wefw", sessionStorage.getItem('authToken'))
-          }
+<script setup>
+const config = useRuntimeConfig()
+const api = config.public.API_URL || 'http://localhost:8080/projetoDAE/api';
+const loginFormData = reactive({
+  username: null,
+  password: null
+})
+const apiFormData = reactive({
+  path: "auth/user"
+})
+const token =ref(null)
+const messages = ref([])
+async function login() {
+  reset()
+  try {
+    await $fetch(`${api}/auth/login`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: loginFormData,
+      onResponse({ request, response, options }) {
+        messages.value.push({
+          method: options.method,
+          request: request,
+          status: response.status,
+          statusText: response.statusText,
+          payload: response._data
         })
-      } catch (e) {
-        console.error('login request failed: ', e)
+        if (response.status == 200)
+          token.value = response._data
+        config.public.token = token.value
+        console.log(config.public.token, token.value)
+        sessionStorage.setItem('authToken', token.value); // Armazena o token no sessionStorage
+        console.log("wefw", sessionStorage.getItem('authToken'))
       }
-    }
-    function reset() {
-      token.value = null
-      messages.value = []
-    }
-    async function sendRequest() {
-      try {
-        await $fetch(`${api}/${apiFormData.path}`, {
-          method: 'GET',
-          headers: {
-            Accept: 'application/json',
-            Authorization: `Bearer ${token.value}`
-          },
-          onResponse({ request, response, options }) {
-            messages.value.push({
-              method: options.method,
-              request: request,
-              status: response.status,
-              statusText: response.statusText,
-              payload: response._data
-            })
-          }
+    })
+  } catch (e) {
+    console.error('login request failed: ', e)
+  }
+}
+function reset() {
+  token.value = null
+  messages.value = []
+}
+async function sendRequest() {
+  try {
+    await $fetch(`${api}/${apiFormData.path}`, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${token.value}`
+      },
+      onResponse({ request, response, options }) {
+        messages.value.push({
+          method: options.method,
+          request: request,
+          status: response.status,
+          statusText: response.statusText,
+          payload: response._data
         })
-      } catch (e) {
-        console.error('api request failed: ', e)
       }
-    }
+    })
+  } catch (e) {
+    console.error('api request failed: ', e)
+  }
+}
 </script>
 
 
