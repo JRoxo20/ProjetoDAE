@@ -4,26 +4,30 @@ import jakarta.ejb.EJB;
 import jakarta.ejb.Singleton;
 import jakarta.ejb.Startup;
 
+
+
     @Startup
     @Singleton
     public class ConfigBean {
         @EJB
         private UserBean userBean;
+        @EJB
+        private EncomendaBean encomendaBean;
 
         @EJB
-        private ProductBean productBean;
+        private VolumeBean volumeBean;
         @PostConstruct
         public void populateDB() {
-            try {
-                userBean.create("Vasco", "Vasco", "vasco@gmail.com", "123456");
 
-                productBean.create("Gelado Baunilha", "ABC",1, "Alimentar", 2.99);
-                productBean.create("Microondas", "XYZ",1, "Eletrodomestico", 12.99);
-                productBean.create("Ferro", "XYZ",1, "Eletrodomestico", 22.99);
-            } catch (Exception e) {
-                throw new RuntimeException("Error populating the database", e);
-            }
+            userBean.create("Vasco", "Vasco", "vasco@gmail.com", "123456");
+
+            encomendaBean.create(1, 1);
+
+
+            //volumes
+            volumeBean.create(1L, "em andamento", "isotérmica");
+            volumeBean.create(2L, "em andamento", "normal");
+            volumeBean.create(3L, "a entregar", "isotérmica");
         }
-
     }
 
