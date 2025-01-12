@@ -1,14 +1,18 @@
 <template>
+  <div class="login-page">
+    <div class="login-container">
+      <h1>Login Form</h1>
 
-  <div>
-
-    <h1>Login Form</h1>
-    <div>Username:
-      <input v-model="loginFormData.username"></div>
-    <div>Password:
-      <input v-model="loginFormData.password"></div>
-    <button @click="login">LOGIN</button>
-    <button @click="reset">RESET</button>
+        <div class="form-group">
+          Username:
+          <input v-model="loginFormData.username">
+        </div>
+        <div class="form-group">
+          Password:
+        <input v-model="loginFormData.password" type="password">
+        </div>
+    <button class="btn-login" @click="login">LOGIN</button>
+    <button @click="reset">Reset</button>
   </div>
   <div v-if="token">
     <h2>API Request Form</h2>
@@ -20,6 +24,7 @@
   <div v-if="messages.length > 0">
     <h2>Messages</h2>
     <div v-for="message in messages"><pre>{{ message }}</pre></div>
+  </div>
   </div>
 </template>
 <script setup>
@@ -56,8 +61,10 @@ async function login() {
           token.value = response._data
         config.public.token = token.value
         console.log(config.public.token, token.value)
+        sessionStorage.setItem('username', loginFormData.username)
         sessionStorage.setItem('authToken', token.value); // Armazena o token no sessionStorage
         console.log("wefw", sessionStorage.getItem('authToken'))
+        window.location.href = '/';
       }
     })
   } catch (e) {
@@ -91,6 +98,73 @@ async function sendRequest() {
   }
 }
 </script>
+<style>
+.login-page {
+display: flex;
+justify-content: center;
+align-items: center;
+min-height: 100vh;
+background-color: #f4f4f9;
+}
+
+.login-container {
+background: white;
+padding: 2rem;
+border-radius: 8px;
+box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+text-align: center;
+width: 100%;
+max-width: 400px;
+}
+
+h1 {
+margin-bottom: 1.5rem;
+font-size: 24px;
+color: #333;
+}
+
+.form-group {
+margin-bottom: 1rem;
+text-align: left;
+}
+
+label {
+display: block;
+font-size: 14px;
+color: #666;
+margin-bottom: 0.5rem;
+}
+
+input {
+width: 100%;
+padding: 0.75rem;
+border: 1px solid #ddd;
+border-radius: 4px;
+font-size: 14px;
+}
+
+input:focus {
+outline: none;
+border-color: #007bff;
+box-shadow: 0 0 4px rgba(0, 123, 255, 0.2);
+}
+
+.btn-login {
+width: 100%;
+padding: 0.75rem;
+border: none;
+border-radius: 4px;
+background-color: #007bff;
+color: white;
+font-size: 16px;
+cursor: pointer;
+  margin-bottom: 2%;
+}
+
+.btn-login:hover {
+background-color: #0056b3;
+}
+</style>
 
 
 

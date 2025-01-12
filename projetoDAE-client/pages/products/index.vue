@@ -1,8 +1,8 @@
 <template>
-  <Navbar />
+  <Navbar  activePage="products" />
   <div v-if="error" class="error">Error: {{ error.message }}</div>
   <div v-else class="container">
-    <caption>Products</caption>
+    <h1>Products</h1>
     <div class="buttons">
       <nuxt-link to="/products/create" class="create-button">➕ Add a New Product</nuxt-link>
       <button @click.prevent="refresh" class="create-button">🔄 Refresh Data</button>
@@ -93,6 +93,11 @@ onMounted(async () => {
 </script>
 
 <style >
+h1{
+  font-size:30px;
+  margin-left: 4%;
+}
+
 .container {
   padding: 20px;
   font-family: Arial, sans-serif;
