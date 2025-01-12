@@ -6,7 +6,7 @@
     <div>Username:
       <input v-model="loginFormData.username"></div>
     <div>Password:
-      <input v-model="loginFormData.password"></div>
+      <input type="password" v-model="loginFormData.password"></div>
     <button @click="login">LOGIN</button>
     <button @click="reset">RESET</button>
   </div>
