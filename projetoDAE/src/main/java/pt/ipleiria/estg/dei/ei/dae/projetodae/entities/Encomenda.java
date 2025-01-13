@@ -2,7 +2,10 @@ package pt.ipleiria.estg.dei.ei.dae.projetodae.entities;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
+
 
 @Entity
 @NamedQueries({
@@ -18,7 +21,13 @@ import java.util.LinkedList;
 public class Encomenda {
     @Id
     private int id;
-    private int idCliente;
+
+    private String usernameCliente;
+    @ManyToOne
+    private Client client;
+
+
+
 
     //private List<Volume> volumes;
 
@@ -26,9 +35,7 @@ public class Encomenda {
         return id;
     }
 
-    public int getIdCliente() {
-        return idCliente;
-    }
+
 
     /*public List<Volume> getVolumes() {
         return volumes;
@@ -38,8 +45,20 @@ public class Encomenda {
         this.id = id;
     }
 
-    public void setIdCliente(int idCliente) {
-        this.idCliente = idCliente;
+    public String getUsernameCliente() {
+        return usernameCliente;
+    }
+
+    public void setUsernameCliente(String usernameCliente) {
+        this.usernameCliente = usernameCliente;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
     }
 
     /*public void setVolumes(List<Volume> volumes) {
@@ -49,9 +68,11 @@ public class Encomenda {
     public Encomenda() {
     }
 
-    public Encomenda(int id, int idCliente) {
+    public Encomenda(int id,String usernameCliente ,Client client) {
         this.id = id;
-        this.idCliente = idCliente;
+        this.usernameCliente = usernameCliente;
+        this.client = client;
+
         //this.volumes = new List<>();
     }
 

@@ -12,6 +12,12 @@ import jakarta.ejb.Startup;
         @EJB
         private UserBean userBean;
         @EJB
+        private ClientBean clientBean;
+        @EJB
+        private GestorBean gestorBean;
+        @EJB
+        private LogisticaBean logisticaBean;
+        @EJB
         private EncomendaBean encomendaBean;
 
         @EJB
@@ -21,7 +27,13 @@ import jakarta.ejb.Startup;
 
             userBean.create("Vasco", "Vasco", "vasco@gmail.com", "123456");
 
-            encomendaBean.create(1, 1);
+            clientBean.create("joao", "joao", "joao@gmail.com", "123456");
+
+            gestorBean.create("admin", "admin", "admin@gmail.com", "123456", true);
+
+            logisticaBean.create("ctt", "ctt", "ctt@gmail.com", "123456");
+
+            encomendaBean.create(1, "joao");
 
 
             //volumes
