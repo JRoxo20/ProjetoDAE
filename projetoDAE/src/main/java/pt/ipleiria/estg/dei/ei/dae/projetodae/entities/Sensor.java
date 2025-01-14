@@ -1,6 +1,8 @@
 package pt.ipleiria.estg.dei.ei.dae.projetodae.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,11 +26,23 @@ public class Sensor {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "sensor")
     private List<Dado> dados;
 
+    //relacionamento com volumes
+    @ManyToOne
+    private Volume volume;
+
     public Sensor() {
         this.dados = new ArrayList<>();
     }
 
     // Getters e Setters
+    public Volume getVolume() {
+        return volume;
+    }
+
+    public void setVolume(Volume volume) {
+        this.volume = volume;
+    }
+
     public Long getId() {
         return id;
     }
