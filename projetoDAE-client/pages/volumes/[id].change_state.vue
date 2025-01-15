@@ -18,8 +18,14 @@
 const route = useRoute()
 const id = route.params.id
 
+const token = sessionStorage.getItem('authToken');
+console.log(token)
+if (!token) {
+    throw new Error('Token não encontrado. Faça login novamente.');
+}
+
 const stateForm = reactive({ 
-  estado: null
+  estado: "entregue"
 }) 
 
 const messages = ref([])
@@ -44,7 +50,10 @@ async function create() {
     try {
         await $fetch(`${api}/volumes/${id}/entrega`, {
             method: 'PATCH',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 
+                Accept: 'application/json',
+                Authorization: `Bearer ${token}` // Adiciona o token ao cabeçalho
+             },
             body: stateForm,
             onResponse({ request, response, options }) {
                 messages.value.push({
