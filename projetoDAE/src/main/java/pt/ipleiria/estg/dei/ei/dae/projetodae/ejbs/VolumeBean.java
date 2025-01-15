@@ -1,8 +1,10 @@
 package pt.ipleiria.estg.dei.ei.dae.projetodae.ejbs;
 
+import jakarta.ejb.EJB;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.Encomenda;
 import org.hibernate.Hibernate;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.Volume;
 
@@ -14,9 +16,13 @@ public class VolumeBean {
     @PersistenceContext
     private EntityManager entityManager;
 
+    @EJB
+    private EncomendaBean encomendaBean;
 
-    public void create(Long id, String tipo_embalagem) {
-        var volume = new Volume(id, tipo_embalagem);
+
+    public void create(Long id, String estado, String tipo_embalagem, Long idEncomenda) {
+        var encomenda = encomendaBean.find(idEncomenda);
+        var volume = new Volume(id, estado, tipo_embalagem, encomenda);
         entityManager.persist(volume);
     }
 

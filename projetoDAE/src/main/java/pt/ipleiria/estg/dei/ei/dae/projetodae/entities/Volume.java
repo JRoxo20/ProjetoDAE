@@ -2,6 +2,7 @@ package pt.ipleiria.estg.dei.ei.dae.projetodae.entities;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -20,6 +21,9 @@ public class Volume {
     private Long id;
     private String estado;
     private String tipo_embalagem;
+    @ManyToOne
+    @NotNull
+    private Encomenda encomenda;
     private Date data_entrega;
     //produtos
     //@ManyToMany(mappedBy = "volumes")
@@ -29,10 +33,14 @@ public class Volume {
     private List<Sensor> sensors;
 
 
+    public Volume(Long id, String estado, String tipo_embalagem, Encomenda encomenda) {
+
+    }
     public Volume(Long id, String tipo_embalagem) {
         this.id = id;
         this.estado = "em transito";
         this.tipo_embalagem = tipo_embalagem;
+        this.encomenda = encomenda;
         this.data_entrega = null;
         //this.products = new ArrayList<>();
         this.sensors = new ArrayList<>();
@@ -87,6 +95,14 @@ public class Volume {
 
     public void setTipo_embalagem(String tipo_embalagem) {
         this.tipo_embalagem = tipo_embalagem;
+    }
+
+    public Encomenda getEncomenda() {
+        return encomenda;
+    }
+
+    public void setEncomenda(Encomenda encomenda) {
+        this.encomenda = encomenda;
     }
 
     public String getData_entrega() {
