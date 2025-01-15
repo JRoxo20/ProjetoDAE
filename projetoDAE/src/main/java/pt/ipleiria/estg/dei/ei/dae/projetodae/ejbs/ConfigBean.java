@@ -7,10 +7,7 @@ import pt.ipleiria.estg.dei.ei.dae.projetodae.enums.Category;
 
 import java.util.List;
 
-<<<<<<< HEAD
 
-=======
->>>>>>> 62de456fee205584c419aec5f23a395b094f1db9
 @Startup
     @Singleton
     public class ConfigBean {
