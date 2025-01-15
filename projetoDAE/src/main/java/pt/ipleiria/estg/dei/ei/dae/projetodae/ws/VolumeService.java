@@ -5,6 +5,7 @@ import jakarta.ejb.EJB;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import pt.ipleiria.estg.dei.ei.dae.projetodae.dtos.SensorDTO;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.dtos.VolumeDTO;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.ejbs.VolumeBean;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.Volume;
@@ -32,6 +33,13 @@ public class VolumeService {
         return Response.ok(VolumeDTO.from(volume)).build();
     }
 
+    /*@GET
+    @Path("{id}/sensores")
+    public Response getStudentSubjects(@PathParam("id") Long id) {
+        var volume = volumeBean.findWithSensores(id);
+        return Response.ok(SensorDTO.from(volume.getSensors())).build();
+    }*/
+
 
     /*@PATCH
     @Path("{id}/entrega")
@@ -54,7 +62,9 @@ public class VolumeService {
     public Response create (VolumeDTO volumeDTO) {
         volumeBean.create(
                 volumeDTO.getId(),
-                volumeDTO.getTipo_embalagem()
+                volumeDTO.getEstado(),
+                volumeDTO.getTipo_embalagem(),
+                volumeDTO.getEncomenda_id()
         );
 
         Volume newVolume = volumeBean.find(volumeDTO.getId());

@@ -31,17 +31,17 @@ import java.util.List;
         @PostConstruct
         public void populateDB() {
 
-            userBean.create("Vasco", "Vasco", "vasco@gmail.com", "123456");
-
-            encomendaBean.create(1L, "Vasco");
-
+            userBean.create("Vasco1", "Vasco", "vasco@gmail.com", "123456");
+            clientBean.create("Vasco", "Vasco", "Vasco32@gmail.com", "123456");
 
             //volumes
-            volumeBean.create(1L, "em andamento", "isotérmica", 1L);
-            volumeBean.create(2L, "em andamento", "normal", 1L);
-            volumeBean.create(3L, "a entregar", "isotérmica", 1L);
 
+
+            encomendaBean.create(1L, "Vasco");
             encomendaBean.enrollVolumeInEncomenda(1L, 1L);
+
+            volumeBean.create(1L, "pendente", "caixa", 1L);
+            volumeBean.create(2L, "pendente", "caixa", 1L);
 
             clientBean.create("joao", "joao", "joao@gmail.com", "123456");
 

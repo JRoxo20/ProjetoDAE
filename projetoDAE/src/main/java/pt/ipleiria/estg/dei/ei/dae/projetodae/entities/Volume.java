@@ -27,10 +27,10 @@ public class Volume {
     //sensores
 
 
-    public Volume(Long id, String estado, String tipo_embalagem, Encomenda encomenda) {
+    public Volume() {
 
     }
-    public Volume(Long id, String tipo_embalagem) {
+    public Volume(Long id, String estado, String tipo_embalagem, Encomenda encomenda) {
         this.id = id;
         this.estado = "em transito";
         this.tipo_embalagem = tipo_embalagem;
@@ -38,8 +38,6 @@ public class Volume {
         this.data_entrega = null;
     }
 
-    public Volume() {
-    }
 
 
     public Long getId() {

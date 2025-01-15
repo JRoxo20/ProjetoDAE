@@ -68,7 +68,13 @@ public class ProductService {
                     .build();
         }
     }
-
+    @DELETE
+    @Path("{id}")
+    //throws MyEntityNotFoundException
+    public Response deleteProduct(@PathParam("id") long id)  {
+        productBean.delete(id);
+        return Response.ok().build();
+    }
 
 
     // update
