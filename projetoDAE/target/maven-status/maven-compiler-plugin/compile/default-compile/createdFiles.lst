@@ -1,6 +1,7 @@
 <<<<<<< HEAD
 pt\ipleiria\estg\dei\ei\dae\projetodae\ws\EncomendaService.class
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
 pt\ipleiria\estg\dei\ei\dae\projetodae\entities\Client.class
@@ -9,6 +10,11 @@ pt\ipleiria\estg\dei\ei\dae\projetodae\ejbs\ClientBean.class
 =======
 >>>>>>> volumes
 >>>>>>> fde6f020532d41ccc476ebf01992f98547c528a2
+=======
+pt\ipleiria\estg\dei\ei\dae\projetodae\entities\Client.class
+pt\ipleiria\estg\dei\ei\dae\projetodae\ws\SensorService.class
+pt\ipleiria\estg\dei\ei\dae\projetodae\ejbs\ClientBean.class
+>>>>>>> volumes
 pt\ipleiria\estg\dei\ei\dae\projetodae\ejbs\VolumeBean.class
 pt\ipleiria\estg\dei\ei\dae\projetodae\dtos\SensorDTO.class
 pt\ipleiria\estg\dei\ei\dae\projetodae\ws\UserService.class
@@ -39,19 +45,25 @@ pt\ipleiria\estg\dei\ei\dae\projetodae\ejbs\EmailBean.class
 pt\ipleiria\estg\dei\ei\dae\projetodae\ejbs\UserBean.class
 pt\ipleiria\estg\dei\ei\dae\projetodae\security\Hasher.class
 <<<<<<< HEAD
+<<<<<<< HEAD
 pt\ipleiria\estg\dei\ei\dae\projetodae\dtos\EncomendaDTO.class
 pt\ipleiria\estg\dei\ei\dae\projetodae\ejbs\EncomendaBean.class
 =======
 <<<<<<< HEAD
+=======
+>>>>>>> volumes
 pt\ipleiria\estg\dei\ei\dae\projetodae\ejbs\GestorBean.class
 pt\ipleiria\estg\dei\ei\dae\projetodae\dtos\EncomendaDTO.class
 pt\ipleiria\estg\dei\ei\dae\projetodae\ejbs\EncomendaBean.class
 pt\ipleiria\estg\dei\ei\dae\projetodae\entities\Gestor.class
+<<<<<<< HEAD
 =======
 pt\ipleiria\estg\dei\ei\dae\projetodae\dtos\EncomendaDTO.class
 pt\ipleiria\estg\dei\ei\dae\projetodae\ejbs\EncomendaBean.class
 >>>>>>> volumes
 >>>>>>> fde6f020532d41ccc476ebf01992f98547c528a2
+=======
+>>>>>>> volumes
 pt\ipleiria\estg\dei\ei\dae\projetodae\security\AuthenticationFilter$1.class
 pt\ipleiria\estg\dei\ei\dae\projetodae\dtos\ClientDTO.class
 pt\ipleiria\estg\dei\ei\dae\projetodae\dtos\GestorDTO.class

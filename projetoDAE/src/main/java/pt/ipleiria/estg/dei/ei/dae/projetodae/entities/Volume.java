@@ -4,7 +4,9 @@ package pt.ipleiria.estg.dei.ei.dae.projetodae.entities;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @NamedQueries({
@@ -24,7 +26,11 @@ public class Volume {
     private Encomenda encomenda;
     private Date data_entrega;
     //produtos
+    //@ManyToMany(mappedBy = "volumes")
+    //private List<Product> products ;
     //sensores
+    @OneToMany(mappedBy = "volume")
+    private List<Sensor> sensors;
 
 
     public Volume(Long id, String estado, String tipo_embalagem, Encomenda encomenda) {
@@ -36,11 +42,36 @@ public class Volume {
         this.tipo_embalagem = tipo_embalagem;
         this.encomenda = encomenda;
         this.data_entrega = null;
+        //this.products = new ArrayList<>();
+        this.sensors = new ArrayList<>();
     }
 
     public Volume() {
+        //this.products = new ArrayList<>();
+        this.sensors = new ArrayList<>();
     }
 
+
+    public List<Sensor> getSensors() {
+        return sensors;
+    }
+
+    public void setSensors(List<Sensor> sensors) {
+        this.sensors = sensors;
+    }
+
+    public void addSencor(Sensor sensor)
+    {
+        if (!sensors.contains(sensor))
+        {
+            sensors.add(sensor);
+        }
+    }
+
+    public void removeSensor(Sensor sensor)
+    {
+        sensors.remove(sensor);
+    }
 
     public Long getId() {
         return id;

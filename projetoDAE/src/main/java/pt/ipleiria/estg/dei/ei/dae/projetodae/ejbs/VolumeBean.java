@@ -5,6 +5,7 @@ import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.Encomenda;
+import org.hibernate.Hibernate;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.Volume;
 
 import java.util.Date;
@@ -55,5 +56,9 @@ public class VolumeBean {
         return volume;
     }
 
-
+    public Volume findWithSensores(Long id){
+        var volume = this.find(id);
+        Hibernate.initialize(volume.getSensors());
+        return volume;
+    }
 }
