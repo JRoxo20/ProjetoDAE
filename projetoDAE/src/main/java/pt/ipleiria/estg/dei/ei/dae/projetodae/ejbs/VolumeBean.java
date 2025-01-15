@@ -3,6 +3,7 @@ package pt.ipleiria.estg.dei.ei.dae.projetodae.ejbs;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import org.hibernate.Hibernate;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.Volume;
 
 import java.util.Date;
@@ -46,6 +47,12 @@ public class VolumeBean {
         volume.setEstado("entregue");
         volume.setData_entrega(new Date());
         entityManager.persist(volume);
+        return volume;
+    }
+
+    public Volume findWithSensores(Long id){
+        var volume = this.find(id);
+        Hibernate.initialize(volume.getSensors());
         return volume;
     }
 }
