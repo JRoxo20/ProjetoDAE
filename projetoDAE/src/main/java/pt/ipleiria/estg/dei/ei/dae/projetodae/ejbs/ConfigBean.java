@@ -3,10 +3,14 @@ import jakarta.annotation.PostConstruct;
 import jakarta.ejb.EJB;
 import jakarta.ejb.Singleton;
 import jakarta.ejb.Startup;
+import pt.ipleiria.estg.dei.ei.dae.projetodae.enums.Category;
 
 import java.util.List;
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 62de456fee205584c419aec5f23a395b094f1db9
 @Startup
     @Singleton
     public class ConfigBean {
@@ -23,6 +27,10 @@ import java.util.List;
 
         @EJB
         private VolumeBean volumeBean;
+
+        @EJB
+        private ProductBean productBean;
+
         @PostConstruct
         public void populateDB() {
 
@@ -45,6 +53,9 @@ import java.util.List;
             logisticaBean.create("ctt", "ctt", "ctt@gmail.com", "123456");
 
 
+            productBean.create("Gelado de morango", "Saboroso",1, Category.Alimentar, 12.5);
+            productBean.create("Televisão", "XYZ",1, Category.Eletronico, 112.99);
+            productBean.create("Microondas", "ABC",1, Category.Eletrodomestico, 20.5);
         }
     }
 
