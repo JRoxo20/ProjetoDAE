@@ -7,6 +7,7 @@ import jakarta.persistence.PersistenceContext;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.Encomenda;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.Volume;
 
+import java.util.Date;
 import java.util.List;
 
 @Stateless
@@ -38,13 +39,18 @@ public class VolumeBean {
         return volume;
     }
 
-    public Volume mudarEstado(Long id, String estado)
+    public Volume mudarEstado(Long id)
     {
         var volume = entityManager.find(Volume.class, id);
         if (volume == null) {
             throw new RuntimeException("volume " + id + " not found");
         }
-        volume.setEstado(estado);
+        if (volume.getEstado().compareTo("entregue") == 0)
+        {
+            throw new RuntimeException("volume " + id + " já foi entregue");
+        }
+        volume.setEstado("entregue");
+        volume.setData_entrega(new Date());
         entityManager.persist(volume);
         return volume;
     }

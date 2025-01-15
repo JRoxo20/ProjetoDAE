@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+
 @Entity
 @NamedQueries({
         @NamedQuery(
@@ -20,17 +21,21 @@ import java.util.List;
 public class Encomenda {
     @Id
     private Long id;
-    private int idCliente;
     @OneToMany(mappedBy = "encomenda")
     private List<Volume> volumes;
+
+    private String usernameCliente;
+    @ManyToOne
+    private Client client;
+
+
+
 
     public Long getId() {
         return id;
     }
 
-    public int getIdCliente() {
-        return idCliente;
-    }
+
 
     public List<Volume> getVolumes() {
         return volumes;
@@ -40,8 +45,20 @@ public class Encomenda {
         this.id = id;
     }
 
-    public void setIdCliente(int idCliente) {
-        this.idCliente = idCliente;
+    public String getUsernameCliente() {
+        return usernameCliente;
+    }
+
+    public void setUsernameCliente(String usernameCliente) {
+        this.usernameCliente = usernameCliente;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
     }
 
     public void setVolumes(List<Volume> volumes) {
@@ -51,10 +68,12 @@ public class Encomenda {
     public Encomenda() {
     }
 
-    public Encomenda(Long id, int idCliente) {
+    public Encomenda(Long id, String usernameCliente, Client idCliente) {
         this.id = id;
-        this.idCliente = idCliente;
         this.volumes = new ArrayList<>();
+        this.usernameCliente = usernameCliente;
+        this.client = client;
+
     }
 
     public void addVolume(Volume volume) {

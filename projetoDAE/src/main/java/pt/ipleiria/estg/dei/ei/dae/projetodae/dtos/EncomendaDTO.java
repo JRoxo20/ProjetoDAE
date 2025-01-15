@@ -13,20 +13,22 @@ public class EncomendaDTO implements Serializable {
     private int idCliente;
     private List<Volume> volumes;
 
+    private String usernameCliente;
 
     public EncomendaDTO() {
     }
 
-    public EncomendaDTO(Long id, int idCliente) {
+
+    public EncomendaDTO(Long id, String usernameCliente) {
         this.id = id;
-        this.idCliente = idCliente;
+        this.usernameCliente = usernameCliente;
         volumes = new ArrayList<>();
     }
 
     public static EncomendaDTO from(Encomenda encomenda) {
         return new EncomendaDTO(
                 encomenda.getId(),
-                encomenda.getIdCliente()
+                encomenda.getClient().getUsername()
         );
     }
 
@@ -46,8 +48,8 @@ public class EncomendaDTO implements Serializable {
         this.id = id;
     }
 
-    public void setIdCliente(int idCliente) {
-        this.idCliente = idCliente;
+    public String getUsernameCliente() {
+        return usernameCliente;
     }
 
     public List<Volume> getVolumes() {
@@ -59,5 +61,7 @@ public class EncomendaDTO implements Serializable {
     }
 
 
-
+    public void setUsernameCliente(String usernameCliente) {
+        this.usernameCliente = usernameCliente;
+    }
 }

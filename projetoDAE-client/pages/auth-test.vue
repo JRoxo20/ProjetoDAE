@@ -6,7 +6,7 @@
     <div>Username:
       <input v-model="loginFormData.username"></div>
     <div>Password:
-      <input v-model="loginFormData.password"></div>
+      <input type="password" v-model="loginFormData.password"></div>
     <button @click="login">LOGIN</button>
     <button @click="reset">RESET</button>
   </div>
@@ -32,7 +32,7 @@
     const apiFormData = reactive({
       path: "auth/user"
     })
-    const token = ref(null)
+    const token =ref(null)
     const messages = ref([])
     async function login() {
       reset()
@@ -54,6 +54,8 @@
             })
             if (response.status == 200)
               token.value = response._data
+              sessionStorage.setItem('authToken', token.value); // Armazena o token no sessionStorage
+              console.log("wefw", sessionStorage.getItem('authToken'))
           }
         })
       } catch (e) {
@@ -87,7 +89,3 @@
       }
     }
 </script>
-
-
-
-

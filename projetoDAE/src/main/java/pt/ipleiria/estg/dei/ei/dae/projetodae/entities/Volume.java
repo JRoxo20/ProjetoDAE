@@ -4,6 +4,8 @@ package pt.ipleiria.estg.dei.ei.dae.projetodae.entities;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
+import java.util.Date;
+
 @Entity
 @NamedQueries({
         @NamedQuery(
@@ -20,15 +22,20 @@ public class Volume {
     @ManyToOne
     @NotNull
     private Encomenda encomenda;
+    private Date data_entrega;
     //produtos
     //sensores
 
 
     public Volume(Long id, String estado, String tipo_embalagem, Encomenda encomenda) {
+
+    }
+    public Volume(Long id, String tipo_embalagem) {
         this.id = id;
-        this.estado = estado;
+        this.estado = "em transito";
         this.tipo_embalagem = tipo_embalagem;
         this.encomenda = encomenda;
+        this.data_entrega = null;
     }
 
     public Volume() {
@@ -65,5 +72,17 @@ public class Volume {
 
     public void setEncomenda(Encomenda encomenda) {
         this.encomenda = encomenda;
+    }
+
+    public String getData_entrega() {
+        if(data_entrega == null)
+        {
+            return null;
+        }
+        return data_entrega.toString();
+    }
+
+    public void setData_entrega(Date data_entrega) {
+        this.data_entrega = data_entrega;
     }
 }

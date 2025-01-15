@@ -1,9 +1,10 @@
 package pt.ipleiria.estg.dei.ei.dae.projetodae.ejbs;
 
+import jakarta.ejb.EJB;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import pt.ipleiria.estg.dei.ei.dae.projetodae.dtos.EncomendaDTO;
+import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.Client;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.Encomenda;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.Volume;
 
@@ -14,14 +15,19 @@ public class EncomendaBean {
     @PersistenceContext
     private EntityManager entityManager;
 
+    @EJB
+    private ClientBean clientBean;
+
     // criar encomenda
-    public void create(Long id, int idCliente) {
-        Encomenda encomenda = new Encomenda(id, idCliente);
+
+    public void create(Long id, String usernameCliente) {
+        Client client = clientBean.find(usernameCliente);
+        Encomenda encomenda = new Encomenda(id, usernameCliente, client);
         if(encomenda == null) {
             throw new RuntimeException("Encomenda with id '" + id + "' not found");
         }
         entityManager.persist(encomenda);
-
+        client.addEncomenda(encomenda);
     }
 
 

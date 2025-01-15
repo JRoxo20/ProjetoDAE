@@ -13,6 +13,12 @@ import java.util.List;
         @EJB
         private UserBean userBean;
         @EJB
+        private ClientBean clientBean;
+        @EJB
+        private GestorBean gestorBean;
+        @EJB
+        private LogisticaBean logisticaBean;
+        @EJB
         private EncomendaBean encomendaBean;
 
         @EJB
@@ -22,7 +28,7 @@ import java.util.List;
 
             userBean.create("Vasco", "Vasco", "vasco@gmail.com", "123456");
 
-            encomendaBean.create(1L, 1);
+            encomendaBean.create(1L, "Vasco");
 
 
             //volumes
@@ -31,6 +37,14 @@ import java.util.List;
             volumeBean.create(3L, "a entregar", "isotérmica", 1L);
 
             encomendaBean.enrollVolumeInEncomenda(1L, 1L);
+
+            clientBean.create("joao", "joao", "joao@gmail.com", "123456");
+
+            gestorBean.create("admin", "admin", "admin@gmail.com", "123456", true);
+
+            logisticaBean.create("ctt", "ctt", "ctt@gmail.com", "123456");
+
+
         }
     }
 

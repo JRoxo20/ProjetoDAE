@@ -42,7 +42,7 @@ public class EncomendaService {
     public Response createNewEncomenda (EncomendaDTO encomendaDTO)  {
         encomendaBean.create(
                 encomendaDTO.getId(),
-                encomendaDTO.getIdCliente()
+                encomendaDTO.getUsernameCliente()
         );
 
         Encomenda newEncomenda = encomendaBean.find(encomendaDTO.getId());
