@@ -55,6 +55,7 @@ defineProps({
     default: 'home',
   },
 });
+
 </script>
 
 <style>

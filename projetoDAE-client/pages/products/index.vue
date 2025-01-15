@@ -14,9 +14,7 @@
         <th>Name</th>
         <th>Brand</th>
         <th>Category</th>
-        <th>Quantity</th>
         <th>Price</th>
-        <th>Tools</th>
       </tr>
       </thead>
       <tbody>
@@ -25,10 +23,8 @@
         <td>{{ product.name }}</td>
         <td>{{ product.brand }}</td>
         <td>{{ product.category }}</td>
-        <td>{{ product.quantity }}</td>
         <td>{{ product.price }} €</td>
         <td class="tools">
-          <nuxt-link :to="`/products/${product.id}/edit`" class="update-link" aria-label="Update Product">✏️</nuxt-link>
           <button
               @click.prevent="confirmDelete(product.id)"
               class="delete-button"
@@ -158,8 +154,7 @@ h2 {
 .tools {
   display: flex;
   align-items: center;
-  gap: 10px;
-  justify-content: flex-start;
+  justify-content: center;
 }
 
 

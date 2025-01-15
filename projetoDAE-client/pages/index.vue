@@ -23,6 +23,7 @@
       </div>
     </div>
     <div class="card">
+
       <div class="card-image">
         <img src="/products.png" alt="Products">
       </div>
@@ -49,14 +50,17 @@ import { ref, onMounted } from "vue";
 
 export default {
   name: "IndexPage",
+  components: {
+    Navbar,
+  },
   setup() {
     const username = ref(null);
 
-    // Certifique-se de que este código seja executado no lado do cliente
     onMounted(() => {
       if (typeof window !== "undefined") {
         username.value = sessionStorage.getItem("username") || "Guest";
       }
+
     });
 
     return {
