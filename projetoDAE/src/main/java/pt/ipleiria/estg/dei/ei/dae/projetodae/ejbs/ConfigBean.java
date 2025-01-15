@@ -3,10 +3,12 @@ import jakarta.annotation.PostConstruct;
 import jakarta.ejb.EJB;
 import jakarta.ejb.Singleton;
 import jakarta.ejb.Startup;
+import pt.ipleiria.estg.dei.ei.dae.projetodae.enums.Category;
+
+import java.util.List;
 
 
-
-    @Startup
+@Startup
     @Singleton
     public class ConfigBean {
         @EJB
@@ -22,10 +24,24 @@ import jakarta.ejb.Startup;
 
         @EJB
         private VolumeBean volumeBean;
+
+        @EJB
+        private ProductBean productBean;
+
         @PostConstruct
         public void populateDB() {
 
             userBean.create("Vasco", "Vasco", "vasco@gmail.com", "123456");
+
+            encomendaBean.create(1L, "Vasco");
+
+
+            //volumes
+            volumeBean.create(1L, "em andamento", "isotérmica", 1L);
+            volumeBean.create(2L, "em andamento", "normal", 1L);
+            volumeBean.create(3L, "a entregar", "isotérmica", 1L);
+
+            encomendaBean.enrollVolumeInEncomenda(1L, 1L);
 
             clientBean.create("joao", "joao", "joao@gmail.com", "123456");
 
@@ -33,13 +49,10 @@ import jakarta.ejb.Startup;
 
             logisticaBean.create("ctt", "ctt", "ctt@gmail.com", "123456");
 
-            encomendaBean.create(1, "joao");
 
-
-            //volumes
-            volumeBean.create(1L, "isotérmica");
-            volumeBean.create(2L, "normal");
-            volumeBean.create(3L, "isotérmica");
+            productBean.create("Gelado de morango", "Saboroso", Category.Alimentar, 12.5);
+            productBean.create("Televisão", "XYZ",Category.Eletronico, 112.99);
+            productBean.create("Microondas", "ABC", Category.Eletrodomestico, 20.5);
         }
     }
 
