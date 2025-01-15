@@ -16,13 +16,13 @@ public class ProductBean {
     @PersistenceContext
     private EntityManager entityManager;
 
-    public void create(String name, String brand, int quantity, Category category, Double price) {
+    public void create(String name, String brand, Category category, Double price) {
         if(exists(name)){
             // throw exception
             return;
         }
         try {
-            Product product = new Product(name,brand, quantity, category, price);
+            Product product = new Product(name,brand, category, price);
             entityManager.persist(product);
             entityManager.flush();
         } catch (Exception e) {
@@ -57,23 +57,6 @@ public class ProductBean {
             throw new RuntimeException("Product with ID: " +  id   +  " not found");
         }
         return product;
-    }
-
-    public void update(Long id,String name,String brand, Category category, int quantity, Double price) {
-
-        Product product = entityManager.find(Product.class, findById(id));
-
-        if (product == null) {
-            System.err.println("Error_product_not_found: " + product);
-            return;
-        }
-        entityManager.lock(product, LockModeType.OPTIMISTIC);
-        product.setName(name);
-        product.setBrand(brand);
-        product.setCategory(category);
-        product.setQuantity(quantity);
-        product.setPrice(price);
-
     }
 
     // throws exception

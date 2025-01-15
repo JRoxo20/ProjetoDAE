@@ -21,8 +21,6 @@ public class Product implements Serializable {
     @NotNull
     private String brand;
     @NotNull
-    private int quantity;
-    @NotNull
     private Category category;
     @NotNull
     private Double price;
@@ -34,10 +32,9 @@ public class Product implements Serializable {
     public Product() {
     }
 
-    public Product( String name,String brand, int quantity, Category category, Double price) {
+    public Product( String name,String brand, Category category, Double price) {
         this.brand = brand;
         this.name = name;
-        this.quantity = quantity;
         this.category = category;
         this.price = price;
     }
@@ -64,14 +61,6 @@ public class Product implements Serializable {
 
     public void setBrand( String brand) {
         this.brand = brand;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
     }
 
     public  Category getCategory() {

@@ -40,7 +40,6 @@ public class ProductService {
             productBean.create(
                     productDTO.getName(),
                     productDTO.getBrand(),
-                    productDTO.getQuantity(),
                     productDTO.getCategory(),
                     productDTO.getPrice()
             );
@@ -81,7 +80,6 @@ public class ProductService {
                 productDTO.getName(),
                 productDTO.getBrand(),
                 productDTO.getCategory(),
-                productDTO.getQuantity(),
                 productDTO.getPrice());
         Product product = productBean.findById(productDTO.getId());
         return Response.ok(ProductDTO.from(product)).build();

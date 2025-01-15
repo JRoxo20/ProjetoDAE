@@ -45,9 +45,9 @@ import pt.ipleiria.estg.dei.ei.dae.projetodae.enums.Category;
             volumeBean.create(2L, "normal");
             volumeBean.create(3L, "isotérmica");
 
-            productBean.create("Gelado de morango", "Saboroso",1, Category.Alimentar, 12.5);
-            productBean.create("Televisão", "XYZ",1, Category.Eletronico, 112.99);
-            productBean.create("Microondas", "ABC",1, Category.Eletrodomestico, 20.5);
+            productBean.create("Gelado de morango", "Saboroso", Category.Alimentar, 12.5);
+            productBean.create("Televisão", "XYZ",Category.Eletronico, 112.99);
+            productBean.create("Microondas", "ABC", Category.Eletrodomestico, 20.5);
         }
     }
 
