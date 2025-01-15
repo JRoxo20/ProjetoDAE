@@ -4,9 +4,10 @@ import jakarta.ejb.EJB;
 import jakarta.ejb.Singleton;
 import jakarta.ejb.Startup;
 
+import java.util.List;
 
 
-    @Startup
+@Startup
     @Singleton
     public class ConfigBean {
         @EJB
@@ -21,13 +22,15 @@ import jakarta.ejb.Startup;
 
             userBean.create("Vasco", "Vasco", "vasco@gmail.com", "123456");
 
-            encomendaBean.create(1, 1);
+            encomendaBean.create(1L, 1);
 
 
             //volumes
-            volumeBean.create(1L, "em andamento", "isotérmica");
-            volumeBean.create(2L, "em andamento", "normal");
-            volumeBean.create(3L, "a entregar", "isotérmica");
+            volumeBean.create(1L, "em andamento", "isotérmica", 1L);
+            volumeBean.create(2L, "em andamento", "normal", 1L);
+            volumeBean.create(3L, "a entregar", "isotérmica", 1L);
+
+            encomendaBean.enrollVolumeInEncomenda(1L, 1L);
         }
     }
 

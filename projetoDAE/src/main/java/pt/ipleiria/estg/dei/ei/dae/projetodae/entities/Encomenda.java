@@ -2,7 +2,9 @@ package pt.ipleiria.estg.dei.ei.dae.projetodae.entities;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 @Entity
 @NamedQueries({
@@ -17,12 +19,12 @@ import java.util.LinkedList;
 )
 public class Encomenda {
     @Id
-    private int id;
+    private Long id;
     private int idCliente;
+    @OneToMany(mappedBy = "encomenda")
+    private List<Volume> volumes;
 
-    //private List<Volume> volumes;
-
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
@@ -30,11 +32,11 @@ public class Encomenda {
         return idCliente;
     }
 
-    /*public List<Volume> getVolumes() {
+    public List<Volume> getVolumes() {
         return volumes;
-    }*/
+    }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -42,20 +44,20 @@ public class Encomenda {
         this.idCliente = idCliente;
     }
 
-    /*public void setVolumes(List<Volume> volumes) {
+    public void setVolumes(List<Volume> volumes) {
         this.volumes = volumes;
-    }*/
+    }
 
     public Encomenda() {
     }
 
-    public Encomenda(int id, int idCliente) {
+    public Encomenda(Long id, int idCliente) {
         this.id = id;
         this.idCliente = idCliente;
-        //this.volumes = new List<>();
+        this.volumes = new ArrayList<>();
     }
 
-    /*public void addVolume(Volume volume) {
+    public void addVolume(Volume volume) {
         if(!volumes.contains(volume)){
             volumes.add(volume);
         }
@@ -63,6 +65,6 @@ public class Encomenda {
 
     public void removeVolume(Volume volume) {
         volumes.remove(volume);
-     */
+    }
 
 }

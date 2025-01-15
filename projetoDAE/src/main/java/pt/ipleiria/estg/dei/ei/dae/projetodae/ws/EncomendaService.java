@@ -7,6 +7,7 @@ import jakarta.ws.rs.core.Response;
 import jakarta.ejb.EJB;
 import jakarta.ws.rs.core.MediaType;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.dtos.EncomendaDTO;
+import pt.ipleiria.estg.dei.ei.dae.projetodae.dtos.VolumeDTO;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.ejbs.EncomendaBean;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.Encomenda;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.security.Authenticated;
@@ -27,15 +28,21 @@ public class EncomendaService {
         return EncomendaDTO.from(encomendaBean.findAll());
     }
 
-    /*@POST
+
+    @GET
+    @Path("{id}")
+    public Response getEncomenda(@PathParam("id") Long id) {
+        var encomenda = encomendaBean.find(id);
+        return Response.ok(EncomendaDTO.from(encomenda)).build();
+    }
+
+    @POST
     @Path("/")
     @Consumes(MediaType.APPLICATION_JSON)
-    @Authenticated
     public Response createNewEncomenda (EncomendaDTO encomendaDTO)  {
         encomendaBean.create(
                 encomendaDTO.getId(),
                 encomendaDTO.getIdCliente()
-
         );
 
         Encomenda newEncomenda = encomendaBean.find(encomendaDTO.getId());
@@ -43,7 +50,13 @@ public class EncomendaService {
                 .entity(encomendaDTO.from(newEncomenda))
                 .build();
     }
-    */
 
+
+    @POST
+    @Path("{id}")
+    public Response enrollVolumeInEncomenda(@PathParam("id") Long id, VolumeDTO volumeDTO) {
+        encomendaBean.enrollVolumeInEncomenda(id, volumeDTO.getId());
+        return Response.ok().build();
+    }
 
 }

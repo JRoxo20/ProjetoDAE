@@ -1,21 +1,26 @@
 package pt.ipleiria.estg.dei.ei.dae.projetodae.dtos;
 
 import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.Encomenda;
+import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.Volume;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class EncomendaDTO implements Serializable {
-    private int id;
+    private Long id;
     private int idCliente;
+    private List<Volume> volumes;
+
 
     public EncomendaDTO() {
     }
 
-    public EncomendaDTO(int id, int idCliente) {
+    public EncomendaDTO(Long id, int idCliente) {
         this.id = id;
         this.idCliente = idCliente;
+        volumes = new ArrayList<>();
     }
 
     public static EncomendaDTO from(Encomenda encomenda) {
@@ -29,7 +34,7 @@ public class EncomendaDTO implements Serializable {
         return encomendas.stream().map(EncomendaDTO::from).collect(Collectors.toList());
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
@@ -37,7 +42,7 @@ public class EncomendaDTO implements Serializable {
         return idCliente;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -45,6 +50,13 @@ public class EncomendaDTO implements Serializable {
         this.idCliente = idCliente;
     }
 
+    public List<Volume> getVolumes() {
+        return volumes;
+    }
+
+    public void setVolumes(List<Volume> volumes) {
+        this.volumes = volumes;
+    }
 
 
 
