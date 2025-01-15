@@ -71,21 +71,6 @@ public class ProductService {
 
 
 
-   @POST
-    @Path("{id}/edit")
-    //throws MyEntityNotFoundException, MyConstraintViolationException
-    public Response editProduct(@PathParam("id") Long id, ProductDTO productDTO)  {
-        productBean.update(
-                productDTO.getId(),
-                productDTO.getName(),
-                productDTO.getBrand(),
-                productDTO.getCategory(),
-                productDTO.getPrice());
-        Product product = productBean.findById(productDTO.getId());
-        return Response.ok(ProductDTO.from(product)).build();
-    }
-
-
     // update
     // remove
 }
