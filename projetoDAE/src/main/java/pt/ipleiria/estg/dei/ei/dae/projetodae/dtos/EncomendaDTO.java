@@ -8,20 +8,20 @@ import java.util.stream.Collectors;
 
 public class EncomendaDTO implements Serializable {
     private int id;
-    private int idCliente;
+    private String usernameCliente;
 
     public EncomendaDTO() {
     }
 
-    public EncomendaDTO(int id, int idCliente) {
+    public EncomendaDTO(int id, String usernameCliente) {
         this.id = id;
-        this.idCliente = idCliente;
+        this.usernameCliente = usernameCliente;
     }
 
     public static EncomendaDTO from(Encomenda encomenda) {
         return new EncomendaDTO(
                 encomenda.getId(),
-                encomenda.getIdCliente()
+                encomenda.getClient().getUsername()
         );
     }
 
@@ -33,19 +33,15 @@ public class EncomendaDTO implements Serializable {
         return id;
     }
 
-    public int getIdCliente() {
-        return idCliente;
-    }
-
     public void setId(int id) {
         this.id = id;
     }
 
-    public void setIdCliente(int idCliente) {
-        this.idCliente = idCliente;
+    public String getUsernameCliente() {
+        return usernameCliente;
     }
 
-
-
-
+    public void setUsernameCliente(String usernameCliente) {
+        this.usernameCliente = usernameCliente;
+    }
 }
