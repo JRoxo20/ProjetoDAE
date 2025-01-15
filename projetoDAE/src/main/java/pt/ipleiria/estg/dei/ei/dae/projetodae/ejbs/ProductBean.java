@@ -16,13 +16,17 @@ public class ProductBean {
     @PersistenceContext
     private EntityManager entityManager;
 
-    public void create(String name, String brand, Category category, Double price) {
+    private VolumeBean volumeBean;
+
+    public void create(String name, String brand, Category category, Double price, Long volume_id) {
         if(exists(name)){
             // throw exception
             return;
         }
         try {
-            Product product = new Product(name,brand, category, price);
+            //junção com volumes
+            var volume = volumeBean.find(volume_id);
+            Product product = new Product(name,brand, category, price, volume);
             entityManager.persist(product);
             entityManager.flush();
         } catch (Exception e) {

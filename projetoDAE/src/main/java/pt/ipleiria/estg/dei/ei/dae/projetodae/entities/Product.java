@@ -24,7 +24,9 @@ public class Product implements Serializable {
     private Category category;
     @NotNull
     private Double price;
-
+    @ManyToOne
+    @NotNull
+    private Volume volume;
 
 /*    @Version
     private int version;*/
@@ -32,11 +34,20 @@ public class Product implements Serializable {
     public Product() {
     }
 
-    public Product( String name,String brand, Category category, Double price) {
+    public Product( String name,String brand, Category category, Double price, Volume volume) {
         this.brand = brand;
         this.name = name;
         this.category = category;
         this.price = price;
+        this.volume = volume;
+    }
+
+    public Volume getVolume() {
+        return volume;
+    }
+
+    public void setVolume(Volume volume) {
+        this.volume = volume;
     }
 
     public Long getId() {

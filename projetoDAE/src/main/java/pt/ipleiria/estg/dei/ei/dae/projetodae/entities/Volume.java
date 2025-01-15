@@ -31,26 +31,48 @@ public class Volume {
     //sensores
     @OneToMany(mappedBy = "volume")
     private List<Sensor> sensors;
+    @OneToMany(mappedBy = "volume")
+    private List<Product> produtos;
 
 
     public Volume(Long id, String estado, String tipo_embalagem, Encomenda encomenda) {
-
-    }
-    public Volume(Long id, String tipo_embalagem) {
         this.id = id;
-        this.estado = "em transito";
+        this.estado = estado;
         this.tipo_embalagem = tipo_embalagem;
         this.encomenda = encomenda;
         this.data_entrega = null;
         //this.products = new ArrayList<>();
         this.sensors = new ArrayList<>();
+        this.produtos = new ArrayList<>();
     }
 
     public Volume() {
         //this.products = new ArrayList<>();
         this.sensors = new ArrayList<>();
+        this.produtos = new ArrayList<>();
     }
 
+
+    public List<Product> getProdutos() {
+        return produtos;
+    }
+
+    public void setProdutos(List<Product> produtos) {
+        this.produtos = produtos;
+    }
+
+    public void addProduto(Product product)
+    {
+        if (!produtos.contains(product))
+        {
+            produtos.add(product);
+        }
+    }
+
+    public void removeProduto(Product product)
+    {
+        produtos.remove(product);
+    }
 
     public List<Sensor> getSensors() {
         return sensors;

@@ -68,7 +68,7 @@ public class Encomenda {
     public Encomenda() {
     }
 
-    public Encomenda(Long id, String usernameCliente, Client idCliente) {
+    public Encomenda(Long id, String usernameCliente, Client client) {
         this.id = id;
         this.volumes = new ArrayList<>();
         this.usernameCliente = usernameCliente;

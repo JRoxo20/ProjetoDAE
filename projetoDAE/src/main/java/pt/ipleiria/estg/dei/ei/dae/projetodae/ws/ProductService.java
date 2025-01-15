@@ -41,7 +41,8 @@ public class ProductService {
                     productDTO.getName(),
                     productDTO.getBrand(),
                     productDTO.getCategory(),
-                    productDTO.getPrice()
+                    productDTO.getPrice(),
+                    productDTO.getVolume_id()
             );
 
             Product newProduct = productBean.find(productDTO.getName());

@@ -13,18 +13,28 @@ public class VolumeDTO {
     private String estado;
     private String tipo_embalagem;
     private String data_entrega;
+    private Long encomenda_id;
 
 
-    public VolumeDTO(Long id, String estado, String tipo_embalagem, String data_entrega) {
+    public VolumeDTO(Long id, String estado, String tipo_embalagem, String data_entrega, Long encomenda_id) {
         this.id = id;
         this.estado = estado;
         this.tipo_embalagem = tipo_embalagem;
         this.data_entrega = data_entrega;
+        this.encomenda_id = encomenda_id;
     }
 
     public VolumeDTO() {
     }
 
+
+    public Long getEncomenda_id() {
+        return encomenda_id;
+    }
+
+    public void setEncomenda_id(Long encomenda_id) {
+        this.encomenda_id = encomenda_id;
+    }
 
     public Long getId() {
         return id;
@@ -64,7 +74,8 @@ public class VolumeDTO {
                 volume.getId(),
                 volume.getEstado(),
                 volume.getTipo_embalagem(),
-                volume.getData_entrega()
+                volume.getData_entrega(),
+                volume.getEncomenda().getId()
         );
     }
     // converts an entire list of entities into a list of DTOs

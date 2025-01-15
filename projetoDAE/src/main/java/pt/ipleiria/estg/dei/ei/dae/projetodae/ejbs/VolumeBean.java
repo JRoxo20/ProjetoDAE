@@ -61,4 +61,10 @@ public class VolumeBean {
         Hibernate.initialize(volume.getSensors());
         return volume;
     }
+
+    public Volume findWithProdutos(Long id){
+        var volume = this.find(id);
+        Hibernate.initialize(volume.getSensors());
+        return volume;
+    }
 }

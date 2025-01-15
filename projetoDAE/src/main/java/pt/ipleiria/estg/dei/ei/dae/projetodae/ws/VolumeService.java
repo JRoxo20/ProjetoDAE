@@ -5,6 +5,7 @@ import jakarta.ejb.EJB;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import pt.ipleiria.estg.dei.ei.dae.projetodae.dtos.ProductDTO;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.dtos.SensorDTO;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.dtos.VolumeDTO;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.ejbs.VolumeBean;
@@ -16,13 +17,13 @@ import java.util.List;
 @Path("volumes") // relative url web path for this service
 @Produces({MediaType.APPLICATION_JSON}) // injects header “Content-Type: application/json”
 @Consumes({MediaType.APPLICATION_JSON}) // injects header “Accept: application/json”
-@Authenticated
+//@Authenticated
 public class VolumeService {
     @EJB
     private VolumeBean volumeBean;
     @GET // means: to call this endpoint, we need to use the HTTP GET method
     @Path("/") // means: the relative url path is “/api/student/”
-    public List<VolumeDTO> getAllCourses() {
+    public List<VolumeDTO> getAllVolumes() {
         return VolumeDTO.from(volumeBean.findAll());
     }
 
@@ -35,10 +36,16 @@ public class VolumeService {
 
     /*@GET
     @Path("{id}/sensores")
-    public Response getStudentSubjects(@PathParam("id") Long id) {
+    public Response getVolumeSensores(@PathParam("id") Long id) {
         var volume = volumeBean.findWithSensores(id);
         return Response.ok(SensorDTO.from(volume.getSensors())).build();
     }*/
+
+    @Path("{id}/produtos")
+    public Response getVolumeProdutos(@PathParam("id") Long id) {
+        var volume = volumeBean.findWithSensores(id);
+        return Response.ok(ProductDTO.from(volume.getProdutos())).build();
+    }
 
 
     /*@PATCH
@@ -62,7 +69,10 @@ public class VolumeService {
     public Response create (VolumeDTO volumeDTO) {
         volumeBean.create(
                 volumeDTO.getId(),
-                volumeDTO.getTipo_embalagem()
+                volumeDTO.getEstado(),
+                volumeDTO.getTipo_embalagem(),
+                volumeDTO.getEncomenda_id()
+
         );
 
         Volume newVolume = volumeBean.find(volumeDTO.getId());

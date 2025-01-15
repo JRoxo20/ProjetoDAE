@@ -31,7 +31,8 @@ import java.util.List;
         @PostConstruct
         public void populateDB() {
 
-            userBean.create("Vasco", "Vasco", "vasco@gmail.com", "123456");
+            userBean.create("Vasco2", "Vasco2", "vasco2@gmail.com", "123456");
+            clientBean.create("Vasco", "Vasco", "vasco@gmail.com", "123456");
 
             encomendaBean.create(1L, "Vasco");
 
@@ -50,9 +51,9 @@ import java.util.List;
             logisticaBean.create("ctt", "ctt", "ctt@gmail.com", "123456");
 
 
-            productBean.create("Gelado de morango", "Saboroso", Category.Alimentar, 12.5);
-            productBean.create("Televisão", "XYZ",Category.Eletronico, 112.99);
-            productBean.create("Microondas", "ABC", Category.Eletrodomestico, 20.5);
+            productBean.create("Gelado de morango", "Saboroso", Category.Alimentar, 12.5, 1L);
+            productBean.create("Televisão", "XYZ",Category.Eletronico, 112.99, 2L);
+            productBean.create("Microondas", "ABC", Category.Eletrodomestico, 20.5, 2L);
         }
     }
 
