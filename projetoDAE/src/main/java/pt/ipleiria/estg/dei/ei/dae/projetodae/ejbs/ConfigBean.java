@@ -44,9 +44,6 @@ import java.util.List;
             encomendaBean.create(1L, "Vasco");
             encomendaBean.enrollVolumeInEncomenda(1L, 1L);
 
-            volumeBean.create(1L, "pendente", "caixa", 1L);
-            volumeBean.create(2L, "pendente", "caixa", 1L);
-
             clientBean.create("joao", "joao", "joao@gmail.com", "123456");
 
             gestorBean.create("admin", "admin", "admin@gmail.com", "123456", true);
@@ -63,6 +60,7 @@ import java.util.List;
             volumeBean.create(1L, "em andamento", "isotérmica", 1L);
             volumeBean.create(2L, "em andamento", "normal", 1L);
             volumeBean.create(3L, "a entregar", "isotérmica", 1L);
+
             productBean.create("Gelado de morango", "Saboroso", Category.Alimentar, 12.5, 1L);
             productBean.create("Televisão", "XYZ",Category.Eletronico, 112.99, 2L);
             productBean.create("Microondas", "ABC", Category.Eletrodomestico, 20.5, 2L);
