@@ -6,7 +6,7 @@
     <div>Username:
       <input v-model="loginFormData.username"></div>
     <div>Password:
-      <input v-model="loginFormData.password"></div>
+      <input type="password" v-model="loginFormData.password"></div>
     <button @click="login">LOGIN</button>
     <button @click="reset">RESET</button>
   </div>
@@ -54,8 +54,6 @@
             })
             if (response.status == 200)
               token.value = response._data
-              config.public.token = token.value
-              console.log(config.public.token, token.value)
               sessionStorage.setItem('authToken', token.value); // Armazena o token no sessionStorage
               console.log("wefw", sessionStorage.getItem('authToken'))
           }
@@ -91,7 +89,3 @@
       }
     }
 </script>
-
-
-
-

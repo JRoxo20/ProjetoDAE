@@ -2,6 +2,11 @@ package pt.ipleiria.estg.dei.ei.dae.projetodae.entities;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 @Entity
 @NamedQueries({
@@ -16,19 +21,53 @@ public class Volume {
     private Long id;
     private String estado;
     private String tipo_embalagem;
+    @ManyToOne
+    @NotNull
+    private Encomenda encomenda;
+    private Date data_entrega;
     //produtos
+    //@ManyToMany(mappedBy = "volumes")
+    //private List<Product> products ;
     //sensores
+    @OneToMany(mappedBy = "volume")
+    private List<Sensor> sensors;
 
 
-    public Volume(Long id, String estado, String tipo_embalagem) {
+    public Volume(Long id, String estado, String tipo_embalagem, Encomenda encomenda) {
         this.id = id;
-        this.estado = estado;
+        this.estado = "em transito";
         this.tipo_embalagem = tipo_embalagem;
+        this.encomenda = encomenda;
+        this.data_entrega = null;
+        this.sensors = new ArrayList<>();
     }
 
     public Volume() {
+        //this.products = new ArrayList<>();
+        this.sensors = new ArrayList<>();
     }
 
+
+    public List<Sensor> getSensors() {
+        return sensors;
+    }
+
+    public void setSensors(List<Sensor> sensors) {
+        this.sensors = sensors;
+    }
+
+    public void addSensor(Sensor sensor)
+    {
+        if (!sensors.contains(sensor))
+        {
+            sensors.add(sensor);
+        }
+    }
+
+    public void removeSensor(Sensor sensor)
+    {
+        sensors.remove(sensor);
+    }
 
     public Long getId() {
         return id;
@@ -53,4 +92,26 @@ public class Volume {
     public void setTipo_embalagem(String tipo_embalagem) {
         this.tipo_embalagem = tipo_embalagem;
     }
+
+    public String getData_entrega() {
+        if(data_entrega == null)
+        {
+            return null;
+        }
+        return data_entrega.toString();
+    }
+
+    public void setData_entrega(Date data_entrega) {
+        this.data_entrega = data_entrega;
+    }
+
+
+    public Encomenda getEncomenda() {
+        return encomenda;
+    }
+
+    public void setEncomenda(Encomenda encomenda) {
+        this.encomenda = encomenda;
+    }
+
 }

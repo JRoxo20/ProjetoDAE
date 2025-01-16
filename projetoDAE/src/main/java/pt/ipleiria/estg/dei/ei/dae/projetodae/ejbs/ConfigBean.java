@@ -5,6 +5,9 @@ import jakarta.ejb.Singleton;
 import jakarta.ejb.Startup;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.enums.SensorEstado;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.enums.SensorType;
+import pt.ipleiria.estg.dei.ei.dae.projetodae.enums.Category;
+
+import java.util.List;
 
 
 @Startup
@@ -28,10 +31,24 @@ import pt.ipleiria.estg.dei.ei.dae.projetodae.enums.SensorType;
         private DadoBean dadoBean;
         @EJB
         private VolumeBean volumeBean;
+
+        @EJB
+        private ProductBean productBean;
+
         @PostConstruct
         public void populateDB() {
 
-            userBean.create("Vasco", "Vasco", "vasco@gmail.com", "123456");
+            userBean.create("Vasco1", "Vasco", "vasco@gmail.com", "123456");
+            clientBean.create("Vasco", "Vasco", "Vasco32@gmail.com", "123456");
+
+            //volumes
+
+
+            encomendaBean.create(1L, "Vasco");
+            encomendaBean.enrollVolumeInEncomenda(1L, 1L);
+
+            volumeBean.create(1L, "pendente", "caixa", 1L);
+            volumeBean.create(2L, "pendente", "caixa", 1L);
 
             clientBean.create("joao", "joao", "joao@gmail.com", "123456");
 
@@ -39,7 +56,6 @@ import pt.ipleiria.estg.dei.ei.dae.projetodae.enums.SensorType;
 
             logisticaBean.create("ctt", "ctt", "ctt@gmail.com", "123456");
 
-            encomendaBean.create(1, "joao");
 
             sensorBean.create(SensorEstado.ATIVO, SensorType.TEMPERATURA);
             sensorBean.create(SensorEstado.ATIVO, SensorType.HUMIDADE);
@@ -50,6 +66,9 @@ import pt.ipleiria.estg.dei.ei.dae.projetodae.enums.SensorType;
             volumeBean.create(1L, "em andamento", "isotérmica");
             volumeBean.create(2L, "em andamento", "normal");
             volumeBean.create(3L, "a entregar", "isotérmica");
+            productBean.create("Gelado de morango", "Saboroso", Category.Alimentar, 12.5);
+            productBean.create("Televisão", "XYZ",Category.Eletronico, 112.99);
+            productBean.create("Microondas", "ABC", Category.Eletrodomestico, 20.5);
         }
     }
 
