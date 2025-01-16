@@ -17,7 +17,7 @@ import java.util.List;
 @Path("volumes") // relative url web path for this service
 @Produces({MediaType.APPLICATION_JSON}) // injects header “Content-Type: application/json”
 @Consumes({MediaType.APPLICATION_JSON}) // injects header “Accept: application/json”
-//@Authenticated
+@Authenticated
 public class VolumeService {
     @EJB
     private VolumeBean volumeBean;
@@ -41,9 +41,10 @@ public class VolumeService {
         return Response.ok(SensorDTO.from(volume.getSensors())).build();
     }*/
 
+    @GET
     @Path("{id}/produtos")
     public Response getVolumeProdutos(@PathParam("id") Long id) {
-        var volume = volumeBean.findWithSensores(id);
+        var volume = volumeBean.findWithProdutos(id);
         return Response.ok(ProductDTO.from(volume.getProdutos())).build();
     }
 

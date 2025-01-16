@@ -19,6 +19,9 @@ public class VolumeBean {
     @EJB
     private EncomendaBean encomendaBean;
 
+    @EJB
+    private ProductBean produtoBean;
+
 
     public void create(Long id, String estado, String tipo_embalagem, Long idEncomenda) {
         var encomenda = encomendaBean.find(idEncomenda);
@@ -64,7 +67,7 @@ public class VolumeBean {
 
     public Volume findWithProdutos(Long id){
         var volume = this.find(id);
-        Hibernate.initialize(volume.getSensors());
+        Hibernate.initialize(volume.getProdutos());
         return volume;
     }
 }
