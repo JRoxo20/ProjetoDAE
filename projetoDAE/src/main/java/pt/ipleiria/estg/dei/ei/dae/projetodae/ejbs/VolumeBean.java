@@ -43,7 +43,7 @@ public class VolumeBean {
         return volume;
     }
 
-    public Volume mudarEstado(Long id)
+    public Volume mudarEstado(Long id, String estado)
     {
         var volume = entityManager.find(Volume.class, id);
         if (volume == null) {
@@ -53,8 +53,11 @@ public class VolumeBean {
         {
             throw new RuntimeException("volume " + id + " já foi entregue");
         }
-        volume.setEstado("entregue");
-        volume.setData_entrega(new Date());
+        volume.setEstado(estado);
+        if (volume.getEstado().compareTo("entregue") == 0)
+        {
+            volume.setData_entrega(new Date());
+        }
         entityManager.persist(volume);
         return volume;
     }

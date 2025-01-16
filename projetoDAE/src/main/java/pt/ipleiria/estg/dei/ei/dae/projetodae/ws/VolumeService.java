@@ -49,19 +49,19 @@ public class VolumeService {
     }
 
 
-    /*@PATCH
+    @PATCH
     @Path("{id}/entrega")
     public Response patchEntrega(@PathParam("id") Long id, VolumeDTO volumeDTO) {
         var volume = volumeBean.mudarEstado(id, volumeDTO.getEstado());
         return Response.ok(VolumeDTO.from(volume)).build();
-    }*/
+    }
 
-    @PATCH
+    /*@PATCH
     @Path("{id}/entrega")
     public Response patchEntrega(@PathParam("id") Long id) {
         var volume = volumeBean.mudarEstado(id);
         return Response.ok(VolumeDTO.from(volume)).build();
-    }
+    }*/
 
 
     @POST
