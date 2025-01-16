@@ -24,15 +24,6 @@
         <td>{{ product.brand }}</td>
         <td>{{ product.category }}</td>
         <td>{{ product.price }} €</td>
-        <td class="tools">
-          <button
-              @click.prevent="confirmDelete(product.id)"
-              class="delete-button"
-              aria-label="Delete Product"
-          >
-            🗑️
-          </button>
-        </td>
       </tr>
       </tbody>
     </table>
@@ -56,7 +47,7 @@ async function fetchAllProducts() {
   try {
     const token = sessionStorage.getItem('authToken');
     if (!token) {
-      throw new Error('Token not found. Please login again.');
+      window.location.href = '/login';
     }
     const response = await $fetch(`${api}/products`, {
       method: 'GET',
