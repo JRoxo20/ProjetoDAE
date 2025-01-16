@@ -41,7 +41,6 @@ public class Volume {
         this.tipo_embalagem = tipo_embalagem;
         this.encomenda = encomenda;
         this.data_entrega = null;
-        //this.products = new ArrayList<>();
         this.sensors = new ArrayList<>();
         this.produtos = new ArrayList<>();
     }
@@ -82,7 +81,7 @@ public class Volume {
         this.sensors = sensors;
     }
 
-    public void addSencor(Sensor sensor)
+    public void addSensor(Sensor sensor)
     {
         if (!sensors.contains(sensor))
         {
@@ -119,14 +118,6 @@ public class Volume {
         this.tipo_embalagem = tipo_embalagem;
     }
 
-    public Encomenda getEncomenda() {
-        return encomenda;
-    }
-
-    public void setEncomenda(Encomenda encomenda) {
-        this.encomenda = encomenda;
-    }
-
     public String getData_entrega() {
         if(data_entrega == null)
         {
@@ -138,4 +129,14 @@ public class Volume {
     public void setData_entrega(Date data_entrega) {
         this.data_entrega = data_entrega;
     }
+
+
+    public Encomenda getEncomenda() {
+        return encomenda;
+    }
+
+    public void setEncomenda(Encomenda encomenda) {
+        this.encomenda = encomenda;
+    }
+
 }

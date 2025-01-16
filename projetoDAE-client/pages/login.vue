@@ -1,7 +1,7 @@
 <template>
   <div class="login-page">
     <div class="login-container">
-      <h1>Login Form</h1>
+      <img src="/logotipo.jpg" alt="logotipo" class="logotipo">
 
         <div class="form-group">
           Username:
@@ -11,21 +11,13 @@
           Password:
         <input v-model="loginFormData.password" type="password">
         </div>
-    <button class="btn-login" @click="login">LOGIN</button>
-    <button @click="reset">Reset</button>
-  </div>
-  <div v-if="token">
-    <h2>API Request Form</h2>
-    <div>Request: <code>GET {{ api }}</code>/
-      <input v-model="apiFormData.path"></div>
-    <div>Token: {{ token }}</div>
-    <button @click="sendRequest">SEND REQUEST</button>
-  </div>
-  <div v-if="messages.length > 0">
-    <h2>Messages</h2>
-    <div v-for="message in messages"><pre>{{ message }}</pre></div>
-  </div>
-  </div>
+      <button class="btn-login" @click="login">LOGIN</button>
+      <button @click="reset">Reset</button>
+    </div>
+    <div class="footer">
+      Project made by Cristiano Marques, João Roxo, Maria Malato and Vasco Fernandes
+    </div>
+</div>
 </template>
 <script setup>
 const config = useRuntimeConfig()
@@ -99,12 +91,19 @@ async function sendRequest() {
 }
 </script>
 <style>
+.logotipo {
+  width: 60%;
+  height: auto;
+  display: block;
+  margin: 0 auto 1.5rem auto;
+}
+
 .login-page {
 display: flex;
 justify-content: center;
 align-items: center;
 min-height: 100vh;
-background-color: #f4f4f9;
+background: radial-gradient(circle at center,#89cff0, #007bff, rgba(20, 114, 213, 0.36)); /* Gradiente radial sofisticado */
 }
 
 .login-container {
@@ -163,6 +162,14 @@ cursor: pointer;
 
 .btn-login:hover {
 background-color: #0056b3;
+}
+
+.footer {
+text-align: center;
+position: absolute;
+bottom: 0;
+margin-bottom: 2%;
+  color: black;
 }
 </style>
 

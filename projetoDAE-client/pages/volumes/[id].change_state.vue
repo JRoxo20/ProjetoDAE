@@ -21,7 +21,7 @@ const id = route.params.id
 const token = sessionStorage.getItem('authToken');
 console.log(token)
 if (!token) {
-    throw new Error('Token não encontrado. Faça login novamente.');
+  window.location.href = '/login';
 }
 
 const stateForm = reactive({ 

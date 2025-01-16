@@ -103,6 +103,14 @@ async function create() {
     console.log(e)
   }
 }
+onMounted(() => {
+  const token = sessionStorage.getItem('authToken');
+  if (!token) {
+    window.location.href = '/login';
+  }
+})
+
+
 </script>
 <style scoped>
 .error {
