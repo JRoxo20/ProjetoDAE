@@ -1,6 +1,7 @@
 
 package pt.ipleiria.estg.dei.ei.dae.projetodae.ejbs;
 
+import jakarta.ejb.EJB;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.LockModeType;
@@ -16,18 +17,30 @@ public class ProductBean {
     @PersistenceContext
     private EntityManager entityManager;
 
-    public void create(String name, String brand, Category category, Double price) {
+    @EJB
+    private VolumeBean volumeBean;
+
+    public void create(String name, String brand, Category category, Double price, Long volume_id) {
         if(exists(name)){
             // throw exception
             return;
         }
+        //junção com volumes
+        var volume = volumeBean.find(volume_id);
+        if (volume == null)
+        {
+            return;
+            //throw new MyEntityNotFoundException("volume \"" + volume_id + "\" not found");
+        }
+        Product product = null;
         try {
-            Product product = new Product(name,brand, category, price);
+            product = new Product(name,brand, category, price, volume);
             entityManager.persist(product);
             entityManager.flush();
         } catch (Exception e) {
         // throw exception
         }
+        volume.addProduto(product);
     }
     private boolean exists(String name) {
         String jpql = "SELECT COUNT(p) FROM Product p WHERE p.name = :name";
