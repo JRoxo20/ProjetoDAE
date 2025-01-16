@@ -24,6 +24,7 @@ public class VolumeBean {
         var encomenda = encomendaBean.find(idEncomenda);
         var volume = new Volume(id, estado, tipo_embalagem, encomenda);
         entityManager.persist(volume);
+        encomendaBean.enrollVolumeInEncomenda(idEncomenda, volume.getId());
     }
 
 

@@ -37,7 +37,7 @@ import java.util.List;
             //volumes
 
 
-            encomendaBean.create(1L, "Vasco");
+            encomendaBean.create("Vasco");
             encomendaBean.enrollVolumeInEncomenda(1L, 1L);
 
             volumeBean.create(1L, "pendente", "caixa", 1L);

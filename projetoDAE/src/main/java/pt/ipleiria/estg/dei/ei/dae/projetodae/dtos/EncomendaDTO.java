@@ -10,7 +10,6 @@ import java.util.stream.Collectors;
 
 public class EncomendaDTO implements Serializable {
     private Long id;
-    private int idCliente;
     private List<Volume> volumes;
 
     private String usernameCliente;
@@ -40,9 +39,6 @@ public class EncomendaDTO implements Serializable {
         return id;
     }
 
-    public int getIdCliente() {
-        return idCliente;
-    }
 
     public void setId(Long id) {
         this.id = id;
