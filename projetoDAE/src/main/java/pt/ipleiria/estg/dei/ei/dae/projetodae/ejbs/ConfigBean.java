@@ -3,10 +3,11 @@ import jakarta.annotation.PostConstruct;
 import jakarta.ejb.EJB;
 import jakarta.ejb.Singleton;
 import jakarta.ejb.Startup;
+import pt.ipleiria.estg.dei.ei.dae.projetodae.enums.SensorEstado;
+import pt.ipleiria.estg.dei.ei.dae.projetodae.enums.SensorType;
 
 
-
-    @Startup
+@Startup
     @Singleton
     public class ConfigBean {
         @EJB
@@ -20,6 +21,11 @@ import jakarta.ejb.Startup;
         @EJB
         private EncomendaBean encomendaBean;
 
+        @EJB
+        private SensorBean sensorBean;
+
+        @EJB
+        private DadoBean dadoBean;
         @EJB
         private VolumeBean volumeBean;
         @PostConstruct
@@ -35,7 +41,11 @@ import jakarta.ejb.Startup;
 
             encomendaBean.create(1, "joao");
 
+            sensorBean.create(SensorEstado.ATIVO, SensorType.TEMPERATURA);
+            sensorBean.create(SensorEstado.ATIVO, SensorType.HUMIDADE);
+            sensorBean.create(SensorEstado.INATIVO, SensorType.GPS);
 
+            dadoBean.create("25", "ta calor", 1L);
             //volumes
             volumeBean.create(1L, "em andamento", "isotérmica");
             volumeBean.create(2L, "em andamento", "normal");

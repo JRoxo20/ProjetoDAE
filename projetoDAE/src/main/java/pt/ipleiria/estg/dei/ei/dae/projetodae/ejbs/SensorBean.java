@@ -3,8 +3,12 @@ package pt.ipleiria.estg.dei.ei.dae.projetodae.ejbs;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import org.hibernate.Hibernate;
+import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.Dado;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.Sensor;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.Volume;
+import pt.ipleiria.estg.dei.ei.dae.projetodae.enums.SensorEstado;
+import pt.ipleiria.estg.dei.ei.dae.projetodae.enums.SensorType;
 
 import java.util.List;
 
@@ -14,9 +18,10 @@ public class SensorBean {
     @PersistenceContext
     private EntityManager entityManager;
 
-    public void create(long id, String estado) {
-        var sensor = new Sensor(id, estado);
+    public void create(SensorEstado estado, SensorType tipo) {
+        var sensor = new Sensor(estado, tipo);
         entityManager.persist(sensor);
+
     }
 
     public List<Sensor> findAll() {
@@ -30,6 +35,12 @@ public class SensorBean {
             throw new RuntimeException("sensor " + id + " not found");
         }
         return sensor;
+    }
+
+    public List<Dado> getDados(Long id) {
+        var sensor = find(id);
+        Hibernate.initialize(sensor.getDados());
+        return sensor.getDados();
     }
 
 

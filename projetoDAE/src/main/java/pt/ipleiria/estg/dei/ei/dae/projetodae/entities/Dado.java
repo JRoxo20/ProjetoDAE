@@ -2,6 +2,8 @@ package pt.ipleiria.estg.dei.ei.dae.projetodae.entities;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "dados")
 public class Dado {
@@ -11,7 +13,7 @@ public class Dado {
 
     private String valor;
 
-    private String timestamp;
+    private LocalDateTime timestamp;
 
     private String mensagem;
 
@@ -40,11 +42,11 @@ public class Dado {
         this.valor = valor;
     }
 
-    public String getTimestamp() {
+    public LocalDateTime  getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(String timestamp) {
+    public void setTimestamp(LocalDateTime  timestamp) {
         this.timestamp = timestamp;
     }
 
@@ -61,6 +63,14 @@ public class Dado {
     }
 
     public void setSensor(Sensor sensor) {
+        this.sensor = sensor;
+    }
+
+    public Dado(String valor, String mensagem, Sensor sensor) {
+        this.id = id;
+        this.valor = valor;
+        this.timestamp = LocalDateTime.now();
+        this.mensagem = mensagem;
         this.sensor = sensor;
     }
 }

@@ -9,6 +9,7 @@ C:\Users\xitol\projetoDAE_2024\ProjetoDAE\projetoDAE\src\main\java\pt\ipleiria\e
 C:\Users\xitol\projetoDAE_2024\ProjetoDAE\projetoDAE\src\main\java\pt\ipleiria\estg\dei\ei\dae\projetodae\dtos\VolumeDTO.java
 C:\Users\xitol\projetoDAE_2024\ProjetoDAE\projetoDAE\src\main\java\pt\ipleiria\estg\dei\ei\dae\projetodae\ejbs\ClientBean.java
 C:\Users\xitol\projetoDAE_2024\ProjetoDAE\projetoDAE\src\main\java\pt\ipleiria\estg\dei\ei\dae\projetodae\ejbs\ConfigBean.java
+C:\Users\xitol\projetoDAE_2024\ProjetoDAE\projetoDAE\src\main\java\pt\ipleiria\estg\dei\ei\dae\projetodae\ejbs\DadoBean.java
 C:\Users\xitol\projetoDAE_2024\ProjetoDAE\projetoDAE\src\main\java\pt\ipleiria\estg\dei\ei\dae\projetodae\ejbs\EmailBean.java
 C:\Users\xitol\projetoDAE_2024\ProjetoDAE\projetoDAE\src\main\java\pt\ipleiria\estg\dei\ei\dae\projetodae\ejbs\EncomendaBean.java
 C:\Users\xitol\projetoDAE_2024\ProjetoDAE\projetoDAE\src\main\java\pt\ipleiria\estg\dei\ei\dae\projetodae\ejbs\GestorBean.java
@@ -24,6 +25,8 @@ C:\Users\xitol\projetoDAE_2024\ProjetoDAE\projetoDAE\src\main\java\pt\ipleiria\e
 C:\Users\xitol\projetoDAE_2024\ProjetoDAE\projetoDAE\src\main\java\pt\ipleiria\estg\dei\ei\dae\projetodae\entities\Sensor.java
 C:\Users\xitol\projetoDAE_2024\ProjetoDAE\projetoDAE\src\main\java\pt\ipleiria\estg\dei\ei\dae\projetodae\entities\User.java
 C:\Users\xitol\projetoDAE_2024\ProjetoDAE\projetoDAE\src\main\java\pt\ipleiria\estg\dei\ei\dae\projetodae\entities\Volume.java
+C:\Users\xitol\projetoDAE_2024\ProjetoDAE\projetoDAE\src\main\java\pt\ipleiria\estg\dei\ei\dae\projetodae\enums\SensorEstado.java
+C:\Users\xitol\projetoDAE_2024\ProjetoDAE\projetoDAE\src\main\java\pt\ipleiria\estg\dei\ei\dae\projetodae\enums\SensorType.java
 C:\Users\xitol\projetoDAE_2024\ProjetoDAE\projetoDAE\src\main\java\pt\ipleiria\estg\dei\ei\dae\projetodae\filters\CorsFilter.java
 C:\Users\xitol\projetoDAE_2024\ProjetoDAE\projetoDAE\src\main\java\pt\ipleiria\estg\dei\ei\dae\projetodae\HelloApplication.java
 C:\Users\xitol\projetoDAE_2024\ProjetoDAE\projetoDAE\src\main\java\pt\ipleiria\estg\dei\ei\dae\projetodae\HelloResource.java
