@@ -60,6 +60,7 @@ export default {
   },
   setup() {
     const username = ref(null);
+    const userType = ref(null);
 
     onMounted(() => {
       if (typeof window !== "undefined") {
@@ -67,12 +68,14 @@ export default {
         if(username.value == "Guest"){
           window.location.href = '/login';
         }
+        userType.value = sessionStorage.getItem("userType");
       }
 
     });
 
     return {
       username,
+      userType,
     };
   },
 };

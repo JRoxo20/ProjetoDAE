@@ -54,6 +54,7 @@ async function login() {
         config.public.token = token.value
         console.log(config.public.token, token.value)
         sessionStorage.setItem('username', loginFormData.username)
+        sessionStorage.setItem('dtype', token.value.dtype)
         sessionStorage.setItem('authToken', token.value); // Armazena o token no sessionStorage
         console.log("wefw", sessionStorage.getItem('authToken'))
         window.location.href = '/';
