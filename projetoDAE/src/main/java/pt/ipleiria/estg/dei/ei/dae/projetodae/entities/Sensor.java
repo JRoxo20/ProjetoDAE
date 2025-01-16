@@ -1,6 +1,8 @@
 package pt.ipleiria.estg.dei.ei.dae.projetodae.entities;
 
 import jakarta.persistence.*;
+import pt.ipleiria.estg.dei.ei.dae.projetodae.enums.SensorEstado;
+import pt.ipleiria.estg.dei.ei.dae.projetodae.enums.SensorType;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.ArrayList;
@@ -11,6 +13,18 @@ import java.util.List;
         @NamedQuery(
                 name = "getAllSensores",
                 query = "SELECT s FROM Sensor s ORDER BY s.id" // JPQL
+        ),
+        @NamedQuery(
+                name = "getSensorByType",
+                query = "SELECT s FROM Sensor s WHERE s.tipo = :tipo"
+        ),
+        @NamedQuery(
+                name = "getSensorByEstado",
+                query = "SELECT s FROM Sensor s WHERE s.estado = :estado"
+        ),
+        @NamedQuery(
+                name = "getSensorByTypeAndEstado",
+                query = "SELECT s FROM Sensor s WHERE s.tipo = :tipo AND s.estado = :estado"
         )
 })
 @Table(name = "sensores")
@@ -20,7 +34,9 @@ public class Sensor {
     private Long id;
 
     @Column(nullable = false)
-    private String estado;
+    private SensorEstado estado;
+
+    private SensorType tipo;
 
     // Relacionamento OneToMany com a entidade "Dado"
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "sensor")
@@ -51,11 +67,19 @@ public class Sensor {
         this.id = id;
     }
 
-    public String getEstado() {
+    public SensorType getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(SensorType tipo) {
+        this.tipo = tipo;
+    }
+
+    public SensorEstado getEstado() {
         return estado;
     }
 
-    public void setEstado(String estado) {
+    public void setEstado(SensorEstado estado) {
         this.estado = estado;
     }
 
@@ -78,9 +102,10 @@ public class Sensor {
     }
 
     //constructor
-    public Sensor(Long id, String estado) {
+    public Sensor(SensorEstado estado, SensorType tipo) {
         this.id = id;
         this.estado = estado;
+        this.tipo = tipo;
         this.dados = new ArrayList<>();
     }
 
