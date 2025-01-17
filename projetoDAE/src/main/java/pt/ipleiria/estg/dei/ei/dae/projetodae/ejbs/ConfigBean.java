@@ -55,16 +55,15 @@ import java.util.List;
 
             logisticaBean.create("ctt", "ctt", "ctt@gmail.com", "123456");
 
+            sensorBean.create(1L, SensorType.Temperatura, 1L);
+            sensorBean.create(2L, SensorType.Pressao, 1L);
+            sensorBean.create(3L, SensorType.Gps, 2L);
 
             dadoBean.create("25", "ta calor", 1L);
             dadoBean.create("23", "ta calor", 1L);
             dadoBean.create("26", "ta calor", 1L);
             //volumes
 
-
-            sensorBean.create(1l, SensorType.Temperatura, 1L);
-            sensorBean.create(2l, SensorType.Pressao, 1L);
-            sensorBean.create(3l, SensorType.Gps, 2L);
 
 
             productBean.create("Gelado de morango", "Saboroso", Category.Alimentar, 12.5, 1L);
