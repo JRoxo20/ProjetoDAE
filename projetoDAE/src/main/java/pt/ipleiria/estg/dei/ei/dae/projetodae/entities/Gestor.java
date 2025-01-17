@@ -1,6 +1,7 @@
 package pt.ipleiria.estg.dei.ei.dae.projetodae.entities;
 
 import jakarta.persistence.Entity;
+import pt.ipleiria.estg.dei.ei.dae.projetodae.enums.Role;
 
 import java.io.Serializable;
 @Entity
@@ -12,7 +13,7 @@ public Gestor() {
     }
 
     public Gestor(String username, String password, String name, String email, Boolean isGestor) {
-        super(username, password, name, email);
+        super(username, password, name, email, Role.GESTOR);
         this.isGestor = true;
 
     }

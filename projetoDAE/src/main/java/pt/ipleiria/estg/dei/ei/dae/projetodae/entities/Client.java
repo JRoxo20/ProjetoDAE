@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import pt.ipleiria.estg.dei.ei.dae.projetodae.enums.Role;
 @Entity
 public class Client extends User implements Serializable {
 
@@ -16,7 +17,7 @@ public class Client extends User implements Serializable {
     }
 
     public Client(String username, String password, String name, String email) {
-        super(username, password, name, email);
+        super(username, password, name, email, Role.CLIENTE);
         encomendas = new ArrayList<>();
     }
 

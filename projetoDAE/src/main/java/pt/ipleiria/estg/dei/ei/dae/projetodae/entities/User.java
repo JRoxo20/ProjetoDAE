@@ -2,8 +2,9 @@ package pt.ipleiria.estg.dei.ei.dae.projetodae.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import pt.ipleiria.estg.dei.ei.dae.projetodae.enums.Role;
+
 @Entity
 @Table(name = "users")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -18,6 +19,8 @@ public class User {
     private String email;
     @NotNull
     private String password;
+    @NotNull
+    private Role role;
 
     @Version
     private int version;
@@ -53,11 +56,20 @@ public class User {
         this.password = password;
     }
 
-    public User(String username, String name, String email, String password) {
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public User(String username, String name, String email, String password, Role role) {
         this.username = username;
         this.name = name;
         this.email = email;
         this.password = password;
+        this.role = role;
     }
 
     public User() {

@@ -3,10 +3,11 @@
   <div v-if="error">Error: {{ error.message }}</div>
   <div v-else class="container">
     <h1>Volumes</h1>
-    <div class="buttons">
+    <div v-if="userRole == 'GESTOR'" class="buttons">
       <nuxt-link to="/volumes/create" class="create-button">➕ Create a New Volume</nuxt-link>
       <button @click.prevent="refresh" class="create-button">🔄 Refresh Data</button>
     </div>
+    <br>
     <table class="volumes-table">
       <thead>
         <tr>
@@ -23,11 +24,17 @@
           <td>{{ volume.estado }}</td>
           <td>{{ volume.tipo_embalagem }}</td>
           <td>{{ volume.data_entrega == null ? "por entregar" : volume.data_entrega }}</td>
-          <td class="tools">
+          <td  class="tools">
             <nuxt-link :to="`/volumes/${volume.id}.index`" class="actions"> Details</nuxt-link>
+<<<<<<< HEAD
             <nuxt-link :to="`/volumes/${volume.id}.change_state`">Change State</nuxt-link>
             <nuxt-link :to="`/encomendas/${volume.encomenda_id}.volumes`">Encomenda</nuxt-link>
             <nuxt-link :to="`/volumes/${volume.id}.produtos`">Produtos</nuxt-link>
+=======
+            <nuxt-link v-if="userRole == 'GESTOR'" :to="`/volumes/${volume.id}.change_state`" class="actions">Change State</nuxt-link>
+            <!-- <nuxt-link :to="`/encomendas/${volume.encomenda_id}`">Encomenda</nuxt-link> -->
+            <nuxt-link  :to="`/volumes/${volume.id}.produtos`" class="actions">Produtos</nuxt-link>
+>>>>>>> ddba692971fb3121cf9f44ba3a158ce469368199
             <nuxt-link :to="`/volumes/${volume.id}.sensores`">Sensores</nuxt-link>
 
           </td>
@@ -41,7 +48,6 @@
 import { ref, onMounted } from 'vue';
 import Navbar from "~/components/navbar.vue";
 import 'flowbite/dist/flowbite.css';
-
 
 const config = useRuntimeConfig();
 const api = config.public.API_URL;
@@ -85,7 +91,12 @@ async function refresh() {
 
 // Busca volumes ao montar o componente
 onMounted(async () => {
+  const userRole = ref(null);
   await fetchVolumes();
+    if (typeof window !== 'undefined') {
+      userRole.value = sessionStorage.getItem('userRole');
+
+    }
 });
 </script>
 <style>

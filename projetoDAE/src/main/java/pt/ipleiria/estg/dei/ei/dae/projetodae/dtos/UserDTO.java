@@ -2,6 +2,7 @@ package pt.ipleiria.estg.dei.ei.dae.projetodae.dtos;
 
 import org.hibernate.Hibernate;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.User;
+import pt.ipleiria.estg.dei.ei.dae.projetodae.enums.Role;
 
 import java.io.Serializable;
 import java.util.List;
@@ -12,16 +13,18 @@ public class UserDTO implements Serializable {
     private String name;
     private String email;
     private String password;
+    private Role role;
 
 
     public UserDTO() {
     }
 
-    public UserDTO(String username, String name, String email, String password) {
+    public UserDTO(String username, String name, String email, String password,Role role) {
         this.username = username;
         this.name = name;
         this.email = email;
         this.password = password;
+        this.role = role;
     }
 
 
@@ -62,12 +65,21 @@ public class UserDTO implements Serializable {
         this.password = password;
     }
 
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
     public static UserDTO from(User user) {
         return new UserDTO(
                 user.getUsername(),
                 user.getName(),
                 user.getEmail(),
-                user.getPassword()
+                user.getPassword(),
+                user.getRole()
         );
     }
 }
