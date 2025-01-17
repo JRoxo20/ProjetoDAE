@@ -79,7 +79,7 @@ public class VolumeDTO {
         );
     }
     // converts an entire list of entities into a list of DTOs
-    public static List<VolumeDTO> from(List<Volume> courses) {
-        return courses.stream().map(VolumeDTO::from).collect(Collectors.toList());
+    public static List<VolumeDTO> from(List<Volume> volumes) {
+        return volumes.stream().map(VolumeDTO::from).collect(Collectors.toList());
     }
 }

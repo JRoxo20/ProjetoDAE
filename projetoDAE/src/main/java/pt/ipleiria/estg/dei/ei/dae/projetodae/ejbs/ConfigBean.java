@@ -38,17 +38,17 @@ import java.util.List;
         @PostConstruct
         public void populateDB() {
 
-            userBean.create("Vasco1", "Vasco", "vasco@gmail.com", "123456");
-            clientBean.create("Vasco", "Vasco", "Vasco32@gmail.com", "123456");
+            userBean.create("Vasco2", "Vasco2", "vasco2@gmail.com", "123456");
+            clientBean.create("Vasco", "Vasco", "vasco@gmail.com", "123456");
+
+            encomendaBean.create("Vasco");
 
             //volumes
+            volumeBean.create(1L, "em andamento", "isotérmica", 1L);
+            volumeBean.create(2L, "em andamento", "normal", 1L);
+            volumeBean.create(3L, "a entregar", "isotérmica", 1L);
 
-
-            encomendaBean.create(1L, "Vasco");
             encomendaBean.enrollVolumeInEncomenda(1L, 1L);
-
-            volumeBean.create(1L, "pendente", "caixa", 1L);
-            volumeBean.create(2L, "pendente", "caixa", 1L);
 
             clientBean.create("joao", "joao", "joao@gmail.com", "123456");
 
@@ -57,18 +57,16 @@ import java.util.List;
             logisticaBean.create("ctt", "ctt", "ctt@gmail.com", "123456");
 
 
-            sensorBean.create(SensorEstado.ATIVO, SensorType.TEMPERATURA);
-            sensorBean.create(SensorEstado.ATIVO, SensorType.HUMIDADE);
-            sensorBean.create(SensorEstado.INATIVO, SensorType.GPS);
+            sensorBean.create(SensorEstado.ATIVO, SensorType.TEMPERATURA, 1L);
+            sensorBean.create(SensorEstado.ATIVO, SensorType.HUMIDADE, 1L);
+            sensorBean.create(SensorEstado.INATIVO, SensorType.GPS, 2L);
 
             dadoBean.create("25", "ta calor", 1L);
-            //volumes
-            volumeBean.create(1L, "em andamento", "isotérmica");
-            volumeBean.create(2L, "em andamento", "normal");
-            volumeBean.create(3L, "a entregar", "isotérmica");
-            productBean.create("Gelado de morango", "Saboroso", Category.Alimentar, 12.5);
-            productBean.create("Televisão", "XYZ",Category.Eletronico, 112.99);
-            productBean.create("Microondas", "ABC", Category.Eletrodomestico, 20.5);
+
+
+            productBean.create("Gelado de morango", "Saboroso", Category.Alimentar, 12.5, 1L);
+            productBean.create("Televisão", "XYZ",Category.Eletronico, 112.99, 2L);
+            productBean.create("Microondas", "ABC", Category.Eletrodomestico, 20.5, 2L);
         }
     }
 

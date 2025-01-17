@@ -19,11 +19,15 @@ public class VolumeBean {
     @EJB
     private EncomendaBean encomendaBean;
 
+    @EJB
+    private ProductBean produtoBean;
+
 
     public void create(Long id, String estado, String tipo_embalagem, Long idEncomenda) {
         var encomenda = encomendaBean.find(idEncomenda);
         var volume = new Volume(id, estado, tipo_embalagem, encomenda);
         entityManager.persist(volume);
+        encomendaBean.enrollVolumeInEncomenda(idEncomenda, volume.getId());
     }
 
 
@@ -40,7 +44,7 @@ public class VolumeBean {
         return volume;
     }
 
-    public Volume mudarEstado(Long id)
+    public Volume mudarEstado(Long id, String estado)
     {
         var volume = entityManager.find(Volume.class, id);
         if (volume == null) {
@@ -50,8 +54,11 @@ public class VolumeBean {
         {
             throw new RuntimeException("volume " + id + " já foi entregue");
         }
-        volume.setEstado("entregue");
-        volume.setData_entrega(new Date());
+        volume.setEstado(estado);
+        if (volume.getEstado().compareTo("entregue") == 0)
+        {
+            volume.setData_entrega(new Date());
+        }
         entityManager.persist(volume);
         return volume;
     }
@@ -59,6 +66,12 @@ public class VolumeBean {
     public Volume findWithSensores(Long id){
         var volume = this.find(id);
         Hibernate.initialize(volume.getSensors());
+        return volume;
+    }
+
+    public Volume findWithProdutos(Long id){
+        var volume = this.find(id);
+        Hibernate.initialize(volume.getProdutos());
         return volume;
     }
 }

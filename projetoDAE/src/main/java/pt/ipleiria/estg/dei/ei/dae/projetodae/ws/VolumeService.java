@@ -5,6 +5,7 @@ import jakarta.ejb.EJB;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import pt.ipleiria.estg.dei.ei.dae.projetodae.dtos.ProductDTO;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.dtos.SensorDTO;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.dtos.VolumeDTO;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.ejbs.VolumeBean;
@@ -22,7 +23,7 @@ public class VolumeService {
     private VolumeBean volumeBean;
     @GET // means: to call this endpoint, we need to use the HTTP GET method
     @Path("/") // means: the relative url path is “/api/student/”
-    public List<VolumeDTO> getAllCourses() {
+    public List<VolumeDTO> getAllVolumes() {
         return VolumeDTO.from(volumeBean.findAll());
     }
 
@@ -33,27 +34,34 @@ public class VolumeService {
         return Response.ok(VolumeDTO.from(volume)).build();
     }
 
-    /*@GET
+    @GET
     @Path("{id}/sensores")
-    public Response getStudentSubjects(@PathParam("id") Long id) {
+    public Response getVolumeSensores(@PathParam("id") Long id) {
         var volume = volumeBean.findWithSensores(id);
         return Response.ok(SensorDTO.from(volume.getSensors())).build();
-    }*/
+    }
+
+    @GET
+    @Path("{id}/produtos")
+    public Response getVolumeProdutos(@PathParam("id") Long id) {
+        var volume = volumeBean.findWithProdutos(id);
+        return Response.ok(ProductDTO.from(volume.getProdutos())).build();
+    }
 
 
-    /*@PATCH
+    @PATCH
     @Path("{id}/entrega")
     public Response patchEntrega(@PathParam("id") Long id, VolumeDTO volumeDTO) {
         var volume = volumeBean.mudarEstado(id, volumeDTO.getEstado());
         return Response.ok(VolumeDTO.from(volume)).build();
-    }*/
+    }
 
-    @PATCH
+    /*@PATCH
     @Path("{id}/entrega")
     public Response patchEntrega(@PathParam("id") Long id) {
         var volume = volumeBean.mudarEstado(id);
         return Response.ok(VolumeDTO.from(volume)).build();
-    }
+    }*/
 
 
     @POST
@@ -65,6 +73,7 @@ public class VolumeService {
                 volumeDTO.getEstado(),
                 volumeDTO.getTipo_embalagem(),
                 volumeDTO.getEncomenda_id()
+
         );
 
         Volume newVolume = volumeBean.find(volumeDTO.getId());

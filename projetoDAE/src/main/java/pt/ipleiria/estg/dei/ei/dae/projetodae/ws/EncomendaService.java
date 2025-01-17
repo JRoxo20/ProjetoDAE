@@ -41,7 +41,6 @@ public class EncomendaService {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response createNewEncomenda (EncomendaDTO encomendaDTO)  {
         encomendaBean.create(
-                encomendaDTO.getId(),
                 encomendaDTO.getUsernameCliente()
         );
 

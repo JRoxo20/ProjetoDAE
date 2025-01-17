@@ -102,11 +102,12 @@ public class Sensor {
     }
 
     //constructor
-    public Sensor(SensorEstado estado, SensorType tipo) {
+    public Sensor(SensorEstado estado, SensorType tipo, Volume volume) {
         this.id = id;
         this.estado = estado;
         this.tipo = tipo;
         this.dados = new ArrayList<>();
+        this.volume = volume;
     }
 
 

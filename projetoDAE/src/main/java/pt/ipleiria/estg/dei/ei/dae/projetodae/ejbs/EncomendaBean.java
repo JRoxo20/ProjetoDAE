@@ -20,11 +20,11 @@ public class EncomendaBean {
 
     // criar encomenda
 
-    public void create(Long id, String usernameCliente) {
+    public void create(String usernameCliente) {
         Client client = clientBean.find(usernameCliente);
-        Encomenda encomenda = new Encomenda(id, usernameCliente, client);
+        Encomenda encomenda = new Encomenda(usernameCliente, client);
         if(encomenda == null) {
-            throw new RuntimeException("Encomenda with id '" + id + "' not found");
+            throw new RuntimeException("Encomenda not found");
         }
         entityManager.persist(encomenda);
         client.addEncomenda(encomenda);
