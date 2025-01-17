@@ -9,7 +9,9 @@ import jakarta.ws.rs.core.MediaType;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.dtos.EncomendaDTO;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.dtos.ProductDTO;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.dtos.VolumeDTO;
+import pt.ipleiria.estg.dei.ei.dae.projetodae.ejbs.ClientBean;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.ejbs.EncomendaBean;
+import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.Client;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.Encomenda;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.security.Authenticated;
 
@@ -23,12 +25,22 @@ public class EncomendaService {
     @EJB
     private EncomendaBean encomendaBean;
 
+    @EJB
+    private ClientBean clientBean;
+
+
     @GET // means: to call this endpoint, we need to use the HTTP GET method
     @Path("/") // means: the relative url path is “/api/encomendas/”
     public List<EncomendaDTO> getAllEncomendas() {
         return EncomendaDTO.from(encomendaBean.findAll());
     }
 
+    @GET
+    @Path("{usernamecliente}/myencomendas")
+    public Response getAllEncomendasByClient(@PathParam("usernamecliente") String usernameCliente) {
+        Client client = clientBean.find(usernameCliente);
+        return Response.ok(EncomendaDTO.from(client.getEncomendas())).build();
+    }
 
     @GET
     @Path("{id}")

@@ -12,6 +12,10 @@ import java.util.List;
         @NamedQuery(
                 name = "getAllEncomendas",
                 query = "SELECT e FROM Encomenda e ORDER BY e.id" // JPQL
+        ),
+        @NamedQuery(
+                name = "getAllEncomendasByClient",
+                query = "SELECT e FROM Encomenda e WHERE e.usernameCliente = :usernameCliente ORDER BY e.id" // JPQL
         )
 })
 

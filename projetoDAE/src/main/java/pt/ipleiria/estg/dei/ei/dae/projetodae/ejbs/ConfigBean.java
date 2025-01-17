@@ -41,6 +41,7 @@ import java.util.List;
 
             userBean.create("Vasco2", "Vasco2", "vasco2@gmail.com", "123456", Role.GESTOR);
             clientBean.create("Vasco", "Vasco", "vasco@gmail.com", "123456");
+            clientBean.create("maria", "Maria", "vasco@gmail.com", "123456");
 
             encomendaBean.create(1L, "Vasco");
 
