@@ -1,6 +1,7 @@
 package pt.ipleiria.estg.dei.ei.dae.projetodae.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.enums.VolumeEstado;
@@ -32,8 +33,10 @@ public class Volume {
     //sensores
     @OneToMany(mappedBy = "volume")
     private List<Sensor> sensors;
-    @OneToMany(mappedBy = "volume")
-    private List<Product> produtos;
+    @OneToMany(mappedBy = "volume", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.EAGER)
+    @JsonManagedReference
+    //@OneToMany(mappedBy = "volume")
+    private List<ProdutosNoVolume> produtos;
 
 
     public Volume(Long id, String tipo_embalagem, Encomenda encomenda) {
@@ -53,15 +56,15 @@ public class Volume {
     }
 
 
-    public List<Product> getProdutos() {
+    public List<ProdutosNoVolume> getProdutos() {
         return produtos;
     }
 
-    public void setProdutos(List<Product> produtos) {
+    public void setProdutos(List<ProdutosNoVolume> produtos) {
         this.produtos = produtos;
     }
 
-    public void addProduto(Product product)
+    public void addProduto(ProdutosNoVolume product)
     {
         if (!produtos.contains(product))
         {
@@ -69,7 +72,7 @@ public class Volume {
         }
     }
 
-    public void removeProduto(Product product)
+    public void removeProduto(ProdutosNoVolume product)
     {
         produtos.remove(product);
     }

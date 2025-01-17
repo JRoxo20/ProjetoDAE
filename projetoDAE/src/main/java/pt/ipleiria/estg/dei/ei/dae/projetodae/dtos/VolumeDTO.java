@@ -1,9 +1,11 @@
 package pt.ipleiria.estg.dei.ei.dae.projetodae.dtos;
 
 import jakarta.persistence.Id;
+import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.ProdutosNoVolume;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.Volume;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.enums.VolumeEstado;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,7 +17,17 @@ public class VolumeDTO {
     private String tipo_embalagem;
     private String data_entrega;
     private Long encomenda_id;
+    private List<ProdutosNoVolumeDTO> produtos;
 
+
+    public VolumeDTO(Long id, VolumeEstado estado, String tipo_embalagem, String data_entrega, Long encomenda_id, List<ProdutosNoVolumeDTO> produtos) {
+        this.id = id;
+        this.estado = estado;
+        this.tipo_embalagem = tipo_embalagem;
+        this.data_entrega = data_entrega;
+        this.encomenda_id = encomenda_id;
+        this.produtos = produtos;
+    }
 
     public VolumeDTO(Long id, VolumeEstado estado, String tipo_embalagem, String data_entrega, Long encomenda_id) {
         this.id = id;
@@ -28,6 +40,14 @@ public class VolumeDTO {
     public VolumeDTO() {
     }
 
+
+    public List<ProdutosNoVolumeDTO> getProdutos() {
+        return produtos;
+    }
+
+    public void setProdutos(List<ProdutosNoVolumeDTO> produtos) {
+        this.produtos = produtos;
+    }
 
     public Long getEncomenda_id() {
         return encomenda_id;
@@ -77,6 +97,22 @@ public class VolumeDTO {
                 volume.getTipo_embalagem(),
                 volume.getData_entrega(),
                 volume.getEncomenda().getId()
+        );
+    }
+
+    public static VolumeDTO fromComProdutos(Volume volume) {
+        List<ProdutosNoVolumeDTO> list = new ArrayList<>();
+        for (ProdutosNoVolume produtosNoVolume : volume.getProdutos()) {
+            ProdutosNoVolumeDTO from = ProdutosNoVolumeDTO.from(produtosNoVolume);
+            list.add(from);
+        }
+        return new VolumeDTO(
+                volume.getId(),
+                volume.getEstado(),
+                volume.getTipo_embalagem(),
+                volume.getData_entrega(),
+                volume.getEncomenda().getId(),
+                list
         );
     }
     // converts an entire list of entities into a list of DTOs

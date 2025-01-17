@@ -35,6 +35,8 @@ import java.util.List;
 
         @EJB
         private ProductBean productBean;
+        @EJB
+        private ProdutosNoVolumeBean produtosNoVolumeBean;
 
         @PostConstruct
         public void populateDB() {
@@ -56,20 +58,25 @@ import java.util.List;
             logisticaBean.create("ctt", "ctt", "ctt@gmail.com", "123456");
 
 
-            dadoBean.create("25", "ta calor", 1L);
-            dadoBean.create("23", "ta calor", 1L);
-            dadoBean.create("26", "ta calor", 1L);
-            //volumes
-
-
             sensorBean.create(1l, SensorType.Temperatura, 1L);
             sensorBean.create(2l, SensorType.Pressao, 1L);
             sensorBean.create(3l, SensorType.Gps, 2L);
 
 
-            productBean.create("Gelado de morango", "Saboroso", Category.Alimentar, 12.5, 1L);
-            productBean.create("Televisão", "XYZ",Category.Eletronico, 112.99, 2L);
-            productBean.create("Microondas", "ABC", Category.Eletrodomestico, 20.5, 2L);
+            dadoBean.create("25", "ta calor", 1L);
+            dadoBean.create("23", "ta calor", 1L);
+            dadoBean.create("26", "ta calor", 1L);
+
+
+            productBean.create("Gelado de morango", "Saboroso", Category.Alimentar, 12.5);
+            productBean.create("Televisão", "XYZ",Category.Eletronico, 112.99);
+            productBean.create("Microondas", "ABC", Category.Eletrodomestico, 20.5);
+
+            //produtos em Volumes
+            produtosNoVolumeBean.create(1L, 5, 1L);
+            produtosNoVolumeBean.create(2L, 1, 2L);
+            produtosNoVolumeBean.create(3L, 3, 3L);
+            produtosNoVolumeBean.create(2L, 2, 1L);
 
         }
     }

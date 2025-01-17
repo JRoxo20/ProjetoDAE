@@ -1,5 +1,6 @@
 package pt.ipleiria.estg.dei.ei.dae.projetodae.ws;
 
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.ejb.EJB;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Context;
@@ -8,6 +9,7 @@ import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.SecurityContext;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.dtos.ProductDTO;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.ejbs.ProductBean;
+import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.Gestor;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.Product;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.security.Authenticated;
 
@@ -17,7 +19,7 @@ import java.util.List;
 @Produces({MediaType.APPLICATION_JSON}) // injects header “Content-Type: application/json”
 @Consumes({MediaType.APPLICATION_JSON}) // injects header “Accept: application/json”
 @Authenticated
-
+@RolesAllowed("Gestor")
 public class ProductService {
 
     @EJB
@@ -41,8 +43,8 @@ public class ProductService {
                     productDTO.getName(),
                     productDTO.getBrand(),
                     productDTO.getCategory(),
-                    productDTO.getPrice(),
-                    productDTO.getVolume_id()
+                    productDTO.getPrice()
+                    //productDTO.getVolume_id()
             );
 
             Product newProduct = productBean.find(productDTO.getName());

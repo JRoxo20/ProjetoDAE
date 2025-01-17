@@ -6,8 +6,10 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.dtos.ProductDTO;
+import pt.ipleiria.estg.dei.ei.dae.projetodae.dtos.ProdutosNoVolumeDTO;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.dtos.SensorDTO;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.dtos.VolumeDTO;
+import pt.ipleiria.estg.dei.ei.dae.projetodae.ejbs.ProdutosNoVolumeBean;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.ejbs.VolumeBean;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.Volume;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.security.Authenticated;
@@ -21,6 +23,9 @@ import java.util.List;
 public class VolumeService {
     @EJB
     private VolumeBean volumeBean;
+    @EJB
+    private ProdutosNoVolumeBean produtosNoVolumeBean;
+
     @GET // means: to call this endpoint, we need to use the HTTP GET method
     @Path("/") // means: the relative url path is “/api/student/”
     public List<VolumeDTO> getAllVolumes() {
@@ -45,7 +50,7 @@ public class VolumeService {
     @Path("{id}/produtos")
     public Response getVolumeProdutos(@PathParam("id") Long id) {
         var volume = volumeBean.findWithProdutos(id);
-        return Response.ok(ProductDTO.from(volume.getProdutos())).build();
+        return Response.ok(ProdutosNoVolumeDTO.from(volume.getProdutos())).build();
     }
 
 
@@ -75,9 +80,14 @@ public class VolumeService {
 
         );
 
+        if (volumeDTO.getProdutos() != null && !volumeDTO.getProdutos().isEmpty()) {
+            volumeDTO.getProdutos().forEach(produtosNoVolumeDTO -> produtosNoVolumeBean.create(produtosNoVolumeDTO.getId_produto(), produtosNoVolumeDTO.getQuantidade(), volumeDTO.getId()));
+        }
+
         Volume newVolume = volumeBean.find(volumeDTO.getId());
+
         return Response.status(Response.Status.CREATED)
-                .entity(VolumeDTO.from(newVolume))
+                .entity(VolumeDTO.fromComProdutos(newVolume))
                 .build();
     }
     /*@POST

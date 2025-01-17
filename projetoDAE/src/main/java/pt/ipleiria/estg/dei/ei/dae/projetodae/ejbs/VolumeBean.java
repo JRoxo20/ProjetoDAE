@@ -75,4 +75,49 @@ public class VolumeBean {
         Hibernate.initialize(volume.getProdutos());
         return volume;
     }
+
+
+    /*public void enrollProdutoInVolume(Long produto_id, Long volume_id)
+    {
+        var volume = find(volume_id);
+        if (volume == null) {
+            throw new RuntimeException("volume " + volume_id + " not found");
+        }
+
+        var produto = find(produto_id);
+        if (produto == null) {
+            throw new RuntimeException("produto " + produto_id + " not found");
+        }
+
+        if (student.getSubjects().contains(subject)) {
+            throw new RuntimeException("Student " + username + " is already enrolled in subject "
+                    + subject_code);
+        }
+
+        student.addSubject(subject);
+        subject.addStudent(student);
+    }
+
+
+    public void unrollStudentInSubject(long subjectCode, String studentUsername) {
+        var subject = subjectBean.find(subjectCode);
+        var student = find(studentUsername);
+
+        Course subjectCourse = subject.getCourse();
+        Course studentCourse = student.getCourse();
+
+        if (subjectCourse.equals(studentCourse)) {
+            if (!student.getSubjects().contains(subject)) {
+                throw new RuntimeException("Student " + studentUsername + " is not enrolled in subject "
+                        + subject.getCode());
+            }
+            student.removeSubject(subject);
+            subject.removeStudent(student);
+            subject.getCourse().removeStudent(student);
+        } else {
+            throw new RuntimeException("Student " + studentUsername + " is not enrolled in course "
+                    + subjectCourse.getCode());
+        }
+    }*/
+
 }
