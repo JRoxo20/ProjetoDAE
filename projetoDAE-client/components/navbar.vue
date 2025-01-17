@@ -19,7 +19,13 @@
           Products
         </fwb-navbar-link>
         <fwb-navbar-link
-            link="#"
+            link="/volumes/show"
+            :class="{ active: activePage === 'volumes' }"
+        >
+          Volumes
+        </fwb-navbar-link>
+        <fwb-navbar-link
+            link="/encomendas/show"
             :class="{ active: activePage === 'orders' }"
         >
           Orders
@@ -33,7 +39,7 @@
       </fwb-navbar-collapse>
     </template>
     <template #right-side>
-      <fwb-button>
+      <fwb-button @click="logout()">
         Logout
       </fwb-button>
     </template>
@@ -55,6 +61,12 @@ defineProps({
     default: 'home',
   },
 });
+
+const logout = () => {
+  sessionStorage.removeItem('authToken');
+  sessionStorage.removeItem('username');
+  window.location.href = '/login';
+};
 
 </script>
 
