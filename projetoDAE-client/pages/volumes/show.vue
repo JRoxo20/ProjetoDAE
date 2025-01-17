@@ -1,35 +1,41 @@
 <template>
-  <Navbar  activePage="volumes" />
+  <Navbar activePage="volumes" />
   <div v-if="error">Error: {{ error.message }}</div>
-    <div v-else class="container">
-      <h1>Volumes</h1>
-      <div class="buttons">
-        <nuxt-link to="/volumes/create" class="create-button">➕ Create a New Volume</nuxt-link>
-        <button @click.prevent="refresh" class="create-button">🔄 Refresh Data</button>
-      </div>
-        <table class="volumes-table">
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Status</th>
-                    <th>Tipo de Embalagem</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="volume in volumes" :key="volume.id">
-                    <td>{{ volume.id }}</td>
-                    <td>{{ volume.estado }}</td>
-                    <td>{{ volume.tipo_embalagem }}</td>
-                  <td class="tools">
-                    <nuxt-link :to="`/volumes/${volume.id}.index`" class="actions"> Details</nuxt-link>
-                    <nuxt-link :to="`/volumes/${volume.id}.change_state`">Change State</nuxt-link>
-                  </td>
-
-                </tr>
-            </tbody>
-        </table>
+  <div v-else class="container">
+    <h1>Volumes</h1>
+    <div class="buttons">
+      <nuxt-link to="/volumes/create" class="create-button">➕ Create a New Volume</nuxt-link>
+      <button @click.prevent="refresh" class="create-button">🔄 Refresh Data</button>
     </div>
+    <table class="volumes-table">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Estado</th>
+          <th>Tipo de Embalagem</th>
+          <th>Data de Entrega</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="volume in volumes" :key="volume.id">
+          <td>{{ volume.id }}</td>
+          <td>{{ volume.estado }}</td>
+          <td>{{ volume.tipo_embalagem }}</td>
+          <td>{{ volume.data_entrega == null ? "por entregar" : volume.data_entrega }}</td>
+          <td class="tools">
+            <nuxt-link :to="`/volumes/${volume.id}.index`" class="actions"> Details</nuxt-link>
+            <nuxt-link :to="`/volumes/${volume.id}.change_state`">Change State</nuxt-link>
+            <!-- <nuxt-link :to="`/encomendas/${volume.encomenda_id}`">Encomenda</nuxt-link> -->
+            <nuxt-link :to="`/volumes/${volume.id}.produtos`">Produtos</nuxt-link>
+            <nuxt-link :to="`/volumes/${volume.id}.sensores`">Sensores</nuxt-link>
+
+          </td>
+
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </template>
 <script setup>
 import { ref, onMounted } from 'vue';
@@ -82,9 +88,9 @@ onMounted(async () => {
   await fetchVolumes();
 });
 </script>
-<style >
-h1{
-  font-size:30px;
+<style>
+h1 {
+  font-size: 30px;
   margin-left: 4%;
 }
 
@@ -107,14 +113,14 @@ h1{
   background-color: #0056b3;
 }
 
-.actions{
+.actions {
   margin-right: 10px;
 }
 
-.buttons{
+.buttons {
   display: flex;
-  float:right;
-  gap:10px;
+  float: right;
+  gap: 10px;
 }
 
 h2 {

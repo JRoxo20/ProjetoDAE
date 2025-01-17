@@ -34,12 +34,12 @@ public class VolumeService {
         return Response.ok(VolumeDTO.from(volume)).build();
     }
 
-    /*@GET
+    @GET
     @Path("{id}/sensores")
     public Response getVolumeSensores(@PathParam("id") Long id) {
         var volume = volumeBean.findWithSensores(id);
         return Response.ok(SensorDTO.from(volume.getSensors())).build();
-    }*/
+    }
 
     @GET
     @Path("{id}/produtos")

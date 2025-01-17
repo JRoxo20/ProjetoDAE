@@ -57,9 +57,9 @@ import java.util.List;
             logisticaBean.create("ctt", "ctt", "ctt@gmail.com", "123456");
 
 
-            sensorBean.create(SensorEstado.ATIVO, SensorType.TEMPERATURA);
-            sensorBean.create(SensorEstado.ATIVO, SensorType.HUMIDADE);
-            sensorBean.create(SensorEstado.INATIVO, SensorType.GPS);
+            sensorBean.create(SensorEstado.ATIVO, SensorType.TEMPERATURA, 1L);
+            sensorBean.create(SensorEstado.ATIVO, SensorType.HUMIDADE, 1L);
+            sensorBean.create(SensorEstado.INATIVO, SensorType.GPS, 2L);
 
             dadoBean.create("25", "ta calor", 1L);
 
