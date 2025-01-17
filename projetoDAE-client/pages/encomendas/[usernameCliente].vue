@@ -4,7 +4,6 @@
   <div v-else class="container">
     <h1>Encomendas</h1>
     <div class="buttons">
-      <nuxt-link to="/encomendas/create" class="create-button">➕ Add a New Encomenda</nuxt-link>
       <button @click.prevent="refresh" class="create-button">🔄 Refresh Data</button>
     </div>
     <table class="encomenda-table">
@@ -21,7 +20,7 @@
         <td>{{ encomenda.usernameCliente }}</td>
         <td>{{ encomenda.volumes }}</td>
         <td><nuxt-link :to="`/encomendas/${encomenda.id}.volumes`">Details</nuxt-link></td>
-        <td><nuxt-link :to="`/encomendas/${encomenda.id}.volumes`">➕ Add a New Volume</nuxt-link></td>
+        <td><nuxt-link :to="`/encomendas/${encomenda.id}.volumes`">Volumes</nuxt-link></td>
       </tr>
       </tbody>
     </table>
