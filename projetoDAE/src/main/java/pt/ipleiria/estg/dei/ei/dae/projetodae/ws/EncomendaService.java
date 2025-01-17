@@ -7,6 +7,7 @@ import jakarta.ws.rs.core.Response;
 import jakarta.ejb.EJB;
 import jakarta.ws.rs.core.MediaType;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.dtos.EncomendaDTO;
+import pt.ipleiria.estg.dei.ei.dae.projetodae.dtos.ProductDTO;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.dtos.VolumeDTO;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.ejbs.EncomendaBean;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.Encomenda;
@@ -39,24 +40,37 @@ public class EncomendaService {
     @POST
     @Path("/")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response createNewEncomenda (EncomendaDTO encomendaDTO)  {
-        encomendaBean.create(
-                encomendaDTO.getId(),
-                encomendaDTO.getUsernameCliente()
-        );
+    public Response createNewEncomenda (EncomendaDTO encomendaDTO) throws Exception  {
+        try {
+            encomendaBean.create(
+                    encomendaDTO.getId(),
+                    encomendaDTO.getUsernameCliente());
+            Encomenda newEncomenda = encomendaBean.find(encomendaDTO.getId());
+            return Response.status(Response.Status.CREATED)
+                    .entity(encomendaDTO.from(newEncomenda))
+                    .build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.CONFLICT)
+                    .entity("Encomenda with id: '" + encomendaDTO.getId() + "' already exists")
+                    .build();
+        }
 
-        Encomenda newEncomenda = encomendaBean.find(encomendaDTO.getId());
-        return Response.status(Response.Status.CREATED)
-                .entity(encomendaDTO.from(newEncomenda))
-                .build();
     }
 
 
-    @POST
+    @GET
+    @Path("{id}/volumes")
+    public Response getVolumeProdutos(@PathParam("id") Long id) {
+        var encomenda = encomendaBean.findWithVolumes(id);
+        return Response.ok(VolumeDTO.from(encomenda.getVolumes())).build();
+    }
+
+
+    /*@POST
     @Path("{id}")
     public Response enrollVolumeInEncomenda(@PathParam("id") Long id, VolumeDTO volumeDTO) {
         encomendaBean.enrollVolumeInEncomenda(id, volumeDTO.getId());
         return Response.ok().build();
-    }
+    }*/
 
 }

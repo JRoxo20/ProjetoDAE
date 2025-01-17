@@ -13,6 +13,7 @@
           Home
         </fwb-navbar-link>
         <fwb-navbar-link
+            v-if="userRole != 'CLIENTE'"
             link="/products"
             :class="{ active: activePage === 'products' }"
         >
@@ -28,6 +29,7 @@
             link="/encomendas/show"
             :class="{ active: activePage === 'orders' }"
         >
+
           Orders
         </fwb-navbar-link>
         <fwb-navbar-link
@@ -54,6 +56,9 @@ import {
   FwbNavbarLink,
   FwbNavbarLogo,
 } from 'flowbite-vue';
+import { defineProps } from 'vue';
+
+const userRole = ref(null);
 
 defineProps({
   activePage: {
@@ -67,6 +72,11 @@ const logout = () => {
   sessionStorage.removeItem('username');
   window.location.href = '/login';
 };
+onMounted(() => {
+  if (typeof window !== 'undefined') {
+    userRole.value = sessionStorage.getItem('userRole');
+  }
+});
 
 </script>
 

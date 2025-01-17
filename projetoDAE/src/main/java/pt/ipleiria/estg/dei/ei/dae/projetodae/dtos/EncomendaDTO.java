@@ -1,18 +1,16 @@
 package pt.ipleiria.estg.dei.ei.dae.projetodae.dtos;
 
+import jakarta.persistence.Id;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.Encomenda;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.Volume;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class EncomendaDTO implements Serializable {
+    @Id
     private Long id;
-    private int idCliente;
-    private List<Volume> volumes;
-
     private String usernameCliente;
 
     public EncomendaDTO() {
@@ -22,7 +20,6 @@ public class EncomendaDTO implements Serializable {
     public EncomendaDTO(Long id, String usernameCliente) {
         this.id = id;
         this.usernameCliente = usernameCliente;
-        volumes = new ArrayList<>();
     }
 
     public static EncomendaDTO from(Encomenda encomenda) {
@@ -40,9 +37,6 @@ public class EncomendaDTO implements Serializable {
         return id;
     }
 
-    public int getIdCliente() {
-        return idCliente;
-    }
 
     public void setId(Long id) {
         this.id = id;
@@ -52,13 +46,6 @@ public class EncomendaDTO implements Serializable {
         return usernameCliente;
     }
 
-    public List<Volume> getVolumes() {
-        return volumes;
-    }
-
-    public void setVolumes(List<Volume> volumes) {
-        this.volumes = volumes;
-    }
 
 
     public void setUsernameCliente(String usernameCliente) {

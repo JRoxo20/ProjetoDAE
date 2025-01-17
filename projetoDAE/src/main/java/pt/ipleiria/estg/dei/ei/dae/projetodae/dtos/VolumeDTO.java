@@ -2,6 +2,7 @@ package pt.ipleiria.estg.dei.ei.dae.projetodae.dtos;
 
 import jakarta.persistence.Id;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.Volume;
+import pt.ipleiria.estg.dei.ei.dae.projetodae.enums.VolumeEstado;
 
 import java.util.Date;
 import java.util.List;
@@ -10,13 +11,13 @@ import java.util.stream.Collectors;
 public class VolumeDTO {
     @Id
     private Long id;
-    private String estado;
+    private VolumeEstado estado;
     private String tipo_embalagem;
     private String data_entrega;
     private Long encomenda_id;
 
 
-    public VolumeDTO(Long id, String estado, String tipo_embalagem, String data_entrega, Long encomenda_id) {
+    public VolumeDTO(Long id, VolumeEstado estado, String tipo_embalagem, String data_entrega, Long encomenda_id) {
         this.id = id;
         this.estado = estado;
         this.tipo_embalagem = tipo_embalagem;
@@ -44,11 +45,11 @@ public class VolumeDTO {
         this.id = id;
     }
 
-    public String getEstado() {
+    public VolumeEstado getEstado() {
         return estado;
     }
 
-    public void setEstado(String estado) {
+    public void setEstado(VolumeEstado estado) {
         this.estado = estado;
     }
 
@@ -79,7 +80,7 @@ public class VolumeDTO {
         );
     }
     // converts an entire list of entities into a list of DTOs
-    public static List<VolumeDTO> from(List<Volume> courses) {
-        return courses.stream().map(VolumeDTO::from).collect(Collectors.toList());
+    public static List<VolumeDTO> from(List<Volume> volumes) {
+        return volumes.stream().map(VolumeDTO::from).collect(Collectors.toList());
     }
 }

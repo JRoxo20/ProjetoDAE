@@ -3,6 +3,7 @@ package pt.ipleiria.estg.dei.ei.dae.projetodae.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import pt.ipleiria.estg.dei.ei.dae.projetodae.enums.VolumeEstado;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -19,7 +20,7 @@ import java.util.List;
 public class Volume {
     @Id
     private Long id;
-    private String estado;
+    private VolumeEstado estado;
     private String tipo_embalagem;
     @ManyToOne
     @NotNull
@@ -31,22 +32,47 @@ public class Volume {
     //sensores
     @OneToMany(mappedBy = "volume")
     private List<Sensor> sensors;
+    @OneToMany(mappedBy = "volume")
+    private List<Product> produtos;
 
 
-    public Volume(Long id, String estado, String tipo_embalagem, Encomenda encomenda) {
+    public Volume(Long id, String tipo_embalagem, Encomenda encomenda) {
         this.id = id;
-        this.estado = "em transito";
+        this.estado = VolumeEstado.Em_Transito;
         this.tipo_embalagem = tipo_embalagem;
         this.encomenda = encomenda;
         this.data_entrega = null;
         this.sensors = new ArrayList<>();
+        this.produtos = new ArrayList<>();
     }
 
     public Volume() {
         //this.products = new ArrayList<>();
         this.sensors = new ArrayList<>();
+        this.produtos = new ArrayList<>();
     }
 
+
+    public List<Product> getProdutos() {
+        return produtos;
+    }
+
+    public void setProdutos(List<Product> produtos) {
+        this.produtos = produtos;
+    }
+
+    public void addProduto(Product product)
+    {
+        if (!produtos.contains(product))
+        {
+            produtos.add(product);
+        }
+    }
+
+    public void removeProduto(Product product)
+    {
+        produtos.remove(product);
+    }
 
     public List<Sensor> getSensors() {
         return sensors;
@@ -77,11 +103,11 @@ public class Volume {
         this.id = id;
     }
 
-    public String getEstado() {
+    public VolumeEstado getEstado() {
         return estado;
     }
 
-    public void setEstado(String estado) {
+    public void setEstado(VolumeEstado estado) {
         this.estado = estado;
     }
 

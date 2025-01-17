@@ -4,6 +4,7 @@ import jakarta.ejb.EJB;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import org.hibernate.Hibernate;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.Client;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.Encomenda;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.Volume;
@@ -24,7 +25,7 @@ public class EncomendaBean {
         Client client = clientBean.find(usernameCliente);
         Encomenda encomenda = new Encomenda(id, usernameCliente, client);
         if(encomenda == null) {
-            throw new RuntimeException("Encomenda with id '" + id + "' not found");
+            throw new RuntimeException("Encomenda not found");
         }
         entityManager.persist(encomenda);
         client.addEncomenda(encomenda);
@@ -40,6 +41,12 @@ public class EncomendaBean {
         if (encomenda == null) {
             throw new RuntimeException("encomenda " + id + " not found");
         }
+        return encomenda;
+    }
+
+    public Encomenda findWithVolumes(Long id){
+        var encomenda = this.find(id);
+        Hibernate.initialize(encomenda.getVolumes());
         return encomenda;
     }
 

@@ -82,7 +82,8 @@ public class SensorService {
         try{
             sensorBean.create(
                     sensorDTO.getId(),
-                    sensorDTO.getTipo()
+                    sensorDTO.getTipo(),
+                    sensorDTO.getVolume_id()
             );
 
             Sensor newSensor = sensorBean.find(sensorDTO.getId());

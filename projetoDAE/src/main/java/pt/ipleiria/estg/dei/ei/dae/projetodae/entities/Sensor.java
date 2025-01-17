@@ -103,11 +103,15 @@ public class Sensor implements Serializable {
     }
 
     //constructor
-    public Sensor(Long id, SensorType tipo) {
+
+
+
+    public Sensor(Long id ,SensorType tipo, Volume volume) {
         this.id = id;
         this.estado = SensorEstado.ATIVO;
         this.tipo = tipo;
         this.dados = new ArrayList<>();
+        this.volume = volume;
     }
 
 
