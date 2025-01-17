@@ -70,6 +70,7 @@ defineProps({
 const logout = () => {
   sessionStorage.removeItem('authToken');
   sessionStorage.removeItem('username');
+  sessionStorage.removeItem('userRole');
   window.location.href = '/login';
 };
 onMounted(() => {
