@@ -70,7 +70,6 @@ public class VolumeService {
     public Response create (VolumeDTO volumeDTO) {
         volumeBean.create(
                 volumeDTO.getId(),
-                volumeDTO.getEstado(),
                 volumeDTO.getTipo_embalagem(),
                 volumeDTO.getEncomenda_id()
 

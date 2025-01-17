@@ -20,7 +20,8 @@
         <td>{{ encomenda.id }}</td>
         <td>{{ encomenda.usernameCliente }}</td>
         <td>{{ encomenda.volumes }}</td>
-        <td><nuxt-link :to="`/encomendas/${encomenda.id}.index`">Details</nuxt-link><nuxt-link :to="`/encomendas/${encomenda.id}.change_state`">Change State</nuxt-link></td>
+        <td><nuxt-link :to="`/encomendas/${encomenda.id}.volumes`">Details</nuxt-link></td>
+        <td><nuxt-link :to="`/encomendas/${encomenda.id}.volumes`">➕ Add a New Volume</nuxt-link></td>
       </tr>
       </tbody>
     </table>

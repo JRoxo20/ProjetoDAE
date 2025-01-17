@@ -26,7 +26,7 @@
           <td class="tools">
             <nuxt-link :to="`/volumes/${volume.id}.index`" class="actions"> Details</nuxt-link>
             <nuxt-link :to="`/volumes/${volume.id}.change_state`">Change State</nuxt-link>
-            <!-- <nuxt-link :to="`/encomendas/${volume.encomenda_id}`">Encomenda</nuxt-link> -->
+            <nuxt-link :to="`/encomendas/${volume.encomenda_id}.volumes`">Encomenda</nuxt-link>
             <nuxt-link :to="`/volumes/${volume.id}.produtos`">Produtos</nuxt-link>
             <nuxt-link :to="`/volumes/${volume.id}.sensores`">Sensores</nuxt-link>
 

@@ -1,8 +1,12 @@
 <template>
     <h2>Add new Encomenda</h2>
   <form @submit.prevent="create">
+      <div>Id:
+        <input v-model.trim="encomendaForm.id" type="text">
+        <span v-if="idError" class="error">
+ ERROR: {{ idError }}</span></div>
     <div>Client Username:
-      <input v-model.trim="encomendaForm.name" type="text">
+      <input v-model.trim="encomendaForm.usernameCliente" type="text">
       <span v-if="nameError" class="error">
  ERROR: {{ nameError }}</span></div>
     <button type="reset">RESET</button>
@@ -13,7 +17,8 @@
 </template>
 <script setup>
 const encomendaForm = reactive({
-  name: null
+  id: null,
+  usernameCliente: null
 })
 const messages = ref([])
 const config = useRuntimeConfig()
@@ -21,17 +26,25 @@ const api = config.public.API_URL
 const { data: orders } = await useFetch(`${api}/encomendas`)
 // Field validation rules...
 const nameError = computed(() => {
-  if (encomendaForm.name === null) return null
-  if (! encomendaForm.name )
+  if (encomendaForm.usernameCliente === null) return null
+  if (! encomendaForm.usernameCliente )
     return 'Name is required'
-  if ( encomendaForm.name.length < 3 )
+  if ( encomendaForm.usernameCliente.length < 3 )
     return 'Name must be at least 3 characters'
+  return null
+})
+const idError = computed(() => {
+  if (encomendaForm.id === null) return null
+  if ( ! encomendaForm.id )
+    return 'id is required'
+  if ( ! encomendaForm.id <0 )
+    return 'id is required to be greater than 0'
   return null
 })
 
 
 const isFormInvalid = computed(() => {
-  return nameError.value
+  return nameError.value || idError.value
 })
 async function create() {
   try {

@@ -14,10 +14,6 @@
       </select>
       <span v-if="categoryError" class="error">
  ERROR: {{ categoryError }}</span></div>
-    <div>Quantity:
-      <input v-model.trim="productForm.quantity" type="text">
-      <span v-if="quantityError" class="error">
- ERROR: {{ quantityError }}</span></div>
     <div>Price:
       <input v-model.trim="productForm.price" type="text">
       <span v-if="priceError" class="error">
@@ -32,7 +28,6 @@
 const productForm = reactive({
   name: null,
   category: null,
-  quantity: null,
   price: null
 })
 const messages = ref([])
@@ -53,21 +48,9 @@ const categoryError = computed(() => {
   if ( ! productForm.category )
     return 'Category is required'
 
-  if ( productForm.category != "Alimentar" || productForm.category != "Eletrodomestico"  )
-    return 'Category must be Alimentar or Eletrodomestico'
-
   return null
 })
-const quantityError = computed(() => {
-  if (productForm.quantity === null) return null
-  if ( ! productForm.quantity )
-    return 'quantity is required'
 
-  if ( productForm.quantity< 1 )
-    return 'quantity is required to be greater than 0'
-
-  return null
-})
 const priceError = computed(() => {
   if (productForm.price === null) return null
   if ( ! productForm.price )
@@ -80,12 +63,11 @@ const priceError = computed(() => {
 const isFormInvalid = computed(() => {
   return nameError.value
       || categoryError.value
-      || quantityError.value
       || priceError.value
 })
 async function create() {
   try {
-    await $fetch(`${api}/product`, {
+    await $fetch(`${api}/products`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: productForm,

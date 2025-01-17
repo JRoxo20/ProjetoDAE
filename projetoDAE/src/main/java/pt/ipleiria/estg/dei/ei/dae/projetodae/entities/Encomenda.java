@@ -20,7 +20,6 @@ import java.util.List;
 )
 public class Encomenda {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @OneToMany(mappedBy = "encomenda")
     private List<Volume> volumes;
@@ -69,7 +68,8 @@ public class Encomenda {
     public Encomenda() {
     }
 
-    public Encomenda(String usernameCliente, Client client) {
+    public Encomenda(Long id,String usernameCliente, Client client) {
+        this.id = id;
         this.volumes = new ArrayList<>();
         this.usernameCliente = usernameCliente;
         this.client = client;

@@ -12,6 +12,7 @@ pt\ipleiria\estg\dei\ei\dae\projetodae\entities\User.class
 pt\ipleiria\estg\dei\ei\dae\projetodae\entities\Volume.class
 pt\ipleiria\estg\dei\ei\dae\projetodae\ws\AuthService.class
 pt\ipleiria\estg\dei\ei\dae\projetodae\entities\Logistica.class
+pt\ipleiria\estg\dei\ei\dae\projetodae\enums\VolumeEstado.class
 pt\ipleiria\estg\dei\ei\dae\projetodae\ejbs\ConfigBean.class
 pt\ipleiria\estg\dei\ei\dae\projetodae\HelloApplication.class
 pt\ipleiria\estg\dei\ei\dae\projetodae\dtos\NewPasswordDTO.class

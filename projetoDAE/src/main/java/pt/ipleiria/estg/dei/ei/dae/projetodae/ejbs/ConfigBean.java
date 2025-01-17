@@ -41,14 +41,12 @@ import java.util.List;
             userBean.create("Vasco2", "Vasco2", "vasco2@gmail.com", "123456");
             clientBean.create("Vasco", "Vasco", "vasco@gmail.com", "123456");
 
-            encomendaBean.create("Vasco");
+            encomendaBean.create(1L, "Vasco");
 
             //volumes
-            volumeBean.create(1L, "em andamento", "isotérmica", 1L);
-            volumeBean.create(2L, "em andamento", "normal", 1L);
-            volumeBean.create(3L, "a entregar", "isotérmica", 1L);
-
-            encomendaBean.enrollVolumeInEncomenda(1L, 1L);
+            volumeBean.create(1L,  "isotérmica", 1L);
+            volumeBean.create(2L,  "normal", 1L);
+            volumeBean.create(3L,  "isotérmica", 1L);
 
             clientBean.create("joao", "joao", "joao@gmail.com", "123456");
 
