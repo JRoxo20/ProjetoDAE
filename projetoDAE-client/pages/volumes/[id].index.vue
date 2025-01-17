@@ -19,6 +19,8 @@
 </template>
 
 <script setup>
+import {onMounted} from "vue";
+
 const route = useRoute()
 const id = route.params.id
 const config = useRuntimeConfig()
@@ -41,6 +43,13 @@ const { data: volume, error: volumeErr } = await useFetch(`${api}/volumes/${id}`
 const messages = ref([])
 if (volumeErr.value) messages.value.push(volumeErr.value)
 
+const userRole = ref(null);
+onMounted(() => {
+  if (typeof window !== "undefined") {
+    userRole.value = sessionStorage.getItem("role");
+  }
+
+});
 </script>
 
 <style scoped>

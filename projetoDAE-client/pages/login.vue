@@ -53,8 +53,8 @@ async function login() {
           token.value = response._data
         config.public.token = token.value
         console.log(config.public.token, token.value)
+        fetchUser()
         sessionStorage.setItem('username', loginFormData.username)
-        sessionStorage.setItem('dtype', token.value.dtype)
         sessionStorage.setItem('authToken', token.value); // Armazena o token no sessionStorage
         console.log("wefw", sessionStorage.getItem('authToken'))
         window.location.href = '/';
@@ -68,7 +68,7 @@ function reset() {
   token.value = null
   messages.value = []
 }
-async function sendRequest() {
+async function fetchUser() {
   try {
     await $fetch(`${api}/${apiFormData.path}`, {
       method: 'GET',
@@ -84,6 +84,10 @@ async function sendRequest() {
           statusText: response.statusText,
           payload: response._data
         })
+        const role = response._data.role;
+        if (role) {
+          sessionStorage.setItem('role', role);
+        }
       }
     })
   } catch (e) {

@@ -63,8 +63,12 @@ async function refresh() {
     await fetchSensores();
 }
 
+const userRole = ref(null);
 onMounted(async () => {
     await fetchSensores();
+    if(typeof window !== 'undefined') {
+      userRole.value = sessionStorage.getItem('userRole');
+    }
 });
 </script>
 <style>

@@ -10,8 +10,15 @@
           <img src="/orders.png" alt="Orders">
         </div>
         <div class="card-content">
-          <h2>Orders</h2>
-          <p>View and manage your orders.</p>
+          <div v-if="userRole =='GESTOR'">
+            <h2>All Orders</h2>
+            <p>View and manage all orders.</p>
+          </div>
+          <div v-if="userRole == 'CLIENTE'">
+            <h2>My Orders</h2>
+            <p>View and manage your orders.</p>
+          </div>
+
         </div>
       </NuxtLink>
       <NuxtLink to="/sensors" class="card">
@@ -19,17 +26,23 @@
           <img src="/sensor.png" alt="Sensors">
         </div>
         <div class="card-content">
-          <h2>Sensors</h2>
-          <p>Monitor sensor data in real-time.</p>
+          <div v-if="userRole =='GESTOR'">
+            <h2>Sensors</h2>
+            <p>Monitor sensor data in all orders.</p>
+          </div>
+          <div v-if="userRole =='CLIENTE'">
+            <h2>Sensors</h2>
+            <p>Monitor sensor data in your orders. </p>
+          </div>
         </div>
       </NuxtLink>
-      <NuxtLink to="/products" class="card">
+      <NuxtLink v-if="userRole !='CLIENTE'" to="/products" class="card">
         <div class="card-image">
           <img src="/products.png" alt="Products">
         </div>
         <div class="card-content">
-          <h2>Products</h2>
-          <p>Manage your product inventory.</p>
+            <h2>Products</h2>
+            <p>Manage your product inventory.</p>
         </div>
       </NuxtLink>
       <NuxtLink to="/volumes/show" class="card">
@@ -37,8 +50,15 @@
           <img src="/volume.png" alt="Volume">
         </div>
         <div class="card-content">
-          <h2>Volume</h2>
-          <p>Analyze storage and shipping volumes.</p>
+          <div v-if="userRole =='GESTOR'">
+            <h2>Volumes</h2>
+            <p>Analyze storage and shipping volumes.</p>
+          </div>
+          <div v-if="userRole =='CLIENTE'">
+            <h2>Volumes</h2>
+            <p>Analyze your order's volumes.</p>
+          </div>
+
         </div>
       </NuxtLink>
     </div>
@@ -60,7 +80,7 @@ export default {
   },
   setup() {
     const username = ref(null);
-    const userType = ref(null);
+    const userRole = ref(null);
 
     onMounted(() => {
       if (typeof window !== "undefined") {
@@ -68,14 +88,14 @@ export default {
         if(username.value == "Guest"){
           window.location.href = '/login';
         }
-        userType.value = sessionStorage.getItem("userType");
+        userRole.value = sessionStorage.getItem("role");
       }
 
     });
 
     return {
       username,
-      userType,
+      userRole,
     };
   },
 };
