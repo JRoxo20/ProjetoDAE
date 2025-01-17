@@ -43,7 +43,7 @@ import java.util.List;
             clientBean.create("Vasco", "Vasco", "vasco@gmail.com", "123456");
             clientBean.create("maria", "Maria", "vasco@gmail.com", "123456");
 
-            encomendaBean.create(1L, "Vasco");
+            encomendaBean.create(1L, "maria");
 
             //volumes
             volumeBean.create(1L,  "isotérmica", 1L);

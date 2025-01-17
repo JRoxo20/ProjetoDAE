@@ -5,10 +5,13 @@ import jakarta.ejb.EJB;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import pt.ipleiria.estg.dei.ei.dae.projetodae.dtos.EncomendaDTO;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.dtos.ProductDTO;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.dtos.SensorDTO;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.dtos.VolumeDTO;
+import pt.ipleiria.estg.dei.ei.dae.projetodae.ejbs.ClientBean;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.ejbs.VolumeBean;
+import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.Client;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.Volume;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.security.Authenticated;
 
@@ -21,11 +24,25 @@ import java.util.List;
 public class VolumeService {
     @EJB
     private VolumeBean volumeBean;
+
+    @EJB
+    private ClientBean clientBean;
+
+
     @GET // means: to call this endpoint, we need to use the HTTP GET method
     @Path("/") // means: the relative url path is “/api/student/”
     public List<VolumeDTO> getAllVolumes() {
         return VolumeDTO.from(volumeBean.findAll());
     }
+
+
+    @GET
+    @Path("{usernamecliente}/myvolumes")
+    public List<VolumeDTO> getAllVolumesByClient(@PathParam("usernamecliente") String usernameCliente) {
+        return VolumeDTO.from(volumeBean.findAllByCliente(usernameCliente));
+    }
+
+
 
     @GET
     @Path("{id}")
