@@ -13,7 +13,10 @@ pt\ipleiria\estg\dei\ei\dae\projetodae\entities\User.class
 pt\ipleiria\estg\dei\ei\dae\projetodae\entities\Volume.class
 pt\ipleiria\estg\dei\ei\dae\projetodae\ws\AuthService.class
 pt\ipleiria\estg\dei\ei\dae\projetodae\entities\Logistica.class
+<<<<<<< HEAD
+=======
 pt\ipleiria\estg\dei\ei\dae\projetodae\enums\VolumeEstado.class
+>>>>>>> d4e81b2947b6059af50f98cf1ee6f1cb47586d73
 pt\ipleiria\estg\dei\ei\dae\projetodae\ejbs\ConfigBean.class
 pt\ipleiria\estg\dei\ei\dae\projetodae\HelloApplication.class
 pt\ipleiria\estg\dei\ei\dae\projetodae\dtos\NewPasswordDTO.class
@@ -48,6 +51,8 @@ pt\ipleiria\estg\dei\ei\dae\projetodae\ejbs\GestorBean.class
 pt\ipleiria\estg\dei\ei\dae\projetodae\dtos\EncomendaDTO.class
 pt\ipleiria\estg\dei\ei\dae\projetodae\ejbs\EncomendaBean.class
 pt\ipleiria\estg\dei\ei\dae\projetodae\entities\Gestor.class
+<<<<<<< HEAD
+=======
 =======
 pt/ipleiria/estg/dei/ei/dae/projetodae/dtos/EmailDTO.class
 pt/ipleiria/estg/dei/ei/dae/projetodae/dtos/VolumeDTO.class
@@ -99,3 +104,4 @@ pt/ipleiria/estg/dei/ei/dae/projetodae/dtos/SensorDTO.class
 pt/ipleiria/estg/dei/ei/dae/projetodae/ws/EncomendaService.class
 pt/ipleiria/estg/dei/ei/dae/projetodae/filters/CorsFilter.class
 >>>>>>> ddba692971fb3121cf9f44ba3a158ce469368199
+>>>>>>> d4e81b2947b6059af50f98cf1ee6f1cb47586d73
