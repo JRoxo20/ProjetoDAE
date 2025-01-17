@@ -63,6 +63,7 @@ import java.util.List;
 
             dadoBean.create("25", "ta calor", 1L);
 
+
             productBean.create("Gelado de morango", "Saboroso", Category.Alimentar, 12.5, 1L);
             productBean.create("Televisão", "XYZ",Category.Eletronico, 112.99, 2L);
             productBean.create("Microondas", "ABC", Category.Eletrodomestico, 20.5, 2L);
