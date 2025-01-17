@@ -1,5 +1,6 @@
 package pt.ipleiria.estg.dei.ei.dae.projetodae.ejbs;
 
+import jakarta.ejb.EJB;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -17,11 +18,20 @@ public class SensorBean {
 
     @PersistenceContext
     private EntityManager entityManager;
+    @EJB
+    private VolumeBean volumeBean;
 
-    public void create(SensorEstado estado, SensorType tipo) {
-        var sensor = new Sensor(estado, tipo);
+    public void create(SensorEstado estado, SensorType tipo, Long volume_id) {
+        var volume = volumeBean.find(volume_id);
+        if (volume == null)
+        {
+            return;
+            //throw new MyEntityNotFoundException("volume \"" + volume_id + "\" not found");
+        }
+        var sensor = new Sensor(estado, tipo, volume);
         entityManager.persist(sensor);
 
+        volume.addSensor(sensor);
     }
 
     public List<Sensor> findAll() {
