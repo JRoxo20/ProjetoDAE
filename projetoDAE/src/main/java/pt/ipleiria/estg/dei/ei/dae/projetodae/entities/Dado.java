@@ -1,8 +1,9 @@
 package pt.ipleiria.estg.dei.ei.dae.projetodae.entities;
 
 import jakarta.persistence.*;
-
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Table(name = "dados")
@@ -13,13 +14,14 @@ public class Dado {
 
     private String valor;
 
-    private LocalDateTime timestamp;
+    private Date timestamp;
 
     private String mensagem;
 
     // Relacionamento ManyToOne com a entidade "Sensor"
     @ManyToOne
     @JoinColumn(name = "sensor_id", nullable = false)
+    @JsonBackReference
     private Sensor sensor;
 
     public Dado() {
@@ -42,11 +44,11 @@ public class Dado {
         this.valor = valor;
     }
 
-    public LocalDateTime  getTimestamp() {
+    public Date  getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(LocalDateTime  timestamp) {
+    public void setTimestamp(Date timestamp) {
         this.timestamp = timestamp;
     }
 
@@ -69,7 +71,7 @@ public class Dado {
     public Dado(String valor, String mensagem, Sensor sensor) {
         this.id = id;
         this.valor = valor;
-        this.timestamp = LocalDateTime.now();
+        this.timestamp = new Date();
         this.mensagem = mensagem;
         this.sensor = sensor;
     }

@@ -1,23 +1,27 @@
 package pt.ipleiria.estg.dei.ei.dae.projetodae.dtos;
 
+import jakarta.persistence.Id;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.Dado;
+import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.Product;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.Sensor;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.enums.SensorEstado;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.enums.SensorType;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class SensorDTO {
 
-    private long id;
+    @Id
+    private Long id;
     private SensorEstado estado;
     private SensorType tipo;
 
     private List<Dado> dados;
 
 
-    public SensorDTO(long id, SensorEstado estado, SensorType tipo,List<Dado> dados) {
+    public SensorDTO(Long id, SensorEstado estado, SensorType tipo,List<Dado> dados) {
         this.id = id;
         this.estado = estado;
         this.tipo = tipo;
@@ -28,11 +32,11 @@ public class SensorDTO {
         this.dados = new ArrayList<>();
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -67,5 +71,9 @@ public class SensorDTO {
                 sensor.getTipo(),
                 sensor.getDados()
         );
+    }
+
+    public static List<SensorDTO> from(List<Sensor> sensorList) {
+        return sensorList.stream().map(SensorDTO::from).collect(Collectors.toList());
     }
 }

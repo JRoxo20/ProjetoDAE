@@ -4,7 +4,9 @@ import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.hibernate.Hibernate;
+import pt.ipleiria.estg.dei.ei.dae.projetodae.dtos.SensorDTO;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.Dado;
+import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.Product;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.Sensor;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.Volume;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.enums.SensorEstado;
@@ -18,15 +20,49 @@ public class SensorBean {
     @PersistenceContext
     private EntityManager entityManager;
 
-    public void create(SensorEstado estado, SensorType tipo) {
-        var sensor = new Sensor(estado, tipo);
+    public void create(Long id, SensorType tipo) {
+        var sensor = new Sensor(id, tipo);
         entityManager.persist(sensor);
 
     }
 
-    public List<Sensor> findAll() {
-        // remember, maps to: “SELECT s FROM Student s ORDER BY s.name”
-        return entityManager.createNamedQuery("getAllSensores", Sensor.class).getResultList();
+    public List<Sensor> findAll(){
+
+        return entityManager.createNamedQuery("getAllSensors", Sensor.class).getResultList();
+    }
+
+    public List<Sensor> getAllAtivos() {
+        return entityManager.createNamedQuery("getSensorByStatus", Sensor.class)
+                .setParameter("estado", SensorEstado.ATIVO)
+                .getResultList();
+    }
+
+    public List<Sensor> getAllInativos() {
+        return entityManager.createNamedQuery("getSensorByStatus", Sensor.class)
+                .setParameter("estado", SensorEstado.INATIVO)
+                .getResultList();
+    }
+
+    public List<Sensor> getAllByTemperatura() {
+        return entityManager.createNamedQuery("getSensorByType", Sensor.class)
+                .setParameter("tipo", SensorType.Temperatura)
+                .getResultList();
+    }
+    public List<Sensor> getAllByPressao() {
+        return entityManager.createNamedQuery("getSensorByType", Sensor.class)
+                .setParameter("tipo", SensorType.Pressao)
+                .getResultList();
+    }
+    public List<Sensor> getAllByGps() {
+        return entityManager.createNamedQuery("getSensorByType", Sensor.class)
+                .setParameter("tipo", SensorType.Gps)
+                .getResultList();
+    }
+
+    public List<Sensor> getAllByAceleracao() {
+        return entityManager.createNamedQuery("getSensorByType", Sensor.class)
+                .setParameter("tipo", SensorType.Aceleracao)
+                .getResultList();
     }
 
     public Sensor find(Long id) {
