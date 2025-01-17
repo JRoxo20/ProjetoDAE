@@ -43,7 +43,8 @@ public class UserService {
                     userDTO.getUsername(),
                     userDTO.getName(),
                     userDTO.getEmail(),
-                    userDTO.getPassword()
+                    userDTO.getPassword(),
+                    userDTO.getRole()
             );
 
             User newUser = userBean.find(userDTO.getUsername());

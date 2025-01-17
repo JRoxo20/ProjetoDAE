@@ -6,6 +6,7 @@ import jakarta.persistence.PersistenceContext;
 import jakarta.validation.ConstraintViolationException;
 import org.hibernate.Hibernate;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.User;
+import pt.ipleiria.estg.dei.ei.dae.projetodae.enums.Role;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.security.Hasher;
 
 import java.util.List;
@@ -34,12 +35,12 @@ public class UserBean {
         em.merge(user);
     }
 
-    public void create(String username, String name, String email, String password)  {
+    public void create(String username, String name, String email, String password, Role role)  {
         if (exists(username)) {
             return;
         }
 
-        User user = new User(username, name, email, hasher.hash(password));
+        User user = new User(username, name, email, hasher.hash(password),role);
         em.persist(user);
         em.flush();
 

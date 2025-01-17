@@ -3,6 +3,7 @@ import jakarta.annotation.PostConstruct;
 import jakarta.ejb.EJB;
 import jakarta.ejb.Singleton;
 import jakarta.ejb.Startup;
+import pt.ipleiria.estg.dei.ei.dae.projetodae.enums.Role;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.enums.SensorEstado;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.enums.SensorType;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.enums.Category;
@@ -38,7 +39,7 @@ import java.util.List;
         @PostConstruct
         public void populateDB() {
 
-            userBean.create("Vasco2", "Vasco2", "vasco2@gmail.com", "123456");
+            userBean.create("Vasco2", "Vasco2", "vasco2@gmail.com", "123456", Role.GESTOR);
             clientBean.create("Vasco", "Vasco", "vasco@gmail.com", "123456");
 
             encomendaBean.create("Vasco");
@@ -48,7 +49,6 @@ import java.util.List;
             volumeBean.create(2L, "em andamento", "normal", 1L);
             volumeBean.create(3L, "a entregar", "isotérmica", 1L);
 
-            encomendaBean.enrollVolumeInEncomenda(1L, 1L);
 
             clientBean.create("joao", "joao", "joao@gmail.com", "123456");
 
