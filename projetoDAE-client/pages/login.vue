@@ -54,8 +54,7 @@ async function login() {
         config.public.token = token.value
         console.log(config.public.token, token.value)
         fetchUser()
-        sessionStorage.setItem('username', loginFormData.username)
-        sessionStorage.setItem('authToken', token.value); // Armazena o token no sessionStorage
+         // Armazena o token no sessionStorage
         console.log("wefw", sessionStorage.getItem('authToken'))
         window.location.href = '/';
       }
@@ -88,6 +87,8 @@ async function fetchUser() {
         if (role) {
           sessionStorage.setItem('role', role);
         }
+        sessionStorage.setItem('username', loginFormData.username);
+        sessionStorage.setItem('authToken', token.value);
       }
     })
   } catch (e) {
