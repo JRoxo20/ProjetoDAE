@@ -11,7 +11,9 @@
       </div>
 
       <h3>Registos</h3>
-      <button @click="create" class="create-button">📝 Create Random Dado</button>
+      <nuxt-link :to="`/sensors/${sensor.id}.dados`" class="create-button" title="Novo Dado">
+        📝 Create Dado
+      </nuxt-link>
       <table v-if="Array.isArray(sensor.dados)" class="dados-table">
         <thead>
         <tr>

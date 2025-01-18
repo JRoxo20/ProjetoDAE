@@ -24,15 +24,19 @@
         <td>{{ volume.estado }}</td>
         <td>{{ volume.tipo_embalagem }}</td>
         <td>{{ volume.data_entrega == null ? "por entregar" : volume.data_entrega }}</td>
-        <td  class="tools">
-          <nuxt-link :to="`/volumes/${volume.id}.index`" class="actions"> Details</nuxt-link>
-          <nuxt-link :to="`/volumes/${volume.id}.change_state`">Change State</nuxt-link>
-          <nuxt-link :to="`/encomendas/${volume.encomenda_id}.volumes`">Encomenda</nuxt-link>
-          <nuxt-link :to="`/volumes/${volume.id}.produtos`">Produtos</nuxt-link>
-          <nuxt-link v-if="userRole == 'GESTOR'" :to="`/volumes/${volume.id}.change_state`" class="actions">Change State</nuxt-link>
-          <!-- <nuxt-link :to="`/encomendas/${volume.encomenda_id}`">Encomenda</nuxt-link> -->
-          <nuxt-link :to="`/volumes/${volume.id}.sensores`">Sensores</nuxt-link>
-
+        <td class="tools">
+          <nuxt-link v-if="userRole === 'LOGISTICA'"  :to="`/volumes/${volume.id}.change_state`" class="actions" title="Change State">
+            🔄
+          </nuxt-link>
+          <nuxt-link :to="`/encomendas/${volume.encomenda_id}.volumes`" class="actions" title="View Encomenda">
+            📦
+          </nuxt-link>
+          <nuxt-link :to="`/volumes/${volume.id}.produtos`" class="actions" title="View Produtos">
+            🛒
+          </nuxt-link>
+          <nuxt-link :to="`/volumes/${volume.id}.sensores`" class="actions" title="View Sensores">
+            📡
+          </nuxt-link>
         </td>
 
       </tr>

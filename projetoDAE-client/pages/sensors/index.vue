@@ -216,7 +216,9 @@ h2 {
 }
 
 
-
+.actions {
+  margin-right: 10px;
+}
 
 
 .error {
