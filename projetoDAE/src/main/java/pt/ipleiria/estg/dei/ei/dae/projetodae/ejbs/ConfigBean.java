@@ -68,9 +68,9 @@ public class ConfigBean {
         dadoBean.create("26", "ta calor", 1L);
 
 
-        productBean.create("Gelado de morango", "Saboroso", Category.Alimentar, 12.5);
-        productBean.create("Televisão", "XYZ",Category.Eletronico, 112.99);
-        productBean.create("Microondas", "ABC", Category.Eletrodomestico, 20.5);
+        productBean.create("Gelado de morango", "Saboroso", Category.ALIMENTAR, 12.5);
+        productBean.create("Televisão", "XYZ",Category.ELETRONICO, 112.99);
+        productBean.create("Microondas", "ABC", Category.ELECTRODOMESTICO, 20.5);
 
         //produtos em Volumes
         produtosNoVolumeBean.create(1L, 5, 1L);

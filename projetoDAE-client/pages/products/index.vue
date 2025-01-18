@@ -6,6 +6,18 @@
     <div class="buttons">
       <nuxt-link to="/products/create" class="create-button">➕ Add a New Product</nuxt-link>
       <button @click.prevent="refresh" class="create-button">🔄 Refresh Data</button>
+      <button type="button"
+              class="create-button"
+              @click="importCSV">
+        ⬆️
+        <span>Import CSV</span>
+      </button>
+      <button type="button"
+              class="create-button"
+              @click="exportCSV">
+        ⬇️
+        <span>Export CSV</span>
+      </button>
     </div>
     <table class="product-table">
       <thead>
@@ -69,13 +81,76 @@ const confirmDelete = async (id) => {
     refresh();
   }
 };
+
+const exportCSV = async () => {
+  const response = await fetch(`${api}/productCSV/productsASCSV`, {
+    headers: {
+      authorization: "Bearer " + token.value,
+    },
+  })
+  if (!response.ok) {
+    alert("error exporting")
+    return
+  }
+  const string = await response.text()
+  const link = document.createElement("a");
+  const file = new Blob([string], {type: 'text/csv'});
+  link.href = URL.createObjectURL(file);
+  link.download = "products.csv";
+  link.click();
+  URL.revokeObjectURL(link.href);
+}
+const importCSV = async () => {
+  const fileInput = document.createElement("input");
+  fileInput.type = "file";
+  fileInput.accept = ".csv";
+  fileInput.click();
+
+  fileInput.addEventListener("change", async (event) => {
+    const files = event.target.files;
+    for (const file of files) {
+      const reader = new FileReader();
+      reader.addEventListener("load", async (event) => {
+        let csvData = event.target.result.trim();
+
+        csvData = csvData.replace(/^\s+|\s+$/g, "");
+
+        console.log("CSV enviado:", csvData);
+
+        const response = await fetch(`${api}/productCSV/productsFROMCSV`, {
+          method: "POST",
+          headers: {
+            authorization: "Bearer " + token.value,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ csv: csvData }),
+        });
+
+        if (response.ok) {
+          alert("Products imported successfully");
+        } else {
+          const errorText = await response.text();
+          console.error("Erro do servidor:", errorText);
+          alert("Error importing products: " + errorText);
+        }
+      });
+      reader.readAsText(file);
+    }
+  });
+};
+
+
+
 async function refresh() {
   error.value = null;
   await fetchAllProducts();
 }
-
+const token = ref(null);
 onMounted(async () => {
   await fetchAllProducts();
+  if(typeof window !== 'undefined') {
+    token.value = sessionStorage.getItem('authToken');
+  }
 });
 </script>
 
