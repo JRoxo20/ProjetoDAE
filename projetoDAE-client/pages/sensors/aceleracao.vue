@@ -48,7 +48,7 @@ async function fetchAllSensors() {
     if (!token) {
       window.location.href = '/login';
     }
-    const response = await $fetch(`${api}/sensors/gps`, {
+    const response = await $fetch(`${api}/sensors/aceleracao`, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
@@ -86,9 +86,12 @@ async function refresh() {
   error.value = null;
   await fetchAllSensors();
 }
-
+const token = ref(null);
 onMounted(async () => {
   await fetchAllSensors();
+  if(typeof window !== 'undefined') {
+    token.value = sessionStorage.getItem('authToken');
+  }
 });
 </script>
 
