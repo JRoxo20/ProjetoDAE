@@ -19,7 +19,6 @@
       <tr v-for="encomenda in encomendas" :key="encomenda.id">
         <td>{{ encomenda.id }}</td>
         <td>{{ encomenda.usernameCliente }}</td>
-        <td>{{ encomenda.volumes }}</td>
         <td><nuxt-link :to="`/encomendas/${encomenda.id}.volumes`">Details</nuxt-link></td>
         <td><nuxt-link :to="`/encomendas/${encomenda.id}.createVolume`">➕ Add a New Volume</nuxt-link></td>
       </tr>
