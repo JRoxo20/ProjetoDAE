@@ -85,6 +85,11 @@ public class SensorBean {
         return sensor;
     }
 
+    public Sensor verifyId(Long id) {
+        var sensor = entityManager.find(Sensor.class, id);
+        return sensor;
+    }
+
     public List<Dado> getDados(Long id) {
         var sensor = find(id);
         Hibernate.initialize(sensor.getDados());

@@ -25,10 +25,16 @@ public class VolumeBean {
 
 
     public void create(Long id, String tipo_embalagem, Long idEncomenda) {
+        //verifica se ja existe um volume com o id
+        var volume = entityManager.find(Volume.class, id);
+        if (volume != null) {
+            throw new RuntimeException("volume " + id + " already exist");
+        }
+
         var encomenda = encomendaBean.find(idEncomenda);
-        var volume = new Volume(id, tipo_embalagem, encomenda);
-        entityManager.persist(volume);
-        encomendaBean.enrollVolumeInEncomenda(idEncomenda, volume.getId());
+        var new_volume = new Volume(id, tipo_embalagem, encomenda);
+        entityManager.persist(new_volume);
+        encomendaBean.enrollVolumeInEncomenda(idEncomenda, new_volume.getId());
     }
 
 
@@ -42,6 +48,11 @@ public class VolumeBean {
         if (volume == null) {
             throw new RuntimeException("volume " + id + " not found");
         }
+        return volume;
+    }
+
+    public Volume verifyId(Long id) {
+        var volume = entityManager.find(Volume.class, id);
         return volume;
     }
 

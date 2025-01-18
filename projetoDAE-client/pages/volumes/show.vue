@@ -32,6 +32,7 @@
             <nuxt-link v-if="userRole == 'GESTOR'" :to="`/volumes/${volume.id}.change_state`" class="actions">Change State</nuxt-link>
             <!-- <nuxt-link :to="`/encomendas/${volume.encomenda_id}`">Encomenda</nuxt-link> -->
             <nuxt-link :to="`/volumes/${volume.id}.sensores`">Sensores</nuxt-link>
+            <nuxt-link :to="`/volumes/create`">criar Volume</nuxt-link>
 
           </td>
 

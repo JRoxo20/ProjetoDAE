@@ -2,6 +2,7 @@ package pt.ipleiria.estg.dei.ei.dae.projetodae.dtos;
 
 import jakarta.persistence.Id;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.ProdutosNoVolume;
+import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.Sensor;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.Volume;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.enums.VolumeEstado;
 
@@ -18,15 +19,17 @@ public class VolumeDTO {
     private String data_entrega;
     private Long encomenda_id;
     private List<ProdutosNoVolumeDTO> produtos;
+    private List<SensorDTO> sensores;
 
 
-    public VolumeDTO(Long id, VolumeEstado estado, String tipo_embalagem, String data_entrega, Long encomenda_id, List<ProdutosNoVolumeDTO> produtos) {
+    public VolumeDTO(Long id, VolumeEstado estado, String tipo_embalagem, String data_entrega, Long encomenda_id, List<ProdutosNoVolumeDTO> produtos, List<SensorDTO> sensores) {
         this.id = id;
         this.estado = estado;
         this.tipo_embalagem = tipo_embalagem;
         this.data_entrega = data_entrega;
         this.encomenda_id = encomenda_id;
         this.produtos = produtos;
+        this.sensores = sensores;
     }
 
     public VolumeDTO(Long id, VolumeEstado estado, String tipo_embalagem, String data_entrega, Long encomenda_id) {
@@ -35,11 +38,23 @@ public class VolumeDTO {
         this.tipo_embalagem = tipo_embalagem;
         this.data_entrega = data_entrega;
         this.encomenda_id = encomenda_id;
+        this.produtos = new ArrayList<>();
+        this.sensores = new ArrayList<>();
     }
 
     public VolumeDTO() {
+        this.produtos = new ArrayList<>();
+        this.sensores = new ArrayList<>();
     }
 
+
+    public List<SensorDTO> getSensores() {
+        return sensores;
+    }
+
+    public void setSensores(List<SensorDTO> sensores) {
+        this.sensores = sensores;
+    }
 
     public List<ProdutosNoVolumeDTO> getProdutos() {
         return produtos;
@@ -106,13 +121,19 @@ public class VolumeDTO {
             ProdutosNoVolumeDTO from = ProdutosNoVolumeDTO.from(produtosNoVolume);
             list.add(from);
         }
+        List<SensorDTO> listSensores = new ArrayList<>();
+        for (Sensor sensor : volume.getSensors()) {
+            SensorDTO from = SensorDTO.from(sensor);
+            listSensores.add(from);
+        }
         return new VolumeDTO(
                 volume.getId(),
                 volume.getEstado(),
                 volume.getTipo_embalagem(),
                 volume.getData_entrega(),
                 volume.getEncomenda().getId(),
-                list
+                list,
+                listSensores
         );
     }
     // converts an entire list of entities into a list of DTOs

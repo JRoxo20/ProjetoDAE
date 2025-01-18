@@ -51,4 +51,10 @@ public class ProdutosNoVolumeBean {
         }
         return volume;
     }
+
+
+    public ProdutosNoVolume verifyId(Long id) {
+        var volume = entityManager.find(ProdutosNoVolume.class, id);
+        return volume;
+    }
 }

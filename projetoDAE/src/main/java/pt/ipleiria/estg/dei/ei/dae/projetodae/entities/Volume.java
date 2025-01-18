@@ -31,7 +31,8 @@ public class Volume {
     //@ManyToMany(mappedBy = "volumes")
     //private List<Product> products ;
     //sensores
-    @OneToMany(mappedBy = "volume")
+    @OneToMany(mappedBy = "volume", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.EAGER)
+    @JsonManagedReference
     private List<Sensor> sensors;
     @OneToMany(mappedBy = "volume", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.EAGER)
     @JsonManagedReference
