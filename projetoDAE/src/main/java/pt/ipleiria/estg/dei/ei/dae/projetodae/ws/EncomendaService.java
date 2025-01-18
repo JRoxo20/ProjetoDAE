@@ -8,11 +8,12 @@ import jakarta.ejb.EJB;
 import jakarta.ws.rs.core.MediaType;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.dtos.EncomendaDTO;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.dtos.ProductDTO;
+import pt.ipleiria.estg.dei.ei.dae.projetodae.dtos.SensorDTO;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.dtos.VolumeDTO;
-import pt.ipleiria.estg.dei.ei.dae.projetodae.ejbs.ClientBean;
-import pt.ipleiria.estg.dei.ei.dae.projetodae.ejbs.EncomendaBean;
+import pt.ipleiria.estg.dei.ei.dae.projetodae.ejbs.*;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.Client;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.Encomenda;
+import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.Volume;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.security.Authenticated;
 
 
@@ -27,6 +28,12 @@ public class EncomendaService {
 
     @EJB
     private ClientBean clientBean;
+    @EJB
+    private VolumeBean volumeBean;
+    @EJB
+    private SensorBean sensorBean;
+    @EJB
+    private ProdutosNoVolumeBean produtosNoVolumeBean;
 
 
     @GET // means: to call this endpoint, we need to use the HTTP GET method
@@ -53,20 +60,104 @@ public class EncomendaService {
     @Path("/")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response createNewEncomenda (EncomendaDTO encomendaDTO) throws Exception  {
-        try {
+
+
             encomendaBean.create(
                     encomendaDTO.getId(),
                     encomendaDTO.getUsernameCliente());
             Encomenda newEncomenda = encomendaBean.find(encomendaDTO.getId());
+
+            // Verificar se o ID do Volume já existe
+            if (encomendaDTO.getVolumes() != null && !encomendaDTO.getVolumes().isEmpty())
+            {
+                for (VolumeDTO volume : encomendaDTO.getVolumes())
+                {
+                    if (volumeBean.verifyId(volume.getId()) != null) {
+                        return Response.status(Response.Status.CONFLICT)
+                                .entity("Volume com ID " + volume.getId() + " já existe.")
+                                .build();
+                    }
+
+                    // Validar IDs de sensores dentro do Volume
+                    if (volume.getSensores() != null && !volume.getSensores().isEmpty()) {
+                        for (SensorDTO sensor : volume.getSensores()) {
+                            if (sensorBean.verifyId(sensor.getId()) != null) {
+                                return Response.status(Response.Status.CONFLICT)
+                                        .entity("Sensor com ID " + sensor.getId() + " já existe.")
+                                        .build();
+                            }
+                        }
+                    }
+
+                    volumeBean.create(
+                            volume.getId(),
+                            volume.getTipo_embalagem(),
+                            newEncomenda.getId()
+                    );
+
+                    if (volume.getProdutos() != null && !volume.getProdutos().isEmpty()) {
+                        volume.getProdutos().forEach(produtosNoVolumeDTO -> produtosNoVolumeBean.create(produtosNoVolumeDTO.getId_produto(), produtosNoVolumeDTO.getQuantidade(), volume.getId()));
+                    }
+
+                    if (volume.getSensores() != null && !volume.getSensores().isEmpty()) {
+                        volume.getSensores().forEach(sensor -> sensorBean.create(sensor.getId(), sensor.getTipo(), volume.getId()));
+                    }
+
+                    Volume newVolume = volumeBean.find(volume.getId());
+                }
+
+            }
+
+            Encomenda encomenda = encomendaBean.findWithVolumes(encomendaDTO.getId());
+
             return Response.status(Response.Status.CREATED)
-                    .entity(encomendaDTO.from(newEncomenda))
+                    .entity(EncomendaDTO.fromComVolumes(encomenda))
                     .build();
-        } catch (Exception e) {
+    }
+
+
+    @POST
+    @Path("{id}")
+    //@Consumes(MediaType.APPLICATION_JSON)
+    public Response create (@PathParam("id") Long id, VolumeDTO volumeDTO) {
+        // Verificar se o ID do Volume já existe
+        if (volumeBean.verifyId(volumeDTO.getId()) != null) {
             return Response.status(Response.Status.CONFLICT)
-                    .entity("Encomenda with id: '" + encomendaDTO.getId() + "' already exists")
+                    .entity("Volume com ID " + volumeDTO.getId() + " já existe.")
                     .build();
         }
 
+        // Validar IDs de sensores dentro do Volume
+        if (volumeDTO.getSensores() != null && !volumeDTO.getSensores().isEmpty()) {
+            for (SensorDTO sensor : volumeDTO.getSensores()) {
+                if (sensorBean.verifyId(sensor.getId()) != null) {
+                    return Response.status(Response.Status.CONFLICT)
+                            .entity("Sensor com ID " + sensor.getId() + " já existe.")
+                            .build();
+                }
+            }
+        }
+
+
+        volumeBean.create(
+                volumeDTO.getId(),
+                volumeDTO.getTipo_embalagem(),
+                id
+        );
+
+        if (volumeDTO.getProdutos() != null && !volumeDTO.getProdutos().isEmpty()) {
+            volumeDTO.getProdutos().forEach(produtosNoVolumeDTO -> produtosNoVolumeBean.create(produtosNoVolumeDTO.getId_produto(), produtosNoVolumeDTO.getQuantidade(), volumeDTO.getId()));
+        }
+
+        if (volumeDTO.getSensores() != null && !volumeDTO.getSensores().isEmpty()) {
+            volumeDTO.getSensores().forEach(sensor -> sensorBean.create(sensor.getId(), sensor.getTipo(), volumeDTO.getId()));
+        }
+
+        Volume newVolume = volumeBean.find(volumeDTO.getId());
+
+        return Response.status(Response.Status.CREATED)
+                .entity(VolumeDTO.fromComProdutos(newVolume))
+                .build();
     }
 
 

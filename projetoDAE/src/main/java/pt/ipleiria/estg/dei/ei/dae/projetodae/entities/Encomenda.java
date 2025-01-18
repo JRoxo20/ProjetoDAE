@@ -25,7 +25,7 @@ import java.util.List;
 public class Encomenda {
     @Id
     private Long id;
-    @OneToMany(mappedBy = "encomenda")
+    @OneToMany(mappedBy = "encomenda", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Volume> volumes;
 
     private String usernameCliente;
