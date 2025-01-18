@@ -24,9 +24,6 @@
           <td>{{ volume.tipo_embalagem }}</td>
           <td>{{ volume.data_entrega == null ? "por entregar" : volume.data_entrega }}</td>
           <td class="tools">
-            <nuxt-link  :to="`/volumes/${volume.id}.index`" class="actions" title="View Details">
-              📄
-            </nuxt-link>
             <nuxt-link  :to="`/volumes/${volume.id}.change_state`" class="actions" title="Change State">
               🔄
             </nuxt-link>
