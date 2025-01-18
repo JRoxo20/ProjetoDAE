@@ -1,6 +1,9 @@
 /Users/mariamalato/Library/CloudStorage/OneDrive-Pessoal/ESTG/DAE/projeto/ProjetoDAE/projetoDAE/src/main/java/pt/ipleiria/estg/dei/ei/dae/projetodae/HelloApplication.java
 /Users/mariamalato/Library/CloudStorage/OneDrive-Pessoal/ESTG/DAE/projeto/ProjetoDAE/projetoDAE/src/main/java/pt/ipleiria/estg/dei/ei/dae/projetodae/HelloResource.java
+/Users/mariamalato/Library/CloudStorage/OneDrive-Pessoal/ESTG/DAE/projeto/ProjetoDAE/projetoDAE/src/main/java/pt/ipleiria/estg/dei/ei/dae/projetodae/data/CSVExporter.java
+/Users/mariamalato/Library/CloudStorage/OneDrive-Pessoal/ESTG/DAE/projeto/ProjetoDAE/projetoDAE/src/main/java/pt/ipleiria/estg/dei/ei/dae/projetodae/data/CSVImporter.java
 /Users/mariamalato/Library/CloudStorage/OneDrive-Pessoal/ESTG/DAE/projeto/ProjetoDAE/projetoDAE/src/main/java/pt/ipleiria/estg/dei/ei/dae/projetodae/dtos/AuthDTO.java
+/Users/mariamalato/Library/CloudStorage/OneDrive-Pessoal/ESTG/DAE/projeto/ProjetoDAE/projetoDAE/src/main/java/pt/ipleiria/estg/dei/ei/dae/projetodae/dtos/CSVDTO.java
 /Users/mariamalato/Library/CloudStorage/OneDrive-Pessoal/ESTG/DAE/projeto/ProjetoDAE/projetoDAE/src/main/java/pt/ipleiria/estg/dei/ei/dae/projetodae/dtos/ClientDTO.java
 /Users/mariamalato/Library/CloudStorage/OneDrive-Pessoal/ESTG/DAE/projeto/ProjetoDAE/projetoDAE/src/main/java/pt/ipleiria/estg/dei/ei/dae/projetodae/dtos/EmailDTO.java
 /Users/mariamalato/Library/CloudStorage/OneDrive-Pessoal/ESTG/DAE/projeto/ProjetoDAE/projetoDAE/src/main/java/pt/ipleiria/estg/dei/ei/dae/projetodae/dtos/EncomendaDTO.java
@@ -46,6 +49,7 @@
 /Users/mariamalato/Library/CloudStorage/OneDrive-Pessoal/ESTG/DAE/projeto/ProjetoDAE/projetoDAE/src/main/java/pt/ipleiria/estg/dei/ei/dae/projetodae/security/TokenIssuer.java
 /Users/mariamalato/Library/CloudStorage/OneDrive-Pessoal/ESTG/DAE/projeto/ProjetoDAE/projetoDAE/src/main/java/pt/ipleiria/estg/dei/ei/dae/projetodae/ws/AuthService.java
 /Users/mariamalato/Library/CloudStorage/OneDrive-Pessoal/ESTG/DAE/projeto/ProjetoDAE/projetoDAE/src/main/java/pt/ipleiria/estg/dei/ei/dae/projetodae/ws/EncomendaService.java
+/Users/mariamalato/Library/CloudStorage/OneDrive-Pessoal/ESTG/DAE/projeto/ProjetoDAE/projetoDAE/src/main/java/pt/ipleiria/estg/dei/ei/dae/projetodae/ws/ProductCSVService.java
 /Users/mariamalato/Library/CloudStorage/OneDrive-Pessoal/ESTG/DAE/projeto/ProjetoDAE/projetoDAE/src/main/java/pt/ipleiria/estg/dei/ei/dae/projetodae/ws/ProductService.java
 /Users/mariamalato/Library/CloudStorage/OneDrive-Pessoal/ESTG/DAE/projeto/ProjetoDAE/projetoDAE/src/main/java/pt/ipleiria/estg/dei/ei/dae/projetodae/ws/SensorService.java
 /Users/mariamalato/Library/CloudStorage/OneDrive-Pessoal/ESTG/DAE/projeto/ProjetoDAE/projetoDAE/src/main/java/pt/ipleiria/estg/dei/ei/dae/projetodae/ws/UserService.java

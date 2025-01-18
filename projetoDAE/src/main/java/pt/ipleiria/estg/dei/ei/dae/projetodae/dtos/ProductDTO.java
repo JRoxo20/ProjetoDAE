@@ -1,6 +1,7 @@
 package pt.ipleiria.estg.dei.ei.dae.projetodae.dtos;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.opencsv.bean.CsvCustomBindByName;
 import jakarta.validation.constraints.NotNull;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.Product;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.enums.Category;
@@ -15,24 +16,23 @@ import com.opencsv.bean.CsvBindByPosition;
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class ProductDTO implements Serializable {
 
-    @CsvBindByName(column = "id")
-    @CsvBindByPosition(position = 0)
     private Long id_product;
 
+
     @CsvBindByName(column = "name")
-    @CsvBindByPosition(position = 1)
+    @CsvBindByPosition(position = 0)
     private String name;
 
     @CsvBindByName(column = "brand")
-    @CsvBindByPosition(position = 2)
+    @CsvBindByPosition(position = 1)
     private String brand;
 
-    @CsvBindByName(column = "category")
-    @CsvBindByPosition(position = 3)
+    @CsvCustomBindByName(converter = Category.CategoryConverter.class)
+    @CsvBindByPosition(position = 2)
     private Category category;
 
     @CsvBindByName(column = "price")
-    @CsvBindByPosition(position = 4)
+    @CsvBindByPosition(position = 3)
     private Double price;
 
 

@@ -2,28 +2,27 @@ package pt.ipleiria.estg.dei.ei.dae.projetodae.data;
 
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
+import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.Product;
 
 import java.io.Reader;
 import java.io.StringReader;
-import java.util.ArrayList;
 import java.util.List;
 
-public class CSVImporter<T1> {
-    public List<T1> importManyFromCSV(String csv, T1 aRecord) {
-        try {
+public class CSVImporter<Product> {
 
-            Reader reader = new StringReader(csv);
-            CsvToBean<T1> csvReader = new CsvToBeanBuilder(reader)
-                    .withType(aRecord.getClass())
+    public List<Product> importManyFromCSV(String csv, Class<Product> clazz) {
+        try (Reader reader = new StringReader(csv)) {
+            CsvToBean<Product> csvReader = new CsvToBeanBuilder<Product>(reader)
+                    .withType(clazz)
                     .withSeparator(',')
                     .withIgnoreLeadingWhiteSpace(true)
                     .withIgnoreEmptyLine(true)
+                    .withSkipLines(1)
                     .build();
-            List<T1> results = csvReader.parse();
-            return results;
+
+            return csvReader.parse();
         } catch (Exception e) {
-            throw new IllegalStateException("CSV improperly formatted");
+            throw new IllegalStateException("CSV improperly formatted: " + e.getMessage());
         }
     }
-
 }

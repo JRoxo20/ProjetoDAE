@@ -26,7 +26,7 @@ public class ProductCSVService {
     ProductBean productBean;
 
     @GET
-    @Path("/products")
+    @Path("/productsASCSV")
     public Response exportProductsAsCSV() throws IOException, CsvRequiredFieldEmptyException, CsvDataTypeMismatchException {
         List<ProductDTO> productDTOS = ProductDTO.from(productBean.findAll());
         CSVExporter<ProductDTO> exporter = new CSVExporter<ProductDTO>();
@@ -35,14 +35,21 @@ public class ProductCSVService {
 
 
     @POST
-    @Path("/products")
+    @Path("/productsFROMCSV")
     @Produces({MediaType.APPLICATION_JSON})
+    @Consumes({MediaType.APPLICATION_JSON})
     public Response importProductsFromCsv(CSVDTO csvDTO) {
         try {
             CSVImporter<ProductDTO> csvImporter = new CSVImporter<>();
-            List<ProductDTO> listProductDTOS = csvImporter.importManyFromCSV(csvDTO.getCsv(), new ProductDTO());
+            List<ProductDTO> listProductDTOS = csvImporter.importManyFromCSV(csvDTO.getCsv(), ProductDTO.class);
 
             for (ProductDTO productDTO : listProductDTOS) {
+                productDTO.setId(null);
+
+                if (productDTO.getCategory() == null) {
+                    throw new IllegalArgumentException("Invalid category format in CSV.");
+                }
+
                 productBean.create(productDTO.getName(), productDTO.getBrand(), productDTO.getCategory(), productDTO.getPrice());
             }
 
@@ -51,5 +58,6 @@ public class ProductCSVService {
             return Response.status(Response.Status.BAD_REQUEST).entity("Error processing CSV: " + e.getMessage()).build();
         }
     }
+
 
 }
