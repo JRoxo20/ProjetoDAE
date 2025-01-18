@@ -19,6 +19,10 @@
         <td>{{ sensor.id }}</td>
         <td>{{ sensor.estado }}</td>
         <td>{{ sensor.tipo }}</td>
+        <td>
+          <nuxt-link :to="`/sensors/${sensor.id}`" class="view-details">View Details </nuxt-link>
+          <button @click="changeState(sensor.id)" class="change-state-button">Change State</button>
+        </td>
       </tr>
       </tbody>
     </table>
@@ -54,6 +58,26 @@ async function fetchAllSensors() {
     sensors.value = response; // Assign the response to the products variable
   } catch (err) {
     console.error('Error fetching sensors:', err);
+    error.value = err;
+  }
+}
+
+async function changeState(id) {
+  try {
+    const token = sessionStorage.getItem('authToken');
+    const sensor = sensors.value.find(sensor => sensor.id === id);
+    const newState = sensor.estado === 'ATIVO' ? 'INATIVO' : 'ATIVO';
+    await $fetch(`${api}/sensors/${id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: { estado: newState }
+    });
+    await fetchAllSensors();
+  } catch (err) {
+    console.error('Error changing sensor state:', err);
     error.value = err;
   }
 }

@@ -26,6 +26,13 @@ import java.util.List;
         @NamedQuery(
                 name = "getSensorByTypeAndEstado",
                 query = "SELECT s FROM Sensor s WHERE s.tipo = :tipo AND s.estado = :estado"
+        ),@NamedQuery(
+        name = "getAllSensorsByClient",
+        query = "SELECT s FROM Sensor s " +
+                "JOIN s.volume v " +
+                "JOIN v.encomenda e " +
+                "WHERE e.client.username = :usernameCliente " +
+                "ORDER BY s.id"
         )
 })
 @Table(name = "sensores")

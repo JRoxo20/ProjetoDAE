@@ -77,6 +77,12 @@ public class SensorBean {
                 .getResultList();
     }
 
+    public List<Sensor> getAllSensorsByClient(String usernameclient) {
+        return entityManager.createNamedQuery("getAllSensorsByClient", Sensor.class)
+                .setParameter("usernameCliente", usernameclient)
+                .getResultList();
+    }
+
     public Sensor find(Long id) {
         var sensor = entityManager.find(Sensor.class, id);
         if (sensor == null) {
@@ -94,6 +100,18 @@ public class SensorBean {
         var sensor = find(id);
         Hibernate.initialize(sensor.getDados());
         return sensor.getDados();
+    }
+
+    //update estado
+    public Sensor mudarEstado(Long id, SensorEstado estado)
+    {
+        var sensor = entityManager.find(Sensor.class, id);
+        if (sensor == null) {
+            throw new RuntimeException("sensor " + id + " not found");
+        }
+        sensor.setEstado(estado);
+        entityManager.persist(sensor);
+        return sensor;
     }
 
 

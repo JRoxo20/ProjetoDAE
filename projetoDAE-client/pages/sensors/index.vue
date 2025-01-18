@@ -1,5 +1,5 @@
 <template>
-  <Navbar  activePage="sensors" />
+  <Navbar activePage="sensors" />
   <div v-if="error" class="error">Error: {{ error.message }}</div>
   <div v-else class="container">
     <h1>Sensors</h1>
@@ -38,16 +38,13 @@
 </template>
 
 <script setup>
-
 import 'flowbite/dist/flowbite.css';
-import {onMounted, ref} from "vue";
+import { onMounted, ref } from "vue";
 import Navbar from "~/components/navbar.vue";
-
 
 const config = useRuntimeConfig();
 const api = config.public.API_URL;
 const error = ref(null);
-
 const sensors = ref([]);
 
 async function fetchAllSensors() {
@@ -63,19 +60,33 @@ async function fetchAllSensors() {
         Authorization: `Bearer ${token}`,
       },
     });
-    sensors.value = response; // Assign the response to the products variable
+    sensors.value = response;
   } catch (err) {
     console.error('Error fetching sensors:', err);
     error.value = err;
   }
 }
 
-const confirmDelete = async (id) => {
-  if (confirm('Are you sure you want to delete this product?')) {
-    await fetch(`${api}/products/${id}`, { method: 'DELETE' });
-    refresh();
+async function changeState(id) {
+  try {
+    const token = sessionStorage.getItem('authToken');
+    const sensor = sensors.value.find(sensor => sensor.id === id);
+    const newState = sensor.estado === 'ATIVO' ? 'INATIVO' : 'ATIVO';
+    await $fetch(`${api}/sensors/${id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: { estado: newState }
+    });
+    await fetchAllSensors();
+  } catch (err) {
+    console.error('Error changing sensor state:', err);
+    error.value = err;
   }
-};
+}
+
 async function refresh() {
   error.value = null;
   await fetchAllSensors();
@@ -193,23 +204,17 @@ h2 {
   background-color: #f1f1f1;
 }
 
-.tools {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-
-.delete-button {
-  background: none;
+.change-state-button {
+  background-color: #ffc107;
+  color: white;
   border: none;
-  color: red;
-  font-size: 1.2em;
+  padding: 5px 10px;
+  border-radius: 5px;
   cursor: pointer;
 }
 
-.delete-button:hover {
-  color: darkred;
+.change-state-button:hover {
+  background-color: #e0a800;
 }
 
 .error {
