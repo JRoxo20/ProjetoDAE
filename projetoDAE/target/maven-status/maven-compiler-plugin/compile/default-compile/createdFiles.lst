@@ -24,11 +24,16 @@ pt\ipleiria\estg\dei\ei\dae\projetodae\ejbs\UserBean.class
 pt\ipleiria\estg\dei\ei\dae\projetodae\dtos\ProductDTO.class
 pt\ipleiria\estg\dei\ei\dae\projetodae\security\AuthenticationFilter$1.class
 pt\ipleiria\estg\dei\ei\dae\projetodae\dtos\ClientDTO.class
+pt\ipleiria\estg\dei\ei\dae\projetodae\ejbs\ProdutosNoVolumeBean.class
 pt\ipleiria\estg\dei\ei\dae\projetodae\dtos\GestorDTO.class
 pt\ipleiria\estg\dei\ei\dae\projetodae\enums\SensorType.class
 pt\ipleiria\estg\dei\ei\dae\projetodae\ws\EncomendaService.class
 pt\ipleiria\estg\dei\ei\dae\projetodae\ejbs\ProductBean.class
 pt\ipleiria\estg\dei\ei\dae\projetodae\enums\Role.class
+<<<<<<< HEAD
+pt\ipleiria\estg\dei\ei\dae\projetodae\dtos\ProdutosNoVolumeDTO.class
+=======
+>>>>>>> main
 pt\ipleiria\estg\dei\ei\dae\projetodae\ws\UserService.class
 pt\ipleiria\estg\dei\ei\dae\projetodae\enums\Category.class
 pt\ipleiria\estg\dei\ei\dae\projetodae\dtos\AuthDTO.class
@@ -40,6 +45,7 @@ pt\ipleiria\estg\dei\ei\dae\projetodae\filters\CorsFilter.class
 pt\ipleiria\estg\dei\ei\dae\projetodae\ejbs\LogisticaBean.class
 pt\ipleiria\estg\dei\ei\dae\projetodae\security\Authenticated.class
 pt\ipleiria\estg\dei\ei\dae\projetodae\ws\VolumeService.class
+pt\ipleiria\estg\dei\ei\dae\projetodae\entities\ProdutosNoVolume.class
 pt\ipleiria\estg\dei\ei\dae\projetodae\HelloResource.class
 pt\ipleiria\estg\dei\ei\dae\projetodae\entities\Sensor.class
 pt\ipleiria\estg\dei\ei\dae\projetodae\dtos\EmailDTO.class

@@ -15,29 +15,19 @@ public class ProductDTO implements Serializable {
     private String brand;
     private Category category;
     private Double price;
-    private Long volume_id;
 
     public ProductDTO(){
 
     }
 
-    public ProductDTO(Long id,String name,String brand, Category category, Double price, Long volume_id) {
+    public ProductDTO(Long id,String name,String brand, Category category, Double price) {
         this.id_product=id;
         this.name = name;
         this.brand = brand;
         this.category = category;
         this.price = price;
-        this.volume_id = volume_id;
     }
 
-
-    public Long getVolume_id() {
-        return volume_id;
-    }
-
-    public void setVolume_id(Long volume_id) {
-        this.volume_id = volume_id;
-    }
 
     public Long getId() {
         return id_product;
@@ -86,8 +76,7 @@ public class ProductDTO implements Serializable {
                 product.getName(),
                 product.getBrand(),
                 product.getCategory(),
-                product.getPrice(),
-                product.getVolume().getId()
+                product.getPrice()
         );
     }
 
