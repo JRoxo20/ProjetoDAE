@@ -8,10 +8,13 @@ import jakarta.ws.rs.core.Response;
 import jakarta.ejb.EJB;
 import jakarta.ws.rs.core.MediaType;
 
+import pt.ipleiria.estg.dei.ei.dae.projetodae.dtos.DadoDTO;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.dtos.EncomendaDTO;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.dtos.ProductDTO;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.dtos.SensorDTO;
+import pt.ipleiria.estg.dei.ei.dae.projetodae.ejbs.DadoBean;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.ejbs.SensorBean;
+import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.Dado;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.Product;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.Sensor;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.security.Authenticated;
@@ -26,6 +29,8 @@ import java.util.List;
 public class SensorService {
     @EJB
     private SensorBean sensorBean;
+    @EJB
+    private DadoBean dadoBean;
 
     @GET
     @Path("/")
@@ -114,6 +119,25 @@ public class SensorService {
         } catch (Exception e) {
             return Response.status(Response.Status.CONFLICT)
                     .entity("Sensor with id: '" + sensor_id + "' not found")
+                    .build();
+        }
+    }
+
+
+    // SensorService.java
+    @POST
+    @Path("{sensor_id}/dados")
+    public Response createDado(@PathParam("sensor_id") Long sensor_id, DadoDTO dadoDTO) {
+        try {
+            dadoBean.create(dadoDTO.getId(),dadoDTO.getValor(), dadoDTO.getMensagem(), sensor_id);
+
+            Dado newDado = dadoBean.find(dadoDTO.getId());
+            return Response.status(Response.Status.CREATED)
+                    .entity(DadoDTO.from(newDado))
+                    .build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.CONFLICT)
+                    .entity("Erro ao criar dado para o sensor com id: '" + sensor_id + "'")
                     .build();
         }
     }
