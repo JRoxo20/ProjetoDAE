@@ -7,6 +7,8 @@ import pt.ipleiria.estg.dei.ei.dae.projetodae.enums.Role;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.enums.SensorEstado;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.enums.SensorType;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.enums.Category;
+import pt.ipleiria.estg.dei.ei.dae.projetodae.exceptions.MyEntityExistsException;
+import pt.ipleiria.estg.dei.ei.dae.projetodae.exceptions.MyEntityNotFoundException;
 
 import java.util.List;
 
@@ -39,9 +41,8 @@ public class ConfigBean {
     private ProdutosNoVolumeBean produtosNoVolumeBean;
 
     @PostConstruct
-    public void populateDB() {
-
-        userBean.create("Vasco2", "Vasco2", "vasco2@gmail.com", "123456", Role.GESTOR);
+    public void populateDB() throws MyEntityNotFoundException, MyEntityExistsException{
+        
         clientBean.create("Vasco", "Vasco", "vasco@gmail.com", "123456");
         clientBean.create("maria", "Maria", "vasco@gmail.com", "123456");
 

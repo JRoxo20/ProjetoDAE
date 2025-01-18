@@ -1,5 +1,6 @@
 package pt.ipleiria.estg.dei.ei.dae.projetodae.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -13,6 +14,8 @@ public class ProdutosNoVolume {
     private Product produto;
     private int quantidade;
     @ManyToOne
+    @JoinColumn(name = "volume_id", nullable = false)
+    @JsonBackReference
     private Volume volume;
 
 

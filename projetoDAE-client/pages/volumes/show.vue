@@ -4,7 +4,6 @@
   <div v-else class="container">
     <h1>Volumes</h1>
     <div  class="buttons">
-      <nuxt-link v-if="userRole === 'GESTOR'" to="/volumes/create" class="create-button">➕ Create a New Volume</nuxt-link>
       <button @click.prevent="refresh" class="create-button">🔄 Refresh Data</button>
     </div>
     <br>
@@ -25,9 +24,6 @@
           <td>{{ volume.tipo_embalagem }}</td>
           <td>{{ volume.data_entrega == null ? "por entregar" : volume.data_entrega }}</td>
           <td class="tools">
-            <nuxt-link  :to="`/volumes/${volume.id}.index`" class="actions" title="View Details">
-              📄
-            </nuxt-link>
             <nuxt-link  :to="`/volumes/${volume.id}.change_state`" class="actions" title="Change State">
               🔄
             </nuxt-link>
