@@ -4,7 +4,6 @@
   <div v-else class="container">
     <h1>Volumes</h1>
     <div  class="buttons">
-      <nuxt-link v-if="userRole === 'GESTOR'" to="/volumes/create" class="create-button">➕ Create a New Volume</nuxt-link>
       <button @click.prevent="refresh" class="create-button">🔄 Refresh Data</button>
     </div>
     <br>

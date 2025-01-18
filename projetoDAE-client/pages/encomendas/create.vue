@@ -56,8 +56,7 @@
   </div>
   <hr class="divider" />
 
-  <div v-if="successMessage" class="success">{{ successMessage }}</div>
-  <div v-if="errorMessage" class="error">{{ errorMessage }}</div>
+  <<pre>{{ messages }}</pre>
 </template>
 
 <script setup>

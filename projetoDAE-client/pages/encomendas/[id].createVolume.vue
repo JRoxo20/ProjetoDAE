@@ -1,21 +1,24 @@
 <template>
-    <h2>Add new Volume to Encomenda {{ id }}</h2>
-    <form @submit.prevent="create">
-      <div>Id:
-        <input v-model.trim="volumeForm.id" type="number">
-        <span v-if="idError" class="error">
-          ERROR: {{ idError }}</span>
+  <Navbar activePage="volumes" />
+  <div class="container">
+    <h2 class="title">Add new Volume to Encomenda {{ id }}</h2>
+    <form @submit.prevent="create" class="form">
+      <div class="form-group">
+        <label for="id">ID:</label>
+        <input id="id" type="text" v-model="volumeForm.id" class="input" />
+        <span v-if="idError" class="error">ERROR: {{ idError }}</span>
       </div>
-      <div>Tipo de Embalagem:
-        <select v-model="volumeForm.tipo_embalagem">
-          <option value="">--- Please select Tipo de Embalagem ---</option>
-          <option value="Normal">Normal</option>
-          <option value="Isotérmica">Isotérmica</option>
-        </select>
-        <span v-if="tipo_embalagemError" class="error">
-          ERROR: {{ tipo_embalagemError }}</span>
-      </div>
-      <div>
+      <div class="form-group">
+      <label for="tipo">Tipo de Embalagem:</label>
+      <select v-model="volumeForm.tipo_embalagem">
+        <option value="">--- Please select Tipo de Embalagem ---</option>
+        <option value="Normal">Normal</option>
+        <option value="Isotérmica">Isotérmica</option>
+      </select>
+      <span v-if="tipo_embalagemError" class="error">
+        ERROR: {{ tipo_embalagemError }}</span>
+    </div>
+      <div class="form-group">
         Produtos:
         <div v-for="(produto, index) in volumeForm.produtos" :key="index" class="produto-group">
           <label>ID Produto:
@@ -35,7 +38,7 @@
         <button type="button" @click="addProduto">Add Produto</button>
       </div>
   
-      <div>
+      <div class="form-group">
         Sensores:
         <div v-for="(sensor, index) in volumeForm.sensores" :key="index" class="sensor-group">
           <label>ID Sensor:
@@ -64,6 +67,7 @@
       <button type="reset">RESET</button>
       <button type="submit" :disabled="isFormInvalid">CREATE</button>
     </form>
+  </div>
     <hr>
     <pre>{{ messages }}</pre>
   </template>
@@ -203,13 +207,129 @@
   </script>
   
   <style scoped>
-  .error {
+    .error {
     color: red;
   }
   
   .produto-group,
   .sensor-group {
     margin-bottom: 10px;
+  }
+
+  .back-button {
+    width: 30px;
+    height: 30px;
+    margin: 20px;
+    cursor: pointer;
+  }
+  
+  .container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .title {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    color: #333;
+  }
+  
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .label {
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    color: #555;
+  }
+  
+  .input {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+  }
+  
+  .input:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 4px rgba(0, 123, 255, 0.3);
+  }
+  
+  .error {
+    color: red;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+  }
+  
+  .success {
+    color: green;
+    font-size: 1rem;
+    margin-top: 1rem;
+  }
+  
+  .button-group {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  
+  .button {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .button.reset {
+    background-color: #6c757d;
+  }
+  
+  .button.reset:hover {
+    background-color: #5a6268;
+  }
+  
+  .button.create {
+    background-color: #007bff;
+  }
+  
+  .button.create:hover {
+    background-color: #0056b3;
+  }
+  
+  .button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  .divider {
+    margin: 2rem 0;
+    border: none;
+    border-top: 1px solid #ddd;
+  }
+  
+  .messages {
+    background-color: #f1f1f1;
+    padding: 1rem;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    color: #333;
   }
   </style>
   
