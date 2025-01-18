@@ -1,5 +1,6 @@
 package pt.ipleiria.estg.dei.ei.dae.projetodae.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.enums.SensorEstado;
@@ -27,6 +28,13 @@ import java.util.List;
         @NamedQuery(
                 name = "getSensorByTypeAndEstado",
                 query = "SELECT s FROM Sensor s WHERE s.tipo = :tipo AND s.estado = :estado"
+        ),@NamedQuery(
+        name = "getAllSensorsByClient",
+        query = "SELECT s FROM Sensor s " +
+                "JOIN s.volume v " +
+                "JOIN v.encomenda e " +
+                "WHERE e.client.username = :usernameCliente " +
+                "ORDER BY s.id"
         )
 })
 @Table(name = "sensores")
@@ -41,7 +49,7 @@ public class Sensor implements Serializable {
 
     // Relacionamento OneToMany com a entidade "Dado"
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "sensor",fetch = FetchType.EAGER)
-    @JsonManagedReference
+    @JsonIgnore
     private List<Dado> dados;
 
     //relacionamento com volumes

@@ -66,9 +66,12 @@ async function refresh() {
   error.value = null;
   await fetchAllEncomendas();
 }
-
+const userRole = ref(null);
 onMounted(async () => {
   await fetchAllEncomendas();
+  if (typeof window !== 'undefined') {
+    userRole.value = sessionStorage.getItem('role');
+  }
 });
 </script>
 

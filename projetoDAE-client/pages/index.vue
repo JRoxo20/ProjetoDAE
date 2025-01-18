@@ -5,7 +5,7 @@
   </div>
   <div class="zone-container">
     <div class="cards-container">
-      <NuxtLink v-if="userRole == 'GESTOR'" to="/encomendas/show" class="card">
+      <NuxtLink v-if="userRole != 'CLIENTE'" to="/encomendas/show" class="card">
         <div class="card-image">
           <img src="/orders.png" alt="Orders">
         </div>
@@ -23,19 +23,22 @@
             <p>View and manage your orders.</p>
         </div>
       </NuxtLink>
-      <NuxtLink to="/sensors" class="card">
+      <NuxtLink v-if="userRole != 'CLIENTE'" to="/sensors" class="card">
         <div class="card-image">
           <img src="/sensor.png" alt="Sensors">
         </div>
         <div class="card-content">
-          <div v-if="userRole =='GESTOR'">
             <h2>Sensors</h2>
             <p>Monitor sensor data in all orders.</p>
-          </div>
-          <div v-if="userRole =='CLIENTE'">
+        </div>
+      </NuxtLink>
+      <NuxtLink v-if="userRole == 'CLIENTE'" :to="`/sensors/${username}.mysensors`" class="card">
+     <div class="card-image">
+          <img src="/sensor.png" alt="Sensors">
+        </div>
+        <div class="card-content">
             <h2>Sensors</h2>
             <p>Monitor sensor data in your orders. </p>
-          </div>
         </div>
       </NuxtLink>
       <NuxtLink v-if="userRole !='CLIENTE'" to="/products" class="card">
@@ -47,20 +50,22 @@
             <p>Manage your product inventory.</p>
         </div>
       </NuxtLink>
-      <NuxtLink to="/volumes/show" class="card">
+      <NuxtLink v-if="userRole !== 'CLIENTE'" to="/volumes/show" class="card">
         <div class="card-image">
           <img src="/volume.png" alt="Volume">
         </div>
         <div class="card-content">
-          <div v-if="userRole =='GESTOR'">
             <h2>Volumes</h2>
             <p>Analyze storage and shipping volumes.</p>
-          </div>
-          <div v-if="userRole =='CLIENTE'">
+        </div>
+      </NuxtLink>
+      <NuxtLink v-if="userRole === 'CLIENTE'" :to="`/volumes/${username}`" class="card">
+        <div class="card-image">
+          <img src="/volume.png" alt="Volume">
+        </div>
+        <div class="card-content">
             <h2>Volumes</h2>
             <p>Analyze your order's volumes.</p>
-          </div>
-
         </div>
       </NuxtLink>
     </div>
@@ -119,7 +124,6 @@ body {
   font-size: 24px;
   color: #007bff;
 }
-
 
 
 .cards-container {

@@ -1,4 +1,5 @@
 <template>
+  <Navbar activePage="sensors" />
   <div class="container">
     <h2 class="title">Add New Sensor</h2>
     <form @submit.prevent="create" class="form">
@@ -7,6 +8,11 @@
         <label for="id">ID:</label>
         <input id="id" type="text" v-model="sensorForm.id" class="input" />
         <span v-if="idError" class="error">ERROR: {{ idError }}</span>
+      </div>
+      <div class="form-group">
+        <label for="id">Volume id:</label>
+        <input id="id" type="text" v-model="sensorForm.volume_id" class="input" />
+        <span v-if="volume_idError" class="error">ERROR: {{ volume_idError }}</span>
       </div>
 
       <div class="form-group">
@@ -34,9 +40,12 @@
 </template>
 
 <script setup>
+import Navbar from "~/components/navbar.vue";
+
 const sensorForm = reactive({
   id: null,
-  tipo: null
+  tipo: null,
+  volume_id: null
 })
 const successMessage = ref("")
 const errorMessage = ref("")
@@ -49,6 +58,11 @@ const idError = computed(() => {
   if (!sensorForm.id) return 'ID is required'
   return null
 })
+const volume_idError = computed(() => {
+  if (sensorForm.id === null) return null
+  if (!sensorForm.id) return 'volume_id is required'
+  return null
+})
 const tipoError = computed(() => {
   if (sensorForm.tipo === null) return null
   if (!sensorForm.tipo) return 'Tipo is required'
@@ -56,7 +70,7 @@ const tipoError = computed(() => {
 })
 
 const isFormInvalid = computed(() => {
-  return idError.value || tipoError.value
+  return idError.value || tipoError.value || volume_idError.value
 })
 
 async function create() {

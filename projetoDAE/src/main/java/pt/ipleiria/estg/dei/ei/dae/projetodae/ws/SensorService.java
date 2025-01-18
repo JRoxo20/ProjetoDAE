@@ -75,9 +75,14 @@ public class SensorService {
         return SensorDTO.from(sensorBean.find(sensor_id));
     }
 
+    @GET
+    @Path("{usernameCliente}/mysensors")
+    public List<SensorDTO> getMySensors(@PathParam("usernameCliente") String usernameclient) {
+        return SensorDTO.from(sensorBean.getAllSensorsByClient(usernameclient));
+    }
+
     @POST
     @Path("/")
-    // missing exceptions
     public Response createNewSensor (SensorDTO sensorDTO) throws Exception {
         try{
             sensorBean.create(
@@ -97,5 +102,22 @@ public class SensorService {
                     .build();
         }
     }
+
+    @PATCH
+    @Path("/{sensor_id}")
+
+    public Response updateSensor(@PathParam("sensor_id") Long sensor_id, SensorDTO sensorDTO) {
+        try {
+            sensorBean.mudarEstado(sensor_id, sensorDTO.getEstado());
+            return Response.ok().build();
+
+        } catch (Exception e) {
+            return Response.status(Response.Status.CONFLICT)
+                    .entity("Sensor with id: '" + sensor_id + "' not found")
+                    .build();
+        }
+    }
+
+
 
 }

@@ -12,7 +12,9 @@ import pt.ipleiria.estg.dei.ei.dae.projetodae.dtos.SensorDTO;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.dtos.VolumeDTO;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.ejbs.ProdutosNoVolumeBean;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.ejbs.SensorBean;
+
 import pt.ipleiria.estg.dei.ei.dae.projetodae.ejbs.ClientBean;
+
 import pt.ipleiria.estg.dei.ei.dae.projetodae.ejbs.VolumeBean;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.Client;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.Volume;
@@ -27,13 +29,16 @@ import java.util.List;
 public class VolumeService {
     @EJB
     private VolumeBean volumeBean;
+
     @EJB
     private ProdutosNoVolumeBean produtosNoVolumeBean;
     @EJB
     private SensorBean sensorBean;
 
+
     @EJB
     private ClientBean clientBean;
+
 
 
     @GET // means: to call this endpoint, we need to use the HTTP GET method

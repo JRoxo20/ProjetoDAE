@@ -1,5 +1,5 @@
 <template>
-  <Navbar  activePage="sensors" />
+  <Navbar activePage="sensors" />
   <div v-if="error" class="error">Error: {{ error.message }}</div>
   <div v-else class="container">
     <h1>Sensors</h1>
@@ -22,11 +22,15 @@
         <td>{{ sensor.id }}</td>
         <td>{{ sensor.estado }}</td>
         <td>{{ sensor.tipo }}</td>
-        <td> <nuxt-link :to="`/sensors/${sensor.id}`" class="view-details">Details</nuxt-link> </td>
+        <td>
+          <nuxt-link :to="`/sensors/${sensor.id}`" class="view-details" title="View Details"> 📄</nuxt-link>
+          <button @click="changeState(sensor.id)" class="change-state-button" title="Change Status">🔄
+          </button>
+        </td>
       </tr>
       </tbody>
     </table>
-    <div v-if="userRole == 'GESTOR'" class="buttons-sensor">
+    <div v-if="userRole === 'GESTOR'" class="buttons-sensor">
       <nuxt-link to="/sensors/ativos" class="sensor-button" aria-label="View available sensors">Available Sensors</nuxt-link>
       <nuxt-link to="/sensors/inativos" class="sensor-button" aria-label="View unavailable sensors">Unavailable Sensors</nuxt-link>
       <nuxt-link to="/sensors/temperatura" class="sensor-button" aria-label="View temperature sensors">Temperature Sensors</nuxt-link>
@@ -38,16 +42,13 @@
 </template>
 
 <script setup>
-
 import 'flowbite/dist/flowbite.css';
-import {onMounted, ref} from "vue";
+import { onMounted, ref } from "vue";
 import Navbar from "~/components/navbar.vue";
-
 
 const config = useRuntimeConfig();
 const api = config.public.API_URL;
 const error = ref(null);
-
 const sensors = ref([]);
 
 async function fetchAllSensors() {
@@ -63,19 +64,33 @@ async function fetchAllSensors() {
         Authorization: `Bearer ${token}`,
       },
     });
-    sensors.value = response; // Assign the response to the products variable
+    sensors.value = response;
   } catch (err) {
     console.error('Error fetching sensors:', err);
     error.value = err;
   }
 }
 
-const confirmDelete = async (id) => {
-  if (confirm('Are you sure you want to delete this product?')) {
-    await fetch(`${api}/products/${id}`, { method: 'DELETE' });
-    refresh();
+async function changeState(id) {
+  try {
+    const token = sessionStorage.getItem('authToken');
+    const sensor = sensors.value.find(sensor => sensor.id === id);
+    const newState = sensor.estado === 'ATIVO' ? 'INATIVO' : 'ATIVO';
+    await $fetch(`${api}/sensors/${id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: { estado: newState }
+    });
+    await fetchAllSensors();
+  } catch (err) {
+    console.error('Error changing sensor state:', err);
+    error.value = err;
   }
-};
+}
+
 async function refresh() {
   error.value = null;
   await fetchAllSensors();
@@ -85,14 +100,23 @@ const userRole = ref(null);
 onMounted(async () => {
   await fetchAllSensors();
   if(typeof window !== 'undefined') {
-    userRole.value = sessionStorage.getItem('userRole');
+    userRole.value = sessionStorage.getItem('role');
   }
 });
 </script>
 
 <style >
+
+.change-state-button{
+  text-decoration: underline;
+  color: black;
+  border: none;
+  cursor: pointer;
+}
+
 .view-details{
   text-decoration: underline;
+  margin-right: 20px;
 }
 h1{
   font-size:30px;
@@ -148,7 +172,7 @@ h1{
 
 }
 .sensor-button {
-  background-color: #ff6a00;
+  background-color: #007bff;
   display: inline-block;
   padding: 6px 12px;
   color: white;
@@ -159,7 +183,7 @@ h1{
 }
 
 .sensor-button:hover {
-  background-color: #e65c00;
+  background-color: #0056b3;
 }
 
 h2 {
@@ -193,24 +217,9 @@ h2 {
   background-color: #f1f1f1;
 }
 
-.tools {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
 
 
-.delete-button {
-  background: none;
-  border: none;
-  color: red;
-  font-size: 1.2em;
-  cursor: pointer;
-}
 
-.delete-button:hover {
-  color: darkred;
-}
 
 .error {
   color: red;

@@ -1,5 +1,6 @@
 package pt.ipleiria.estg.dei.ei.dae.projetodae.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.time.LocalDateTime;
@@ -21,7 +22,7 @@ public class Dado {
     // Relacionamento ManyToOne com a entidade "Sensor"
     @ManyToOne
     @JoinColumn(name = "sensor_id", nullable = false)
-    @JsonBackReference
+    @JsonIgnore
     private Sensor sensor;
 
     public Dado() {
