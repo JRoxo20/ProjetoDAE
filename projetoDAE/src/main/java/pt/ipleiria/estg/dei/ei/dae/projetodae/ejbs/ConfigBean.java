@@ -7,6 +7,8 @@ import pt.ipleiria.estg.dei.ei.dae.projetodae.enums.Role;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.enums.SensorEstado;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.enums.SensorType;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.enums.Category;
+import pt.ipleiria.estg.dei.ei.dae.projetodae.exceptions.MyEntityExistsException;
+import pt.ipleiria.estg.dei.ei.dae.projetodae.exceptions.MyEntityNotFoundException;
 
 import java.util.List;
 
@@ -39,9 +41,8 @@ public class ConfigBean {
     private ProdutosNoVolumeBean produtosNoVolumeBean;
 
     @PostConstruct
-    public void populateDB() {
-
-        userBean.create("Vasco2", "Vasco2", "vasco2@gmail.com", "123456", Role.GESTOR);
+    public void populateDB() throws MyEntityNotFoundException, MyEntityExistsException{
+        
         clientBean.create("Vasco", "Vasco", "vasco@gmail.com", "123456");
         clientBean.create("maria", "Maria", "vasco@gmail.com", "123456");
 
@@ -74,9 +75,9 @@ public class ConfigBean {
         dadoBean.create(3L, "39.734305, -8.821126", "Latitude Longitude", 3L);
         dadoBean.create(3L, "39.598330, -9.072654", "Latitude Longitude", 3L);
 
-        productBean.create("Gelado de morango", "Saboroso", Category.Alimentar, 12.5);
-        productBean.create("Televisão", "XYZ",Category.Eletronico, 112.99);
-        productBean.create("Microondas", "ABC", Category.Eletrodomestico, 20.5);
+        productBean.create("Gelado de morango", "Saboroso", Category.ALIMENTAR, 12.5);
+        productBean.create("Televisão", "XYZ",Category.ELETRONICO, 112.99);
+        productBean.create("Microondas", "ABC", Category.ELECTRODOMESTICO, 20.5);
 
         //produtos em Volumes
         produtosNoVolumeBean.create(1L, 5, 1L);

@@ -2,7 +2,10 @@ package pt.ipleiria.estg.dei.ei.dae.projetodae.entities;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.*;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.enums.SensorEstado;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.enums.SensorType;
@@ -55,6 +58,8 @@ public class Sensor implements Serializable {
 
     //relacionamento com volumes
     @ManyToOne
+    @JoinColumn(name = "volume_id", nullable = false)
+    @JsonBackReference
     private Volume volume;
 
     public Sensor() {

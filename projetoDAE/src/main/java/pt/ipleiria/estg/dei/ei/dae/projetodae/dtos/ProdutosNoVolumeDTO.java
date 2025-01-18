@@ -16,6 +16,7 @@ public class ProdutosNoVolumeDTO implements Serializable {
     private String brand;
     private Category category;
     private int quantidade;
+    private Double price;
 
     public ProdutosNoVolumeDTO(){
 
@@ -26,14 +27,23 @@ public class ProdutosNoVolumeDTO implements Serializable {
         this.quantidade = quantidade;
     }
 
-    public ProdutosNoVolumeDTO(Long id_produto, String nome_produto, Category category, int quantidade, String brand) {
+    public ProdutosNoVolumeDTO(Long id_produto, String nome_produto, Category category, int quantidade, String brand, Double price) {
         this.id_produto = id_produto;
         this.nome_produto = nome_produto;
         this.category = category;
         this.quantidade = quantidade;
         this.brand = brand;
+        this.price = price;
     }
 
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
 
     public String getBrand() {
         return brand;
@@ -82,7 +92,8 @@ public class ProdutosNoVolumeDTO implements Serializable {
                 product.getProduto().getName(),
                 product.getProduto().getCategory(),
                 product.getQuantidade(),
-                product.getProduto().getBrand()
+                product.getProduto().getBrand(),
+                product.getProduto().getPrice()
 
 
         );

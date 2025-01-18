@@ -1,73 +1,126 @@
 <template>
   <Navbar activePage="orders" />
   <div class="container">
-    <h2 class="title">Add New Encomenda</h2>
-    <form @submit.prevent="create" class="form">
+    <h2 class="title">Create Encomenda</h2>
+    <form @submit.prevent="createEncomenda" class="form">
       <div class="form-group">
-        <label for="id">ID:</label>
-        <input v-model.trim="encomendaForm.id" type="text">
-        <span v-if="idError" class="error">
- ERROR: {{ idError }}</span>
+        <label>ID Encomenda:</label>
+        <input v-model="encomendaForm.id" type="number" required />
       </div>
-    <div class="form-group">
-      <label for="usernameCliente">Username Cliente:</label>
-      <input v-model.trim="encomendaForm.usernameCliente" type="text">
-      <span v-if="nameError" class="error">
- ERROR: {{ nameError }}</span>
-    </div>
-      <div class="button-group">
-        <button type="reset" class="button reset">RESET</button>
-        <button type="submit" :disabled="isFormInvalid" class="button create">CREATE</button>
+      <div class="form-group">
+        <label>Username Cliente:</label>
+        <input v-model="encomendaForm.usernameCliente" type="text" required />
       </div>
-  </form>
-    <hr class="divider" />
 
-    <div v-if="successMessage" class="success">{{ successMessage }}</div>
-    <div v-if="errorMessage" class="error">{{ errorMessage }}</div>
+      <div class="form-group">
+        <h3>Volumes</h3>
+        <div v-for="(volume, index) in encomendaForm.volumes" :key="index" class="volume-group">
+          <h4>Volume {{ index + 1 }}</h4>
+          <label>ID Volume:</label>
+          <input v-model="volume.id" type="number" required />
+          <label>Tipo de Embalagem:</label>
+          <select v-model="volume.tipo_embalagem">
+            <option value="">Selecione</option>
+            <option value="Normal">Normal</option>
+            <option value="Isotérmica">Isotérmica</option>
+          </select>
+
+          <h5>Produtos</h5>
+          <div v-for="(produto, pIndex) in volume.produtos" :key="pIndex" class="produto-group">
+            <label>ID Produto:</label>
+            <input v-model="produto.id_produto" type="number" required />
+            <label>Quantidade:</label>
+            <input v-model="produto.quantidade" type="number" required />
+            <button @click="removeProduto(index, pIndex)">Remover Produto</button>
+          </div>
+          <button @click="addProduto(index)">Adicionar Produto</button>
+
+          <h5>Sensores</h5>
+          <div v-for="(sensor, sIndex) in volume.sensores" :key="sIndex" class="sensor-group">
+            <label>ID Sensor:</label>
+            <input v-model="sensor.id" type="number" required />
+            <label>Tipo:</label>
+            <input v-model="sensor.tipo" type="text" required />
+            <button @click="removeSensor(index, sIndex)">Remover Sensor</button>
+          </div>
+          <button @click="addSensor(index)">Adicionar Sensor</button>
+
+          <button @click="removeVolume(index)">Remover Volume</button>
+        </div>
+        <button @click="addVolume">Adicionar Volume</button>
+      </div>
+
+      <button type="submit">Criar Encomenda</button>
+
+    </form>
   </div>
+  <hr class="divider" />
+
+  <<pre>{{ messages }}</pre>
 </template>
+
 <script setup>
-import {ref} from "vue";
-import Navbar from "~/components/navbar.vue";
+import { reactive, ref } from 'vue';
+
+const config = useRuntimeConfig();
+const apiBaseUrl = config.public.API_URL; // Substitua pela URL correta.
+const token = sessionStorage.getItem('authToken');
 
 const encomendaForm = reactive({
   id: null,
-  usernameCliente: null
-})
-const messages = ref([])
-const successMessage = ref("")
-const errorMessage = ref("")
-const config = useRuntimeConfig()
-const api = config.public.API_URL
-const { data: orders } = await useFetch(`${api}/encomendas`)
-// Field validation rules...
-const nameError = computed(() => {
-  if (encomendaForm.usernameCliente === null) return null
-  if (! encomendaForm.usernameCliente )
-    return 'Name is required'
-  if ( encomendaForm.usernameCliente.length < 3 )
-    return 'Name must be at least 3 characters'
-  return null
-})
-const idError = computed(() => {
-  if (encomendaForm.id === null) return null
-  if ( ! encomendaForm.id )
-    return 'id is required'
-  if ( ! encomendaForm.id <0 )
-    return 'id is required to be greater than 0'
-  return null
-})
+  usernameCliente: '',
+  volumes: [],
+});
+const messages = ref([]);
 
+function addVolume() {
+  encomendaForm.volumes.push({
+    id: null,
+    estado: 1,
+    tipo_embalagem: null,
+    data_entrega: null,
+    encomenda_id: null,
+    produtos: [],
+    sensores: [],
+  });
+}
 
-const isFormInvalid = computed(() => {
-  return nameError.value || idError.value
-})
-async function create() {
+function removeVolume(index) {
+  encomendaForm.volumes.splice(index, 1);
+}
+
+function addProduto(volumeIndex) {
+  encomendaForm.volumes[volumeIndex].produtos.push({
+    id_produto: null,
+    quantidade: null
+  });
+}
+
+function removeProduto(volumeIndex, produtoIndex) {
+  encomendaForm.volumes[volumeIndex].produtos.splice(produtoIndex, 1);
+}
+
+function addSensor(volumeIndex) {
+  encomendaForm.volumes[volumeIndex].sensores.push({
+    id: null, estado: 1, tipo: null, volume_id: null
+  });
+}
+
+function removeSensor(volumeIndex, sensorIndex) {
+  encomendaForm.volumes[volumeIndex].sensores.splice(sensorIndex, 1);
+}
+
+async function createEncomenda() {
   try {
-    await $fetch(`${api}/encomendas`, {
+    const payload = { ...encomendaForm };
+    console.log(payload)
+    await $fetch(`${apiBaseUrl}/encomendas`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: encomendaForm,
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(payload),
       onResponse({ request, response, options }) {
         messages.value.push({
           method: options.method,
@@ -77,33 +130,38 @@ async function create() {
           payload: response._data
         })
       }
-    })
-    successMessage.value = "Volume created successfully!"
-    errorMessage.value = ""
-  } catch (e) {
-    console.log(e)
-    successMessage.value = ""
-    errorMessage.value = "Failed to create sensor. Please try again."
+    });
 
+  } catch (error) {
+    console.error('Erro ao criar encomenda:', error);
   }
 }
-  onMounted(() => {
-    const token = sessionStorage.getItem('authToken');
-    if (!token) {
-      window.location.href = '/login';
-    }
-  });
+onMounted(() => {
+  const token = sessionStorage.getItem('authToken');
+  if (!token) {
+    window.location.href = '/login';
+  }
+});
 </script>
+
 <style scoped>
-  .back-button {
+.volume-group,
+.produto-group,
+.sensor-group {
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
+.back-button {
   width: 30px;
   height: 30px;
   margin: 20px;
   cursor: pointer;
 }
 
-  .container {
-    max-width: 600px;
+.container {
+  max-width: 600px;
   margin: 0 auto;
   padding: 20px;
   background-color: #f9f9f9;
@@ -111,62 +169,62 @@ async function create() {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-  .title {
-    font-size: 1.8rem;
+.title {
+  font-size: 1.8rem;
   margin-bottom: 1.5rem;
   text-align: center;
   color: #333;
 }
 
-  .form {
+.form {
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
 
-  .form-group {
+.form-group {
   display: flex;
   flex-direction: column;
 }
 
-  .label {
-    margin-bottom: 0.5rem;
+.label {
+  margin-bottom: 0.5rem;
   font-weight: bold;
   color: #555;
 }
 
-  .input {
+.input {
   padding: 0.5rem;
   border: 1px solid #ccc;
   border-radius: 4px;
   font-size: 1rem;
 }
 
-  .input:focus {
+.input:focus {
   outline: none;
   border-color: #007bff;
   box-shadow: 0 0 4px rgba(0, 123, 255, 0.3);
 }
 
-  .error {
+.error {
   color: red;
   font-size: 0.875rem;
   margin-top: 0.25rem;
 }
 
-  .success {
+.success {
   color: green;
   font-size: 1rem;
   margin-top: 1rem;
 }
 
-  .button-group {
+.button-group {
   display: flex;
   justify-content: space-between;
   gap: 1rem;
 }
 
-  .button {
+.button {
   padding: 0.75rem 1.5rem;
   font-size: 1rem;
   color: #fff;
@@ -176,35 +234,35 @@ async function create() {
   transition: background-color 0.3s;
 }
 
-  .button.reset {
-    background-color: #6c757d;
+.button.reset {
+  background-color: #6c757d;
 }
 
-  .button.reset:hover {
-    background-color: #5a6268;
+.button.reset:hover {
+  background-color: #5a6268;
 }
 
-  .button.create {
-    background-color: #007bff;
+.button.create {
+  background-color: #007bff;
 }
 
-  .button.create:hover {
-    background-color: #0056b3;
+.button.create:hover {
+  background-color: #0056b3;
 }
 
-  .button:disabled {
-    background-color: #ccc;
+.button:disabled {
+  background-color: #ccc;
   cursor: not-allowed;
 }
 
-  .divider {
+.divider {
   margin: 2rem 0;
   border: none;
   border-top: 1px solid #ddd;
 }
 
-  .messages {
-    background-color: #f1f1f1;
+.messages {
+  background-color: #f1f1f1;
   padding: 1rem;
   border-radius: 4px;
   font-size: 0.9rem;
