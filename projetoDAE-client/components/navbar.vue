@@ -1,7 +1,7 @@
 <template>
   <fwb-navbar>
     <template #logo>
-      <fwb-navbar-logo class="logo" alt="logo" image-url="/logotipo.jpg" link="#">
+      <fwb-navbar-logo class="logo" alt="logo" image-url="/logotipo.jpg" link="/">
       </fwb-navbar-logo>
     </template>
     <template #default="{ isShowMenu }">
@@ -13,18 +13,28 @@
           Home
         </fwb-navbar-link>
         <fwb-navbar-link
-            v-if="userRole == 'GESTOR'"
+            v-if="userRole !== 'CLIENTE'"
             link="/products"
             :class="{ active: activePage === 'products' }"
         >
           Products
         </fwb-navbar-link>
+
         <fwb-navbar-link
+            v-if="userRole !== 'CLIENTE'"
             link="/volumes/show"
             :class="{ active: activePage === 'volumes' }"
         >
           Volumes
         </fwb-navbar-link>
+        <fwb-navbar-link
+            v-if="userRole === 'CLIENTE'"
+            :link="`/volumes/${username}`"
+            :class="{ active: activePage === 'volumes' }"
+        >
+          Volumes
+        </fwb-navbar-link>
+
         <fwb-navbar-link
             v-if="userRole === 'GESTOR'"
             link="/encomendas/show"
@@ -41,7 +51,15 @@
         </fwb-navbar-link>
 
         <fwb-navbar-link
-            link="#"
+            v-if="userRole !== 'CLIENTE'"
+            link="/sensors"
+            :class="{ active: activePage === 'sensors' }"
+        >
+          Sensors
+        </fwb-navbar-link>
+        <fwb-navbar-link
+            v-if="userRole === 'CLIENTE'"
+            :link="`/sensors/${username}.mysensors`"
             :class="{ active: activePage === 'sensors' }"
         >
           Sensors

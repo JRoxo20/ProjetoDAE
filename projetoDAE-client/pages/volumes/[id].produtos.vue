@@ -1,4 +1,5 @@
 <template>
+  <Navbar activePage="volumes" />
     <div v-if="error">Error: {{ error.message }}</div>
     <div v-else class="container">
         <h1>Produtos do Volume {{ id }}</h1>

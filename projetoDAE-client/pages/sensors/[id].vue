@@ -2,17 +2,15 @@
   <Navbar activePage="sensors" />
   <div v-if="error" class="error">Error: {{ error.message }}</div>
   <div v-else class="container">
-
     <div v-if="sensor">
       <h2 class="title">Sensor Details</h2>
-
       <div class="sensor-info">
         <p><strong>ID:</strong> {{ sensor.id }}</p>
         <p><strong>Estado:</strong> {{ sensor.estado }}</p>
         <p><strong>Tipo:</strong> {{ sensor.tipo }}</p>
       </div>
 
-      <h3>Registros</h3>
+      <h3>Registos</h3>
       <table v-if="Array.isArray(sensor.dados)" class="dados-table">
         <thead>
         <tr>
@@ -72,12 +70,14 @@ onMounted(async () => {
 </script>
 
 <style scoped>
+
 .container {
   padding: 20px;
   font-family: Arial, sans-serif;
   background-color: #f8f9fa;
   border-radius: 10px;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  margin-left: 5%;
 }
 
 .title {

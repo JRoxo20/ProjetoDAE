@@ -12,6 +12,7 @@
         <th>Id</th>
         <th>Estado</th>
         <th>Tipo</th>
+        <th>Actions</th>
       </tr>
       </thead>
       <tbody>
@@ -86,9 +87,12 @@ async function refresh() {
   error.value = null;
   await fetchAllSensors();
 }
-
+const token = ref(null);
 onMounted(async () => {
   await fetchAllSensors();
+  if(typeof window !== 'undefined') {
+    token.value = sessionStorage.getItem('authToken');
+  }
 });
 </script>
 

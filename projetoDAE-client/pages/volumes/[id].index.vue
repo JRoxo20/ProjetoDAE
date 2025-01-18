@@ -1,4 +1,5 @@
 <template>
+  <Navbar activePage="volumes" />
   <div v-if="volume" class="volume-container">
     <h2 class="volume-title">Details of Volume {{ id }}</h2>
     <div class="volume-info">
@@ -20,6 +21,7 @@
 
 <script setup>
 import {onMounted} from "vue";
+import Navbar from "~/components/navbar.vue";
 
 const route = useRoute()
 const id = route.params.id
@@ -53,6 +55,13 @@ onMounted(() => {
 </script>
 
 <style scoped>
+.back-button {
+  width: 30px;
+  height: 30px;
+  margin: 20px;
+  cursor: pointer;
+}
+
 .volume-container {
   padding: 20px;
   background-color: #f9f9f9;

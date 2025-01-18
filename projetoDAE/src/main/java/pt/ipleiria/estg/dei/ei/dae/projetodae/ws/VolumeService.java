@@ -10,12 +10,11 @@ import pt.ipleiria.estg.dei.ei.dae.projetodae.dtos.ProductDTO;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.dtos.ProdutosNoVolumeDTO;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.dtos.SensorDTO;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.dtos.VolumeDTO;
-<<<<<<< HEAD
 import pt.ipleiria.estg.dei.ei.dae.projetodae.ejbs.ProdutosNoVolumeBean;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.ejbs.SensorBean;
-=======
+
 import pt.ipleiria.estg.dei.ei.dae.projetodae.ejbs.ClientBean;
->>>>>>> main
+
 import pt.ipleiria.estg.dei.ei.dae.projetodae.ejbs.VolumeBean;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.Client;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.Volume;
@@ -30,17 +29,17 @@ import java.util.List;
 public class VolumeService {
     @EJB
     private VolumeBean volumeBean;
-<<<<<<< HEAD
+
     @EJB
     private ProdutosNoVolumeBean produtosNoVolumeBean;
     @EJB
     private SensorBean sensorBean;
-=======
+
 
     @EJB
     private ClientBean clientBean;
 
->>>>>>> main
+
 
     @GET // means: to call this endpoint, we need to use the HTTP GET method
     @Path("/") // means: the relative url path is “/api/student/”

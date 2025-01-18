@@ -3,6 +3,9 @@
   <div v-if="error" class="error">Error: {{ error.message }}</div>
   <div v-else class="container">
     <h1>Sensors</h1>
+    <div class="buttons">
+      <button @click.prevent="refresh" class="create-button">🔄 Refresh Data</button>
+    </div>
     <table class="sensor-table">
       <thead>
       <tr>
@@ -131,18 +134,6 @@ h2 {
   background-color: #f1f1f1;
 }
 
-.change-state-button {
-  background-color: #ffc107;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.change-state-button:hover {
-  background-color: #e0a800;
-}
 
 .error {
   color: red;

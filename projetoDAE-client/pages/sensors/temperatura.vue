@@ -12,6 +12,7 @@
         <th>Id</th>
         <th>Estado</th>
         <th>Tipo</th>
+        <th>Actions</th>
       </tr>
       </thead>
       <tbody>

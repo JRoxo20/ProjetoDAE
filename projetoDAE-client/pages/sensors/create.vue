@@ -1,4 +1,5 @@
 <template>
+  <Navbar activePage="sensors" />
   <div class="container">
     <h2 class="title">Add New Sensor</h2>
     <form @submit.prevent="create" class="form">
@@ -39,6 +40,8 @@
 </template>
 
 <script setup>
+import Navbar from "~/components/navbar.vue";
+
 const sensorForm = reactive({
   id: null,
   tipo: null,

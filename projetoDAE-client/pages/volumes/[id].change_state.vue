@@ -1,4 +1,5 @@
 <template>
+  <Navbar activePage="volumes" />
     <h2>Chage Volume State</h2>
     <form @submit.prevent="create">
         <div>State:
@@ -15,6 +16,8 @@
 </template>
 
 <script setup>
+import Navbar from "~/components/navbar.vue";
+
 const route = useRoute()
 const id = route.params.id
 

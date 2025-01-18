@@ -1,4 +1,5 @@
 <template>
+  <Navbar activePage="volumes" />
     <div v-if="error">Error: {{ error.message }}</div>
     <div v-else class="container">
         <h1>Sensores do Volume {{ id }}</h1>
@@ -72,6 +73,12 @@ onMounted(async () => {
 });
 </script>
 <style>
+.back-button {
+  width: 30px;
+  height: 30px;
+  margin: 20px;
+  cursor: pointer;
+}
 h1 {
     font-size: 30px;
     margin-left: 4%;

@@ -62,9 +62,10 @@ async function refresh() {
   error.value = null;
   await fetchAllSensors();
 }
-
+const token = ref(null);
 onMounted(async () => {
   await fetchAllSensors();
+
 });
 </script>
 

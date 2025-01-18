@@ -3,8 +3,8 @@
   <div v-if="error">Error: {{ error.message }}</div>
   <div v-else class="container">
     <h1>Volumes</h1>
-    <div v-if="userRole == 'GESTOR'" class="buttons">
-      <nuxt-link to="/volumes/create" class="create-button">➕ Create a New Volume</nuxt-link>
+    <div  class="buttons">
+      <nuxt-link v-if="userRole === 'GESTOR'" to="/volumes/create" class="create-button">➕ Create a New Volume</nuxt-link>
       <button @click.prevent="refresh" class="create-button">🔄 Refresh Data</button>
     </div>
     <br>
@@ -24,17 +24,24 @@
           <td>{{ volume.estado }}</td>
           <td>{{ volume.tipo_embalagem }}</td>
           <td>{{ volume.data_entrega == null ? "por entregar" : volume.data_entrega }}</td>
-          <td  class="tools">
-            <nuxt-link :to="`/volumes/${volume.id}.index`" class="actions"> Details</nuxt-link>
-            <nuxt-link :to="`/volumes/${volume.id}.change_state`">Change State</nuxt-link>
-            <nuxt-link :to="`/encomendas/${volume.encomenda_id}.volumes`">Encomenda</nuxt-link>
-            <nuxt-link :to="`/volumes/${volume.id}.produtos`">Produtos</nuxt-link>
-            <nuxt-link v-if="userRole == 'GESTOR'" :to="`/volumes/${volume.id}.change_state`" class="actions">Change State</nuxt-link>
-            <!-- <nuxt-link :to="`/encomendas/${volume.encomenda_id}`">Encomenda</nuxt-link> -->
-            <nuxt-link :to="`/volumes/${volume.id}.sensores`">Sensores</nuxt-link>
-            <nuxt-link :to="`/volumes/create`">criar Volume</nuxt-link>
-
+          <td class="tools">
+            <nuxt-link  :to="`/volumes/${volume.id}.index`" class="actions" title="View Details">
+              📄
+            </nuxt-link>
+            <nuxt-link  :to="`/volumes/${volume.id}.change_state`" class="actions" title="Change State">
+              🔄
+            </nuxt-link>
+            <nuxt-link :to="`/encomendas/${volume.encomenda_id}.volumes`" class="actions" title="View Encomenda">
+              📦
+            </nuxt-link>
+            <nuxt-link :to="`/volumes/${volume.id}.produtos`" class="actions" title="View Produtos">
+              🛒
+            </nuxt-link>
+            <nuxt-link :to="`/volumes/${volume.id}.sensores`" class="actions" title="View Sensores">
+              📡
+            </nuxt-link>
           </td>
+
 
         </tr>
       </tbody>
@@ -52,6 +59,7 @@ const api = config.public.API_URL;
 // Estados para volumes e erros
 const volumes = ref([]);
 const error = ref(null);
+const userRole = ref(null);
 
 // Função para buscar volumes da API
 async function fetchVolumes() {
@@ -88,11 +96,9 @@ async function refresh() {
 
 // Busca volumes ao montar o componente
 onMounted(async () => {
-  const userRole = ref(null);
   await fetchVolumes();
     if (typeof window !== 'undefined') {
-      userRole.value = sessionStorage.getItem('userRole');
-
+      userRole.value = sessionStorage.getItem('role');
     }
 });
 </script>
