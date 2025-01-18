@@ -15,6 +15,7 @@ import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.Client;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.Encomenda;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.Volume;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.exceptions.MyEntityExistsException;
+import pt.ipleiria.estg.dei.ei.dae.projetodae.exceptions.MyEntityNotFoundException;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.security.Authenticated;
 
 
@@ -23,6 +24,7 @@ import java.util.List;
 @Path("encomendas") // relative url web path for this service
 @Produces({MediaType.APPLICATION_JSON}) // injects header “Content-Type: application/json”
 @Consumes({MediaType.APPLICATION_JSON}) // injects header “Accept: application/json”
+@Authenticated
 public class EncomendaService {
     @EJB
     private EncomendaBean encomendaBean;
@@ -39,6 +41,7 @@ public class EncomendaService {
 
     @GET // means: to call this endpoint, we need to use the HTTP GET method
     @Path("/") // means: the relative url path is “/api/encomendas/”
+    @RolesAllowed({"Logistica", "Gestor"})
     public List<EncomendaDTO> getAllEncomendas() {
         return EncomendaDTO.from(encomendaBean.findAll());
     }
@@ -60,9 +63,8 @@ public class EncomendaService {
     @POST
     @Path("/")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response createNewEncomenda (EncomendaDTO encomendaDTO) throws Exception  {
-
-
+    @RolesAllowed("Logistica")
+    public Response createNewEncomenda (EncomendaDTO encomendaDTO) throws MyEntityExistsException, MyEntityNotFoundException {
             encomendaBean.create(
                     encomendaDTO.getId(),
                     encomendaDTO.getUsernameCliente());
@@ -97,7 +99,13 @@ public class EncomendaService {
                     );
 
                     if (volume.getProdutos() != null && !volume.getProdutos().isEmpty()) {
-                        volume.getProdutos().forEach(produtosNoVolumeDTO -> produtosNoVolumeBean.create(produtosNoVolumeDTO.getId_produto(), produtosNoVolumeDTO.getQuantidade(), volume.getId()));
+                        volume.getProdutos().forEach(produtosNoVolumeDTO -> {
+                            try {
+                                produtosNoVolumeBean.create(produtosNoVolumeDTO.getId_produto(), produtosNoVolumeDTO.getQuantidade(), volume.getId());
+                            } catch (MyEntityExistsException | MyEntityNotFoundException e) {
+                                throw new RuntimeException(e);
+                            }
+                        });
                     }
 
                     if (volume.getSensores() != null && !volume.getSensores().isEmpty()) {
@@ -119,8 +127,9 @@ public class EncomendaService {
 
     @POST
     @Path("{id}")
+    @RolesAllowed("Logistica")
     //@Consumes(MediaType.APPLICATION_JSON)
-    public Response create (@PathParam("id") Long id, VolumeDTO volumeDTO) throws MyEntityExistsException {
+    public Response create (@PathParam("id") Long id, VolumeDTO volumeDTO) throws MyEntityExistsException, MyEntityNotFoundException  {
         // Verificar se o ID do Volume já existe
         if (volumeBean.verifyId(volumeDTO.getId()) != null) {
             return Response.status(Response.Status.CONFLICT)
@@ -147,7 +156,18 @@ public class EncomendaService {
         );
 
         if (volumeDTO.getProdutos() != null && !volumeDTO.getProdutos().isEmpty()) {
-            volumeDTO.getProdutos().forEach(produtosNoVolumeDTO -> produtosNoVolumeBean.create(produtosNoVolumeDTO.getId_produto(), produtosNoVolumeDTO.getQuantidade(), volumeDTO.getId()));
+            volumeDTO.getProdutos().forEach(produtosNoVolumeDTO -> {
+                try {
+                    produtosNoVolumeBean.create(produtosNoVolumeDTO.getId_produto(), produtosNoVolumeDTO.getQuantidade(), volumeDTO.getId());
+                } catch (MyEntityExistsException e) {
+                    throw new RuntimeException(e);
+                } catch (MyEntityNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+        }
+        else {
+            throw new MyEntityNotFoundException("Produtos não encontrados");
         }
 
         if (volumeDTO.getSensores() != null && !volumeDTO.getSensores().isEmpty()) {
@@ -161,7 +181,6 @@ public class EncomendaService {
                 .build();
     }
 
-
     @GET
     @Path("{id}/volumes")
     public Response getVolumeProdutos(@PathParam("id") Long id) {
@@ -169,12 +188,5 @@ public class EncomendaService {
         return Response.ok(VolumeDTO.from(encomenda.getVolumes())).build();
     }
 
-
-    /*@POST
-    @Path("{id}")
-    public Response enrollVolumeInEncomenda(@PathParam("id") Long id, VolumeDTO volumeDTO) {
-        encomendaBean.enrollVolumeInEncomenda(id, volumeDTO.getId());
-        return Response.ok().build();
-    }*/
 
 }

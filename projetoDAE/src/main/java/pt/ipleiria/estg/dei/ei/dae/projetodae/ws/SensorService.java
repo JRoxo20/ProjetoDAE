@@ -14,6 +14,7 @@ import pt.ipleiria.estg.dei.ei.dae.projetodae.dtos.ProductDTO;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.dtos.SensorDTO;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.ejbs.DadoBean;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.ejbs.SensorBean;
+import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.Dado;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.Product;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.Sensor;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.security.Authenticated;
@@ -116,6 +117,25 @@ public class SensorService {
                     .entity(SensorDTO.from(sensor))
                     .build();
 
+    }
+
+
+    // SensorService.java
+    @POST
+    @Path("{sensor_id}/dados")
+    public Response createDado(@PathParam("sensor_id") Long sensor_id, DadoDTO dadoDTO) {
+        try {
+            dadoBean.create(dadoDTO.getValor(), dadoDTO.getMensagem(), sensor_id);
+
+            Dado newDado = dadoBean.find(dadoDTO.getId());
+            return Response.status(Response.Status.CREATED)
+                    .entity(DadoDTO.from(newDado))
+                    .build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.CONFLICT)
+                    .entity("Erro ao criar dado para o sensor com id: '" + sensor_id + "'")
+                    .build();
+        }
     }
 
 

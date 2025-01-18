@@ -9,18 +9,31 @@
         <span v-if="nameError" class="error">ERROR: {{ nameError }}</span>
       </div>
       <div class="form-group">
+        <label for="brand">Brand:</label>
+        <input id="brand" type="text" v-model="productForm.brand" class="input" />
+        <span v-if="brandError" class="error">ERROR: {{ brandError }}</span>
+      </div>
+      <div class="form-group">
         <label for="category">Category:</label>
         <select id="category" v-model="productForm.category" class="input">
           <option value="">--- Please select Category ---</option>
-          <option value="Alimentar">Alimentar</option>
-          <option value="Eletrodomestico">Eletrodomestico</option>
-          <option value="Eletronico">Eletronico</option>
+          <option value="ALIMENTAR">Alimentar</option>
+          <option value="ELECTRODOMESTICO">Eletrodomestico</option>
+          <option value="ELETRONICO">Eletronico</option>
         </select>
         <span v-if="categoryError" class="error">ERROR: {{ categoryError }}</span>
       </div>
       <div class="form-group">
         <label for="price">Price:</label>
-        <input id="price" type="text" v-model="productForm.price" class="input" />
+        <input
+            id="price"
+            type="number"
+            v-model.number="productForm.price"
+            class="input"
+            step="0.01"
+            min="0"
+            placeholder="Price"
+        />
         <span v-if="priceError" class="error">ERROR: {{ priceError }}</span>
       </div>
 
@@ -39,6 +52,7 @@
 <script setup>
 const productForm = reactive({
   name: null,
+  brand: null,
   category: null,
   price: null
 })
@@ -54,6 +68,14 @@ const nameError = computed(() => {
     return 'Name is required'
   if ( productForm.name.length < 3 )
     return 'Name must be at least 3 characters'
+  return null
+})
+const brandError = computed(() => {
+  if (productForm.brand === null) return null
+  if (! productForm.brand )
+    return 'Brand is required'
+  if ( productForm.brand.length < 3 )
+    return 'Brand must be at least 3 characters'
   return null
 })
 const categoryError = computed(() => {
@@ -75,18 +97,22 @@ const priceError = computed(() => {
 
 const isFormInvalid = computed(() => {
   return nameError.value
+      || brandError.value
       || categoryError.value
       || priceError.value
 })
 async function create() {
   try {
+    const payload = { ...productForm };
+    console.log(productForm,'ola')
     const token = sessionStorage.getItem('authToken');
     const response = await $fetch(`${api}/products`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json',Authorization: `Bearer ${token}`, },
-      body: productForm
+      headers: { 'Content-Type': 'application/json',Authorization: `Bearer ${token}` },
+      body: JSON.stringify(payload)
     })
-      successMessage.value = "Sensor created successfully!"
+
+      successMessage.value = "Product created successfully!"
       errorMessage.value = ""
   } catch (e) {
     successMessage.value = ""

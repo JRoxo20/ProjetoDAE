@@ -3,14 +3,11 @@ import jakarta.annotation.PostConstruct;
 import jakarta.ejb.EJB;
 import jakarta.ejb.Singleton;
 import jakarta.ejb.Startup;
-import pt.ipleiria.estg.dei.ei.dae.projetodae.enums.Role;
-import pt.ipleiria.estg.dei.ei.dae.projetodae.enums.SensorEstado;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.enums.SensorType;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.enums.Category;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.exceptions.MyEntityExistsException;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.exceptions.MyEntityNotFoundException;
 
-import java.util.List;
 
 
 @Startup
@@ -62,11 +59,18 @@ public class ConfigBean {
         sensorBean.create(1L, SensorType.Temperatura, 1L);
         sensorBean.create(2L, SensorType.Pressao, 1L);
         sensorBean.create(3L, SensorType.Gps, 2L);
+        sensorBean.create(4L, SensorType.Aceleracao, 2L);
 
-        dadoBean.create("25", "ta calor", 1L);
-        dadoBean.create("23", "ta calor", 1L);
-        dadoBean.create("26", "ta calor", 1L);
+        dadoBean.create( "25ºC", "Temperatura", 1L);
+        dadoBean.create( "28ºC", "Temperatura", 1L);
+        dadoBean.create( "22ºC", "Temperatura", 1L);
 
+        dadoBean.create( "1.2", "Pressão", 2L);
+        dadoBean.create( "1.3", "Pressão", 2L);
+        dadoBean.create( "1.1", "Pressão", 2L);
+
+        dadoBean.create( "39.734305, -8.821126", "Latitude Longitude", 3L);
+        dadoBean.create( "39.598330, -9.072654", "Latitude Longitude", 3L);
 
         productBean.create("Gelado de morango", "Saboroso", Category.ALIMENTAR, 12.5);
         productBean.create("Televisão", "XYZ",Category.ELETRONICO, 112.99);

@@ -9,7 +9,7 @@ import pt.ipleiria.estg.dei.ei.dae.projetodae.enums.Role;
 @Entity
 public class Client extends User implements Serializable {
 
-    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "client",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private List<Encomenda> encomendas;
 
     public Client() {

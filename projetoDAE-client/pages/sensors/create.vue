@@ -22,6 +22,7 @@
           <option value="Temperatura">Temperatura</option>
           <option value="Pressao">Pressão atmosférica</option>
           <option value="Gps">Posicionamento global</option>
+          <option value="Aceleracao">Aceleração</option>
         </select>
         <span v-if="tipoError" class="error">ERROR: {{ tipoError }}</span>
       </div>

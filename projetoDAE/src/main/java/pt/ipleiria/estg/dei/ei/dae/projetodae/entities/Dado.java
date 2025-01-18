@@ -1,14 +1,18 @@
 package pt.ipleiria.estg.dei.ei.dae.projetodae.entities;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
 @Table(name = "dados")
-public class Dado {
+public class Dado implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -70,7 +74,6 @@ public class Dado {
     }
 
     public Dado(String valor, String mensagem, Sensor sensor) {
-        this.id = id;
         this.valor = valor;
         this.timestamp = new Date();
         this.mensagem = mensagem;

@@ -14,9 +14,13 @@
       <button class="btn-login" @click="login">LOGIN</button>
       <button @click="reset">Reset</button>
     </div>
-    <div class="footer">
-      Project made by Cristiano Marques, João Roxo, Maria Malato and Vasco Fernandes
-    </div>
+    <footer class="footer">
+      <div class="footer-container">
+        <p class="footer-text">
+          Project by Cristiano Marques, João Roxo, Maria Malato, and Vasco Fernandes.
+        </p>
+      </div>
+    </footer>
 </div>
 </template>
 <script setup>
@@ -97,6 +101,31 @@ async function fetchUser() {
 }
 </script>
 <style>
+/* Footer styling */
+.footer {
+  left: 0;
+  right: 0;
+  text-align: center;
+  padding: 20px 0;
+  position: absolute;
+  bottom: 0;
+  margin-bottom: 2%;
+}
+.footer-text {
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.footer-text.dark-mode {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.footer-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
 .logotipo {
   width: 60%;
   height: auto;
@@ -105,12 +134,13 @@ async function fetchUser() {
 }
 
 .login-page {
-display: flex;
-justify-content: center;
-align-items: center;
-min-height: 100vh;
-background: radial-gradient(circle at center,#89cff0, #007bff, rgba(20, 114, 213, 0.36)); /* Gradiente radial sofisticado */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: radial-gradient(circle at center, #e0f7fa, #b3e5fc, #81d4fa); /* Softer gradient */
 }
+
 
 .login-container {
 background: white;
@@ -170,13 +200,7 @@ cursor: pointer;
 background-color: #0056b3;
 }
 
-.footer {
-text-align: center;
-position: absolute;
-bottom: 0;
-margin-bottom: 2%;
-  color: black;
-}
+
 </style>
 
 

@@ -13,7 +13,7 @@
           Home
         </fwb-navbar-link>
         <fwb-navbar-link
-            v-if="userRole !== 'CLIENTE'"
+            v-if="userRole === 'GESTOR'"
             link="/products"
             :class="{ active: activePage === 'products' }"
         >

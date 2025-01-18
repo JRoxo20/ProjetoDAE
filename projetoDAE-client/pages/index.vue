@@ -41,7 +41,7 @@
             <p>Monitor sensor data in your orders. </p>
         </div>
       </NuxtLink>
-      <NuxtLink v-if="userRole !='CLIENTE'" to="/products" class="card">
+      <NuxtLink v-if="userRole === 'GESTOR'" to="/products" class="card">
         <div class="card-image">
           <img src="/products.png" alt="Products">
         </div>
@@ -70,9 +70,6 @@
       </NuxtLink>
     </div>
   </div>
-  <footer class="footer">
-    Project by Cristiano Marques, João Roxo, Maria Malato, and Vasco Fernandes.
-  </footer>
 </template>
 
 
@@ -182,23 +179,32 @@ body {
   text-align: center;
 }
 
-.footer {
-  text-align: center;
-  margin: 40px 0;
-  font-size: 14px;
-  color: #555;
-  position: fixed;
-  left: 50%;
-  bottom: 0;
-  transform: translateX(-50%);
-  width: 100%;
-  padding: 10px 0;
+
+
+@media (min-width: 640px) {
+  .footer-container {
+    padding: 0 24px;
+  }
 }
 
+@media (min-width: 1024px) {
+  .footer-container {
+    padding: 0 32px;
+  }
+}
+
+.footer-text {
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.footer-text.dark-mode {
+  color: rgba(255, 255, 255, 0.5);
+}
 
 @media (max-width: 768px) {
   .cards-container {
-    grid-template-columns: 1fr; /* Stacks cards on small screens */
+    grid-template-columns: 1fr;
   }
 }
 </style>
