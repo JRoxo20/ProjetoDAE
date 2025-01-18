@@ -30,10 +30,7 @@ pt\ipleiria\estg\dei\ei\dae\projetodae\enums\SensorType.class
 pt\ipleiria\estg\dei\ei\dae\projetodae\ws\EncomendaService.class
 pt\ipleiria\estg\dei\ei\dae\projetodae\ejbs\ProductBean.class
 pt\ipleiria\estg\dei\ei\dae\projetodae\enums\Role.class
-<<<<<<< HEAD
 pt\ipleiria\estg\dei\ei\dae\projetodae\dtos\ProdutosNoVolumeDTO.class
-=======
->>>>>>> main
 pt\ipleiria\estg\dei\ei\dae\projetodae\ws\UserService.class
 pt\ipleiria\estg\dei\ei\dae\projetodae\enums\Category.class
 pt\ipleiria\estg\dei\ei\dae\projetodae\dtos\AuthDTO.class
