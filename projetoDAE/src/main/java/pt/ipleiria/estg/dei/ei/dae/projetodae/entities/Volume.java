@@ -15,6 +15,11 @@ import java.util.List;
         @NamedQuery(
                 name = "getAllVolumes",
                 query = "SELECT v FROM Volume v ORDER BY id" // JPQL
+        ),
+        @NamedQuery(
+                name = "getAllVolumesByClient",
+                query = "SELECT v FROM Volume v JOIN Encomenda e ON v.encomenda.id = e.id " +
+                        "WHERE e.client.username = :usernameCliente ORDER BY v.id" // JPQL
         )
 })
 @Table(name = "volumes")

@@ -43,8 +43,9 @@ import java.util.List;
 
             userBean.create("Vasco2", "Vasco2", "vasco2@gmail.com", "123456", Role.GESTOR);
             clientBean.create("Vasco", "Vasco", "vasco@gmail.com", "123456");
+            clientBean.create("maria", "Maria", "vasco@gmail.com", "123456");
 
-            encomendaBean.create(1L, "Vasco");
+            encomendaBean.create(1L, "maria");
 
             //volumes
             volumeBean.create(1L,  "isotérmica", 1L);
@@ -57,11 +58,9 @@ import java.util.List;
 
             logisticaBean.create("ctt", "ctt", "ctt@gmail.com", "123456");
 
-
-            sensorBean.create(1l, SensorType.Temperatura, 1L);
-            sensorBean.create(2l, SensorType.Pressao, 1L);
-            sensorBean.create(3l, SensorType.Gps, 2L);
-
+            sensorBean.create(1L, SensorType.Temperatura, 1L);
+            sensorBean.create(2L, SensorType.Pressao, 1L);
+            sensorBean.create(3L, SensorType.Gps, 2L);
 
             dadoBean.create("25", "ta calor", 1L);
             dadoBean.create("23", "ta calor", 1L);

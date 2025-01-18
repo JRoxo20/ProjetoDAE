@@ -19,23 +19,23 @@ public class SensorDTO {
     private SensorEstado estado;
     private SensorType tipo;
     private Long volume_id;
-    //private List<Dado> dados;
+    private List<Dado> dados;
 
 
 
 
 
-    public SensorDTO( Long id, SensorEstado estado, SensorType tipo,/*List<Dado> dados,*/ Long volume_id){
+    public SensorDTO( Long id, SensorEstado estado, SensorType tipo,List<Dado> dados, Long volume_id){
 
             this.id = id;
             this.estado = estado;
             this.tipo = tipo;
-            //this.dados = dados;
+            this.dados = dados;
             this.volume_id = volume_id;
         }
 
     public SensorDTO() {
-            //this.dados = new ArrayList<>();
+            this.dados = new ArrayList<>();
         }
 
 
@@ -63,13 +63,13 @@ public class SensorDTO {
             this.tipo = tipo;
         }
 
-    /*public List<Dado> getDados() {
+    public List<Dado> getDados() {
         return dados;
     }
 
     public void setDados(List<Dado> dados) {
         this.dados = dados;
-    }*/
+    }
 
         public SensorEstado getEstado () {
             return estado;
@@ -84,7 +84,7 @@ public class SensorDTO {
                     sensor.getId(),
                     sensor.getEstado(),
                     sensor.getTipo(),
-                    //sensor.getDados(),
+                    sensor.getDados(),
                     sensor.getVolume().getId()
             );
         }

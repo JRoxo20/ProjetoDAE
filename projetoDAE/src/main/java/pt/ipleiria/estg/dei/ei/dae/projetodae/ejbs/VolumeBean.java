@@ -4,6 +4,7 @@ import jakarta.ejb.EJB;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.Client;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.Encomenda;
 import org.hibernate.Hibernate;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.Volume;
@@ -23,6 +24,9 @@ public class VolumeBean {
     @EJB
     private ProductBean produtoBean;
 
+    @EJB
+    private ClientBean clientBean;
+
 
     public void create(Long id, String tipo_embalagem, Long idEncomenda) {
         //verifica se ja existe um volume com o id
@@ -41,6 +45,14 @@ public class VolumeBean {
     public List<Volume> findAll() {
         // remember, maps to: “SELECT s FROM Student s ORDER BY s.name”
         return entityManager.createNamedQuery("getAllVolumes", Volume.class).getResultList();
+    }
+
+
+    public List<Volume> findAllByCliente(String usernameCliente) {
+        Client client = clientBean.find(usernameCliente);
+        return entityManager.createNamedQuery("getAllVolumesByClient", Volume.class)
+                .setParameter("usernameCliente", usernameCliente)
+                .getResultList();
     }
 
     public Volume find(Long id) {
