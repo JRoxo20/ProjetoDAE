@@ -1,6 +1,7 @@
 package pt.ipleiria.estg.dei.ei.dae.projetodae.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.enums.VolumeEstado;
@@ -14,6 +15,11 @@ import java.util.List;
         @NamedQuery(
                 name = "getAllVolumes",
                 query = "SELECT v FROM Volume v ORDER BY id" // JPQL
+        ),
+        @NamedQuery(
+                name = "getAllVolumesByClient",
+                query = "SELECT v FROM Volume v JOIN Encomenda e ON v.encomenda.id = e.id " +
+                        "WHERE e.client.username = :usernameCliente ORDER BY v.id" // JPQL
         )
 })
 @Table(name = "volumes")
@@ -30,10 +36,13 @@ public class Volume {
     //@ManyToMany(mappedBy = "volumes")
     //private List<Product> products ;
     //sensores
-    @OneToMany(mappedBy = "volume")
+    @OneToMany(mappedBy = "volume", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.EAGER)
+    @JsonManagedReference
     private List<Sensor> sensors;
-    @OneToMany(mappedBy = "volume")
-    private List<Product> produtos;
+    @OneToMany(mappedBy = "volume", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.EAGER)
+    @JsonManagedReference
+    //@OneToMany(mappedBy = "volume")
+    private List<ProdutosNoVolume> produtos;
 
 
     public Volume(Long id, String tipo_embalagem, Encomenda encomenda) {
@@ -53,15 +62,15 @@ public class Volume {
     }
 
 
-    public List<Product> getProdutos() {
+    public List<ProdutosNoVolume> getProdutos() {
         return produtos;
     }
 
-    public void setProdutos(List<Product> produtos) {
+    public void setProdutos(List<ProdutosNoVolume> produtos) {
         this.produtos = produtos;
     }
 
-    public void addProduto(Product product)
+    public void addProduto(ProdutosNoVolume product)
     {
         if (!produtos.contains(product))
         {
@@ -69,7 +78,7 @@ public class Volume {
         }
     }
 
-    public void removeProduto(Product product)
+    public void removeProduto(ProdutosNoVolume product)
     {
         produtos.remove(product);
     }

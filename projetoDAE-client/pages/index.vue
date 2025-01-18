@@ -5,20 +5,22 @@
   </div>
   <div class="zone-container">
     <div class="cards-container">
-      <NuxtLink to="/encomendas/show" class="card">
+      <NuxtLink v-if="userRole == 'GESTOR'" to="/encomendas/show" class="card">
         <div class="card-image">
           <img src="/orders.png" alt="Orders">
         </div>
         <div class="card-content">
-          <div v-if="userRole =='GESTOR'">
             <h2>All Orders</h2>
             <p>View and manage all orders.</p>
-          </div>
-          <div v-if="userRole == 'CLIENTE'">
+        </div>
+      </NuxtLink>
+      <NuxtLink v-if="userRole == 'CLIENTE'" :to="`/encomendas/${username}`" class="card">
+        <div class="card-image">
+          <img src="/orders.png" alt="Orders">
+        </div>
+        <div class="card-content">
             <h2>My Orders</h2>
             <p>View and manage your orders.</p>
-          </div>
-
         </div>
       </NuxtLink>
       <NuxtLink to="/sensors" class="card">

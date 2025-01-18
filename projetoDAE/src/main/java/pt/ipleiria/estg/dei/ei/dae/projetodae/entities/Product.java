@@ -6,6 +6,8 @@ import jakarta.validation.constraints.NotNull;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.enums.Category;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
@@ -24,30 +26,57 @@ public class Product implements Serializable {
     private Category category;
     @NotNull
     private Double price;
-    @ManyToOne
-    @NotNull
-    private Volume volume;
+    @ManyToMany
+    private List<Volume> volumes;
+    @OneToMany(mappedBy = "produto")
+    private List<ProdutosNoVolume> produtosNoVolume;
+
 
 /*    @Version
     private int version;*/
 
     public Product() {
+        this.volumes = new ArrayList<>();
+        this.produtosNoVolume = new ArrayList<>();
     }
 
-    public Product( String name,String brand, Category category, Double price, Volume volume) {
+    public Product( String name,String brand, Category category, Double price) {
         this.brand = brand;
         this.name = name;
         this.category = category;
         this.price = price;
-        this.volume = volume;
+        this.volumes = new ArrayList<>();
+        this.produtosNoVolume = new ArrayList<>();
     }
 
-    public Volume getVolume() {
-        return volume;
+
+    public List<ProdutosNoVolume> getProdutosNoVolume() {
+        return produtosNoVolume;
     }
 
-    public void setVolume(Volume volume) {
-        this.volume = volume;
+    public void setProdutosNoVolume(List<ProdutosNoVolume> produtosNoVolume) {
+        this.produtosNoVolume = produtosNoVolume;
+    }
+
+    public void addProdutosNoVolume(ProdutosNoVolume novoProdutosNoVolume)
+    {
+        if (!produtosNoVolume.contains(novoProdutosNoVolume))
+        {
+            produtosNoVolume.add(novoProdutosNoVolume);
+        }
+    }
+
+    public void removeProdutosNoVolume(ProdutosNoVolume novoProdutosNoVolume)
+    {
+        produtosNoVolume.remove(novoProdutosNoVolume);
+    }
+
+    public List<Volume> getVolumes() {
+        return volumes;
+    }
+
+    public void setVolumes(List<Volume> volumes) {
+        this.volumes = volumes;
     }
 
     public Long getId() {

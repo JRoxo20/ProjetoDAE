@@ -13,7 +13,7 @@
           Home
         </fwb-navbar-link>
         <fwb-navbar-link
-            v-if="userRole != 'CLIENTE'"
+            v-if="userRole == 'GESTOR'"
             link="/products"
             :class="{ active: activePage === 'products' }"
         >
@@ -26,12 +26,20 @@
           Volumes
         </fwb-navbar-link>
         <fwb-navbar-link
+            v-if="userRole === 'GESTOR'"
             link="/encomendas/show"
             :class="{ active: activePage === 'orders' }"
         >
-
           Orders
         </fwb-navbar-link>
+        <fwb-navbar-link
+            v-if="userRole === 'CLIENTE'"
+            :link="`/encomendas/${username}`"
+            :class="{ active: activePage === 'orders' }"
+        >
+          Orders
+        </fwb-navbar-link>
+
         <fwb-navbar-link
             link="#"
             :class="{ active: activePage === 'sensors' }"
@@ -56,9 +64,10 @@ import {
   FwbNavbarLink,
   FwbNavbarLogo,
 } from 'flowbite-vue';
-import { defineProps } from 'vue';
+
 
 const userRole = ref(null);
+const username = ref(null);
 
 defineProps({
   activePage: {
@@ -70,11 +79,14 @@ defineProps({
 const logout = () => {
   sessionStorage.removeItem('authToken');
   sessionStorage.removeItem('username');
+  sessionStorage.removeItem('role');
+  sessionStorage.clear();
   window.location.href = '/login';
 };
 onMounted(() => {
   if (typeof window !== 'undefined') {
-    userRole.value = sessionStorage.getItem('userRole');
+    userRole.value = sessionStorage.getItem('role');
+    username.value = sessionStorage.getItem('username');
   }
 });
 

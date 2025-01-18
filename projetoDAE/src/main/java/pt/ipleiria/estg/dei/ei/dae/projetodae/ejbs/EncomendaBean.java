@@ -43,6 +43,11 @@ public class EncomendaBean {
         }
         return encomenda;
     }
+    public List<Encomenda> findAllByClient(Client client) {
+        return entityManager.createNamedQuery("getAllEncomendasByClient", Encomenda.class)
+                .setParameter("usernameCliente", client.getUsername())
+                .getResultList();
+    }
 
     public Encomenda findWithVolumes(Long id){
         var encomenda = this.find(id);

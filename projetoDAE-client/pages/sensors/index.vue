@@ -3,14 +3,8 @@
   <div v-if="error" class="error">Error: {{ error.message }}</div>
   <div v-else class="container">
     <h1>Sensors</h1>
-    <div class="buttons">
-      <nuxt-link to="/sensors/create" class="create-button">➕ Add a New Sensor</nuxt-link>
-      <nuxt-link to="/sensors/ativos" class="create-button"> Available Sensors</nuxt-link>
-      <nuxt-link to="/sensors/inativos" class="create-button"> Unvailable Sensors</nuxt-link>
-      <nuxt-link to="/sensors/temperatura" class="create-button">Temperature Sensors</nuxt-link>
-      <nuxt-link to="/sensors/gps" class="create-button">Gps Sensors</nuxt-link>
-      <nuxt-link to="/sensors/pressao" class="create-button">Pression Sensors</nuxt-link>
-      <nuxt-link :to="`/sensors/${username}`" class="create-button">My Sensors</nuxt-link>
+    <div v-if="userRole" class="buttons">
+      <nuxt-link v-if="userRole == 'GESTOR'" to="/sensors/create" class="create-button">➕ Add a New Sensor</nuxt-link>
       <button @click.prevent="refresh" class="create-button">🔄 Refresh Data</button>
     </div>
     <table class="sensor-table">
@@ -20,6 +14,7 @@
         <th>Estado</th>
         <th>Tipo</th>
         <th>Actions</th>
+
       </tr>
       </thead>
       <tbody>
@@ -27,13 +22,18 @@
         <td>{{ sensor.id }}</td>
         <td>{{ sensor.estado }}</td>
         <td>{{ sensor.tipo }}</td>
-        <td>
-          <nuxt-link :to="`/sensors/${sensor.id}`" class="view-details">View Details </nuxt-link>
-          <button @click="changeState(sensor.id)" class="change-state-button">Change State</button>
-        </td>
+        <td> <nuxt-link :to="`/sensors/${sensor.id}`" class="view-details">Details</nuxt-link> </td>
       </tr>
       </tbody>
     </table>
+    <div v-if="userRole == 'GESTOR'" class="buttons-sensor">
+      <nuxt-link to="/sensors/ativos" class="sensor-button" aria-label="View available sensors">Available Sensors</nuxt-link>
+      <nuxt-link to="/sensors/inativos" class="sensor-button" aria-label="View unavailable sensors">Unavailable Sensors</nuxt-link>
+      <nuxt-link to="/sensors/temperatura" class="sensor-button" aria-label="View temperature sensors">Temperature Sensors</nuxt-link>
+      <nuxt-link to="/sensors/gps" class="sensor-button" aria-label="View GPS sensors">GPS Sensors</nuxt-link>
+      <nuxt-link to="/sensors/pressao" class="sensor-button" aria-label="View pressure sensors">Pressure Sensors</nuxt-link>
+    </div>
+
   </div>
 </template>
 
@@ -92,14 +92,21 @@ async function refresh() {
   await fetchAllSensors();
 }
 
+const userRole = ref(null);
 onMounted(async () => {
   await fetchAllSensors();
+  if(typeof window !== 'undefined') {
+    userRole.value = sessionStorage.getItem('userRole');
+  }
 });
 </script>
 
-<style>
-h1 {
-  font-size: 30px;
+<style >
+.view-details{
+  text-decoration: underline;
+}
+h1{
+  font-size:30px;
   margin-left: 4%;
 }
 
@@ -107,6 +114,20 @@ h1 {
   padding: 20px;
   font-family: Arial, sans-serif;
 }
+.create-button{
+  display: inline-block;
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.create-button:hover{
+  background-color: #0056b3;
+}
+
 
 .create-button {
   display: inline-block;
@@ -122,10 +143,34 @@ h1 {
   background-color: #0056b3;
 }
 
+
 .buttons {
   display: flex;
-  float: right;
+  justify-content: flex-start;
   gap: 10px;
+  margin-bottom: 15px;
+}
+
+.buttons-sensor {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 15px;
+
+}
+.sensor-button {
+  background-color: #ff6a00;
+  display: inline-block;
+  padding: 6px 12px;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.sensor-button:hover {
+  background-color: #e65c00;
 }
 
 h2 {
