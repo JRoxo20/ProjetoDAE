@@ -129,7 +129,7 @@ public class SensorService {
     @Path("{sensor_id}/dados")
     public Response createDado(@PathParam("sensor_id") Long sensor_id, DadoDTO dadoDTO) {
         try {
-            dadoBean.create(dadoDTO.getId(),dadoDTO.getValor(), dadoDTO.getMensagem(), sensor_id);
+            dadoBean.create(dadoDTO.getValor(), dadoDTO.getMensagem(), sensor_id);
 
             Dado newDado = dadoBean.find(dadoDTO.getId());
             return Response.status(Response.Status.CREATED)

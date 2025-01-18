@@ -18,9 +18,9 @@ public class DadoBean {
     @EJB
     private SensorBean sensorBean;
 
-    public void create(Long id, String valor,String mensagem, Long idSensor) {
+    public void create(String valor,String mensagem, Long idSensor) {
         Sensor sensor = sensorBean.find(idSensor);
-        Dado dado = new Dado(id, valor, mensagem, sensor);
+        Dado dado = new Dado(valor, mensagem, sensor);
         entityManager.persist(dado);
         sensor.addDado(dado);
     }

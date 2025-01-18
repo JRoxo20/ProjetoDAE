@@ -14,6 +14,7 @@ import java.util.Date;
 @Table(name = "dados")
 public class Dado implements Serializable {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String valor;
@@ -72,8 +73,7 @@ public class Dado implements Serializable {
         this.sensor = sensor;
     }
 
-    public Dado(Long id, String valor, String mensagem, Sensor sensor) {
-        this.id = id;
+    public Dado(String valor, String mensagem, Sensor sensor) {
         this.valor = valor;
         this.timestamp = new Date();
         this.mensagem = mensagem;
