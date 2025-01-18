@@ -9,6 +9,7 @@
                     <th>Id</th>
                     <th>Estado</th>
                     <th>Tipo</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -16,6 +17,7 @@
                     <td>{{ sensore.id }}</td>
                     <td>{{ sensore.estado }}</td>
                     <td>{{ sensore.tipo }}</td>
+                  <td><nuxt-link :to="/sensors/${sensore.id}" class="view-details">View Details </nuxt-link></td>
                 </tr>
             </tbody>
         </table>

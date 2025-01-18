@@ -19,9 +19,10 @@ public class UserBean {
     @Inject
     private Hasher hasher;
     public User find(String username) {
-        var user = em.getReference(User.class, username);
+        return em.find(User.class, username);
+        /*var user = em.getReference(User.class, username);
         Hibernate.initialize(user);
-        return user;
+        return user;*/
     }
     public boolean canLogin(String username, String password) {
         var user = find(username);
