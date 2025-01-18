@@ -70,13 +70,6 @@
       </NuxtLink>
     </div>
   </div>
-  <footer class="footer">
-    <div class="footer-container">
-      <p class="footer-text">
-    Project by Cristiano Marques, João Roxo, Maria Malato, and Vasco Fernandes.
-      </p>
-    </div>
-  </footer>
 </template>
 
 
@@ -186,20 +179,7 @@ body {
   text-align: center;
 }
 
-/* Footer styling */
-.footer {
-  position: relative;
-  left: 0;
-  right: 0;
-  text-align: center;
-  padding: 20px 0;
-}
 
-.footer-container {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 0 16px;
-}
 
 @media (min-width: 640px) {
   .footer-container {
