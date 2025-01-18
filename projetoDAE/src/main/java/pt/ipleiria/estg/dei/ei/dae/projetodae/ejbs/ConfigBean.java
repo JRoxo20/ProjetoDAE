@@ -50,6 +50,7 @@ import java.util.List;
             volumeBean.create(3L,  "isotérmica", 1L);
 
             clientBean.create("joao", "joao", "joao@gmail.com", "123456");
+            clientBean.create("maria", "maria", "maria@gmail.com", "123456");
 
             gestorBean.create("admin", "admin", "admin@gmail.com", "123456", true);
 
