@@ -11,15 +11,19 @@
                     <th>Marca</th>
                     <th>Categoria</th>
                     <th>Preço</th>
+                    <th>Quantidade</th>
+                    <th>Preço Final</th>
                 </tr>
             </thead>
             <tbody>
                 <tr v-for="produto in produtos" :key="produto.id">
-                    <td>{{ produto.id }}</td>
-                    <td>{{ produto.name }}</td>
+                    <td>{{ produto.id_produto }}</td>
+                    <td>{{ produto.nome_produto }}</td>
                     <td>{{ produto.brand }}</td>
                     <td>{{ produto.category }}</td>
                     <td>{{ produto.price }}</td>
+                    <td>{{ produto.quantidade }}</td>
+                    <td>{{ produto.price * produto.quantidade }}</td>
                 </tr>
             </tbody>
         </table>

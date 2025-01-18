@@ -93,7 +93,7 @@ public class VolumeService {
     }*/
 
 
-    @POST
+    /*@POST
     @Path("/")
     //@Consumes(MediaType.APPLICATION_JSON)
     public Response create (VolumeDTO volumeDTO) {
@@ -135,7 +135,7 @@ public class VolumeService {
         return Response.status(Response.Status.CREATED)
                 .entity(VolumeDTO.fromComProdutos(newVolume))
                 .build();
-    }
+    }*/
     /*@POST
     @Path("/")
     @Authenticated
