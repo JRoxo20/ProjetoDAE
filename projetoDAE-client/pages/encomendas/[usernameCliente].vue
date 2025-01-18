@@ -19,7 +19,6 @@
         <td>{{ encomenda.id }}</td>
         <td>{{ encomenda.usernameCliente }}</td>
         <td><nuxt-link :to="`/encomendas/${encomenda.id}.volumes`">Details</nuxt-link></td>
-        <td><nuxt-link :to="`/encomendas/${encomenda.id}.volumes`">Volumes</nuxt-link></td>
       </tr>
       </tbody>
     </table>
