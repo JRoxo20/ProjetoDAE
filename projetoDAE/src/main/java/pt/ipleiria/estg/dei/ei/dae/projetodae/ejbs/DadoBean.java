@@ -8,6 +8,7 @@ import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.Client;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.Dado;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.Encomenda;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.Sensor;
+import pt.ipleiria.estg.dei.ei.dae.projetodae.enums.SensorEstado;
 
 @Stateless
 public class DadoBean {
@@ -20,9 +21,18 @@ public class DadoBean {
 
     public void create(String valor,String mensagem, Long idSensor) {
         Sensor sensor = sensorBean.find(idSensor);
-        Dado dado = new Dado(valor, mensagem, sensor);
-        entityManager.persist(dado);
-        sensor.addDado(dado);
+        if (sensor.getEstado() == SensorEstado.ATIVO) {
+            Dado dado = new Dado(valor, mensagem, sensor);
+            entityManager.persist(dado);
+            sensor.addDado(dado);
+            if (dado.getMensagem().compareTo("ERRO") == 0) {
+                sensor.setEstado(SensorEstado.INATIVO);
+            }
+        }
+        else
+        {
+            throw new RuntimeException("sensor " + idSensor + " Esta Inativo");
+        }
     }
 
     public Dado find(Long id) {

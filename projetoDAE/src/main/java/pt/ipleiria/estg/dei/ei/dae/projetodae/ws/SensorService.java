@@ -8,9 +8,11 @@ import jakarta.ws.rs.core.Response;
 import jakarta.ejb.EJB;
 import jakarta.ws.rs.core.MediaType;
 
+import pt.ipleiria.estg.dei.ei.dae.projetodae.dtos.DadoDTO;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.dtos.EncomendaDTO;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.dtos.ProductDTO;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.dtos.SensorDTO;
+import pt.ipleiria.estg.dei.ei.dae.projetodae.ejbs.DadoBean;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.ejbs.SensorBean;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.Product;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.Sensor;
@@ -26,6 +28,8 @@ import java.util.List;
 public class SensorService {
     @EJB
     private SensorBean sensorBean;
+    @EJB
+    private DadoBean dadoBean;
 
     @GET
     @Path("/")
@@ -103,19 +107,15 @@ public class SensorService {
         }
     }
 
-    @PATCH
-    @Path("/{sensor_id}")
-
-    public Response updateSensor(@PathParam("sensor_id") Long sensor_id, SensorDTO sensorDTO) {
-        try {
-            sensorBean.mudarEstado(sensor_id, sensorDTO.getEstado());
-            return Response.ok().build();
-
-        } catch (Exception e) {
-            return Response.status(Response.Status.CONFLICT)
-                    .entity("Sensor with id: '" + sensor_id + "' not found")
+    @POST
+    @Path("/{sensor_id}/novoDado")
+    public Response updateSensor(@PathParam("sensor_id") Long sensor_id, DadoDTO dadoDTO) {
+            dadoBean.create(dadoDTO.getValor(), dadoDTO.getMensagem(),sensor_id);
+            var sensor = sensorBean.find(sensor_id);
+            return Response.status(Response.Status.CREATED)
+                    .entity(SensorDTO.from(sensor))
                     .build();
-        }
+
     }
 
 

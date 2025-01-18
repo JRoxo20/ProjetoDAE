@@ -5,6 +5,7 @@ import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.hibernate.Hibernate;
+import pt.ipleiria.estg.dei.ei.dae.projetodae.dtos.DadoDTO;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.dtos.SensorDTO;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.Dado;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.Product;
@@ -22,6 +23,8 @@ public class SensorBean {
     private EntityManager entityManager;
     @EJB
     private VolumeBean volumeBean;
+    @EJB
+    private DadoBean dadoBean;
 
 
 
@@ -103,16 +106,16 @@ public class SensorBean {
     }
 
     //update estado
-    public Sensor mudarEstado(Long id, SensorEstado estado)
+    /*public Sensor novoDado(Long id, String message, String valor)
     {
         var sensor = entityManager.find(Sensor.class, id);
         if (sensor == null) {
             throw new RuntimeException("sensor " + id + " not found");
         }
-        sensor.setEstado(estado);
+        dadoBean.create(valor, message, id);
         entityManager.persist(sensor);
         return sensor;
-    }
+    }*/
 
 
 

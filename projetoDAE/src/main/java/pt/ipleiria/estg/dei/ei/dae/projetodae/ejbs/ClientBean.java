@@ -44,6 +44,7 @@ public class ClientBean {
 
     }
 
+
     public Client findWithEncomendas(String username) {
         Client client = findOrFail(username);
         Hibernate.initialize(client.getEncomendas());

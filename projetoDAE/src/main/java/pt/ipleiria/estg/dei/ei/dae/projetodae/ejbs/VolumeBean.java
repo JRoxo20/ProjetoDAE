@@ -8,6 +8,7 @@ import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.Client;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.Encomenda;
 import org.hibernate.Hibernate;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.Volume;
+import pt.ipleiria.estg.dei.ei.dae.projetodae.enums.SensorEstado;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.enums.VolumeEstado;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.exceptions.MyEntityExistsException;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.exceptions.MyEntityNotFoundException;
@@ -84,7 +85,9 @@ public class VolumeBean {
         if (volume.getEstado().compareTo(VolumeEstado.Entregue) == 0)
         {
             volume.setData_entrega(new Date());
+            volume.getSensors().forEach(sensor -> sensor.setEstado(SensorEstado.INATIVO));
         }
+
         entityManager.persist(volume);
         return volume;
     }

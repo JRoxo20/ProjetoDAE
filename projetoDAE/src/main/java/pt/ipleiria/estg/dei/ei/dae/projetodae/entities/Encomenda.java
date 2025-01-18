@@ -30,6 +30,7 @@ public class Encomenda {
 
     private String usernameCliente;
     @ManyToOne
+    @JoinColumn(name = "client_username", nullable = false)
     private Client client;
 
 
