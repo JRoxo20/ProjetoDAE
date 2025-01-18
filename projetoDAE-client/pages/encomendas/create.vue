@@ -64,7 +64,6 @@ import { reactive, ref } from 'vue';
 
 const config = useRuntimeConfig();
 const apiBaseUrl = config.public.API_URL; // Substitua pela URL correta.
-const token = sessionStorage.getItem('authToken');
 
 const encomendaForm = reactive({
   id: null,
@@ -136,8 +135,9 @@ async function createEncomenda() {
     console.error('Erro ao criar encomenda:', error);
   }
 }
+const token = ref(null);
 onMounted(() => {
-  const token = sessionStorage.getItem('authToken');
+   token.value = sessionStorage.getItem('authToken');
   if (!token) {
     window.location.href = '/login';
   }
