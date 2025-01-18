@@ -38,7 +38,6 @@ public class ProductService {
     @Path("/")
     // missing exceptions
     public Response createNewProduct (ProductDTO productDTO) throws Exception {
-        try{
             productBean.create(
                     productDTO.getName(),
                     productDTO.getBrand(),
@@ -51,12 +50,7 @@ public class ProductService {
             return Response.status(Response.Status.CREATED)
                     .entity(ProductDTO.from(newProduct))
                     .build();
-        }
-        catch (Exception e){
-            return Response.status(Response.Status.CONFLICT)
-                    .entity("Product with name: '" + productDTO.getName() + "' already exists")
-                    .build();
-        }
+
     }
     @GET
     @Path("{id}")
@@ -74,7 +68,7 @@ public class ProductService {
     @DELETE
     @Path("{id}")
     //throws MyEntityNotFoundException
-    public Response deleteProduct(@PathParam("id") long id)  {
+    public Response deleteProduct(@PathParam("id") long id) throws Exception {
         productBean.delete(id);
         return Response.ok().build();
     }

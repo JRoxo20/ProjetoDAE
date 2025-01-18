@@ -8,6 +8,8 @@ import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.Product;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.ProdutosNoVolume;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.Volume;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.enums.Category;
+import pt.ipleiria.estg.dei.ei.dae.projetodae.exceptions.MyEntityExistsException;
+import pt.ipleiria.estg.dei.ei.dae.projetodae.exceptions.MyEntityNotFoundException;
 
 @Stateless
 public class ProdutosNoVolumeBean {
@@ -19,18 +21,16 @@ public class ProdutosNoVolumeBean {
     @EJB
     private ProductBean productBean;
 
-    public void create(Long produto_id, int quantidade, Long volume_id) {
+    public void create(Long produto_id, int quantidade, Long volume_id) throws MyEntityExistsException, MyEntityNotFoundException {
         var volume = volumeBean.find(volume_id);
         if (volume == null)
         {
-            return;
-            //throw new MyEntityNotFoundException("volume \"" + volume_id + "\" not found");
+         throw new MyEntityNotFoundException("volume \"" + volume_id + "\" not found");
         }
         var produto = productBean.findById(produto_id);
         if (produto == null)
         {
-            return;
-            //throw new MyEntityNotFoundException("volume \"" + volume_id + "\" not found");
+           throw new MyEntityNotFoundException("volume \"" + volume_id + "\" not found");
         }
         try {
             ProdutosNoVolume produtosNoVolume = new ProdutosNoVolume(produto, quantidade, volume);
@@ -39,15 +39,15 @@ public class ProdutosNoVolumeBean {
             volume.addProduto(produtosNoVolume);
             produto.addProdutosNoVolume(produtosNoVolume);
         } catch (Exception e) {
-            // throw exception
+            throw new RuntimeException("Error creating produtos no volume");
         }
     }
 
 
-    public ProdutosNoVolume find(Long id) {
+    public ProdutosNoVolume find(Long id) throws MyEntityNotFoundException {
         var volume = entityManager.find(ProdutosNoVolume.class, id);
         if (volume == null) {
-            throw new RuntimeException("produtos no volume " + id + " not found");
+            throw new MyEntityNotFoundException("produtos no volume " + id + " not found");
         }
         return volume;
     }

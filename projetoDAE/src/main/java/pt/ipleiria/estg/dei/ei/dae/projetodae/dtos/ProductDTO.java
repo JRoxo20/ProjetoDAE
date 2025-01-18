@@ -52,6 +52,13 @@ public class ProductDTO implements Serializable {
         this.price = price;
     }
 
+    public ProductDTO(String name,String brand, Category category, Double price) {
+        this.name = name;
+        this.brand = brand;
+        this.category = category;
+        this.price = price;
+    }
+
 
     public Long getId() {
         return id_product;
@@ -103,6 +110,17 @@ public class ProductDTO implements Serializable {
                 product.getPrice()
         );
     }
+
+    public static ProductDTO fromSemId(Product product) {
+        return new ProductDTO(
+                product.getName(),
+                product.getBrand(),
+                product.getCategory(),
+                product.getPrice()
+        );
+    }
+
+
 
     // converts an entire list of entities into a list of DTOs
     public static List<ProductDTO> from(List<Product> productList) {

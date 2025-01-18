@@ -23,8 +23,8 @@
         <td>{{ volume.estado }}</td>
         <td>{{ volume.tipo_embalagem }}</td>
         <td>{{ volume.data_entrega }}</td>
-        <td>{{ volume.sensores }}</td>
-        <td>{{ volume.produtos }}</td>
+        <td><nuxt-link :to="`/volumes/${volume.id}.sensores`">Details</nuxt-link></td>
+        <td><nuxt-link :to="`/volumes/${volume.id}.produtos`">Details</nuxt-link></td>
       </tr>
       </tbody>
     </table>
