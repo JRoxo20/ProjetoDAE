@@ -9,6 +9,8 @@ import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.Encomenda;
 import org.hibernate.Hibernate;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.Volume;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.enums.VolumeEstado;
+import pt.ipleiria.estg.dei.ei.dae.projetodae.exceptions.MyEntityExistsException;
+import pt.ipleiria.estg.dei.ei.dae.projetodae.exceptions.MyEntityNotFoundException;
 
 import java.util.Date;
 import java.util.List;
@@ -28,11 +30,11 @@ public class VolumeBean {
     private ClientBean clientBean;
 
 
-    public void create(Long id, String tipo_embalagem, Long idEncomenda) {
+    public void create(Long id, String tipo_embalagem, Long idEncomenda) throws MyEntityExistsException {
         //verifica se ja existe um volume com o id
         var volume = entityManager.find(Volume.class, id);
         if (volume != null) {
-            throw new RuntimeException("volume " + id + " already exist");
+            throw new MyEntityExistsException("volume " + id + " already exist");
         }
 
         var encomenda = encomendaBean.find(idEncomenda);

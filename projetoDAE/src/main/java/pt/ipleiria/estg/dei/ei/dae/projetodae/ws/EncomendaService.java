@@ -14,6 +14,7 @@ import pt.ipleiria.estg.dei.ei.dae.projetodae.ejbs.*;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.Client;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.Encomenda;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.Volume;
+import pt.ipleiria.estg.dei.ei.dae.projetodae.exceptions.MyEntityExistsException;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.security.Authenticated;
 
 
@@ -119,7 +120,7 @@ public class EncomendaService {
     @POST
     @Path("{id}")
     //@Consumes(MediaType.APPLICATION_JSON)
-    public Response create (@PathParam("id") Long id, VolumeDTO volumeDTO) {
+    public Response create (@PathParam("id") Long id, VolumeDTO volumeDTO) throws MyEntityExistsException {
         // Verificar se o ID do Volume já existe
         if (volumeBean.verifyId(volumeDTO.getId()) != null) {
             return Response.status(Response.Status.CONFLICT)
