@@ -11,6 +11,7 @@
       </div>
 
       <h3>Registos</h3>
+      <button @click="create" class="create-button">📝 Create Random Dado</button>
       <table v-if="Array.isArray(sensor.dados)" class="dados-table">
         <thead>
         <tr>
@@ -63,6 +64,40 @@ async function fetchSensorDetails() {
     error.value = err;
   }
 }
+const dadoForm = reactive({
+  id: null,
+  mensagem: null,
+  sensor_id: sensorId,
+  valor: null,
+})
+
+function generateRandomDado() {
+  dadoForm.id = Date.now();
+  dadoForm.mensagem = `Mensagem aleatória ${Math.random().toString(36).substring(2, 10)}`;
+  dadoForm.valor = (Math.random() * 100).toFixed(2); // Número aleatório entre 0 e 100 com duas casas decimais
+}
+
+async function create() {
+
+  generateRandomDado();
+
+  try {
+    const token = sessionStorage.getItem('authToken');
+    const response = await $fetch(`${api}/sensors/${sensorId}/dados`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json',Authorization: `Bearer ${token}`, },
+      body: dadoForm
+    })
+
+
+  } catch (e) {
+
+
+    console.log(e)
+  }
+}
+
+
 
 onMounted(async () => {
   await fetchSensorDetails();

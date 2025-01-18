@@ -4,7 +4,6 @@
   <div v-else class="container">
     <h1>Sensors</h1>
     <div v-if="userRole" class="buttons">
-      <nuxt-link v-if="userRole == 'GESTOR'" to="/sensors/create" class="create-button">➕ Add a New Sensor</nuxt-link>
       <button @click.prevent="refresh" class="create-button">🔄 Refresh Data</button>
     </div>
     <table class="sensor-table">
@@ -24,8 +23,6 @@
         <td>{{ sensor.tipo }}</td>
         <td>
           <nuxt-link :to="`/sensors/${sensor.id}`" class="view-details" title="View Details"> 📄</nuxt-link>
-          <button @click="changeState(sensor.id)" class="change-state-button" title="Change Status">🔄
-          </button>
         </td>
       </tr>
       </tbody>
@@ -36,6 +33,7 @@
       <nuxt-link to="/sensors/temperatura" class="sensor-button" aria-label="View temperature sensors">Temperature Sensors</nuxt-link>
       <nuxt-link to="/sensors/gps" class="sensor-button" aria-label="View GPS sensors">GPS Sensors</nuxt-link>
       <nuxt-link to="/sensors/pressao" class="sensor-button" aria-label="View pressure sensors">Pressure Sensors</nuxt-link>
+      <nuxt-link to="/sensors/aceleracao" class="sensor-button" aria-label="View aceleration sensors">Aceleration Sensors</nuxt-link>
     </div>
 
   </div>

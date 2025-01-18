@@ -28,7 +28,7 @@ if (!token) {
 }
 
 const stateForm = reactive({ 
-  estado: "entregue"
+  estado: "Entregue"
 }) 
 
 const messages = ref([])

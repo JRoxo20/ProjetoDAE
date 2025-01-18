@@ -22,7 +22,6 @@
         <td>{{ sensor.tipo }}</td>
         <td>
           <nuxt-link :to="`/sensors/${sensor.id}`" class="view-details">View Details </nuxt-link>
-          <button @click="changeState(sensor.id)" class="change-state-button">Change State</button>
         </td>
       </tr>
       </tbody>

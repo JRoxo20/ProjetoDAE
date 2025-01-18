@@ -7,7 +7,9 @@ import jakarta.persistence.PersistenceContext;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.Client;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.Encomenda;
 import org.hibernate.Hibernate;
+import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.Sensor;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.entities.Volume;
+import pt.ipleiria.estg.dei.ei.dae.projetodae.enums.SensorEstado;
 import pt.ipleiria.estg.dei.ei.dae.projetodae.enums.VolumeEstado;
 
 import java.util.Date;
@@ -68,20 +70,21 @@ public class VolumeBean {
         return volume;
     }
 
-    public Volume mudarEstado(Long id, VolumeEstado estado)
-    {
+    public Volume mudarEstado(Long id, VolumeEstado estado) {
         var volume = entityManager.find(Volume.class, id);
         if (volume == null) {
             throw new RuntimeException("volume " + id + " not found");
         }
-        if (volume.getEstado().compareTo(VolumeEstado.Entregue) == 0)
-        {
+        if (volume.getEstado().compareTo(VolumeEstado.Entregue) == 0) {
             throw new RuntimeException("volume " + id + " já foi entregue");
         }
         volume.setEstado(estado);
-        if (volume.getEstado().compareTo(VolumeEstado.Entregue) == 0)
-        {
+        if (volume.getEstado().compareTo(VolumeEstado.Entregue) == 0) {
             volume.setData_entrega(new Date());
+        }
+        for (Sensor sensor : volume.getSensors()) {
+            sensor.setEstado(SensorEstado.INATIVO);
+            entityManager.merge(sensor);
         }
         entityManager.persist(volume);
         return volume;
