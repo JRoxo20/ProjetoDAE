@@ -55,7 +55,7 @@ async function updateState() {
       method: "PATCH",
       headers: {
         Accept: "application/json",
-        Authorization: `Bearer ${sessionStorage.getItem('token')}`,
+        Authorization: `Bearer ${sessionStorage.getItem('authToken')}`,
       },
       body: stateForm,
       onResponse({ request, response, options }) {

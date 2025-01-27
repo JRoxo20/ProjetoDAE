@@ -117,7 +117,7 @@ async function createEncomenda() {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${token.value}`,
       },
       body: JSON.stringify(payload),
       onResponse({ request, response, options }) {
