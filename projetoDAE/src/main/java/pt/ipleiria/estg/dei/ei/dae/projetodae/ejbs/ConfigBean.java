@@ -41,7 +41,7 @@ public class ConfigBean {
     public void populateDB() throws MyEntityNotFoundException, MyEntityExistsException{
         
         clientBean.create("Vasco", "Vasco", "vasco@gmail.com", "123456");
-        clientBean.create("maria", "Maria", "vasco@gmail.com", "123456");
+        clientBean.create("maria", "Maria", "maria@gmail.com", "123456");
 
         encomendaBean.create(1L, "maria");
 
